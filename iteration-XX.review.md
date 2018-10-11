@@ -5,16 +5,24 @@
  > _Suggestion:_ Have your review meeting a day or two before the due date. This way you will have some time to go over (and edit) this document, and all team members should have a chance to make their contribution.
 
 
-## Iteration XX - Review & Retrospect
+## Iteration 01 - Review & Retrospect
 
- * When: FILL IN THE DATE WHEN YOU ACTUALLY HAD YOUR REVIEW MEETING
- * Where: PHYSICAL LOCATION AND/OR ONLINE
+ * When: October 11, 2018
+ * Where: Wilbert's crib
 
 ## Process - Reflection
 
 #### Decisions that turned out well
 
 List process-related (i.e. team organization) decisions that, in retrospect, turned out to be successful.
+
+Re-evaluating ideas (from RGP and other ideas from ourselves) and settling down with our current food truck idea
+
+ * [include chat details with RGP + professor]
+
+Setup organizations: Communications, boards, setting up first meeting
+
+ * Slack Channel, Azure agile board, 
 
 
  * 2 - 4 decisions.
@@ -25,6 +33,10 @@ List process-related (i.e. team organization) decisions that, in retrospect, tur
 #### Decisions that did not turn out as well as we hoped
 
 List process-related (i.e. team organization) decisions that, in retrospect, were not as successful as you thought they would be.
+
+Timing with communicating with outside sources.
+
+The RGP assignment's difficulty did not match our course expectation well
 
  * 2 - 4 decisions.
  * Ordered from most to least important.
@@ -57,8 +69,19 @@ List any process-related changes you are planning to make (if there are any)
 
 Going into the next iteration, our main insights are:
 
+Android studio
+
+Database - SQL, firebase, explore free/cheap platforms options
+
+Discussing git specifications: developmental and master branches - pull request to master on Tuesdays
+
+User stories by Sunday on Azure board
+
+Have a (somewhat) working app by the next deliverable
+
  * 2 - 4 items
  * Short (no more than one short paragraph per item)
  * High-level concepts that should guide your work for the next iteration.
  * These concepts should help you decide on where to focus your efforts.
  * Can be related to product and/or process.
+

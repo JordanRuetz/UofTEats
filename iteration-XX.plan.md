@@ -4,10 +4,10 @@
  > It does not really make sense for you to edit this document much (if at all) while working on the project - Instead, at the end of the planning phase, you can refer back to this document and decide which parts of your plan you are happy with and which parts you would like to change.
 
 
-## Iteration XX
+## Iteration 01
 
  * Start date: October 9, 2018
- * End date: October 11, 2018
+ * End date: October 14, 2018 (November 1?)
 
 ## Process
 
@@ -17,6 +17,9 @@ _This entire section is optional. Note that you will have to fill it out and mor
 
 Scrum master - Jordan 
 Product owner - Finnbarr
+Database manager - Jordan
+Front end - 
+Back end - 
 Development team - all members
 
 #### Events
@@ -51,6 +54,8 @@ _This entire section is mandatory._
 #### Goals and tasks
 
 Complete deliverable 1 .md documents.
+
+Confirming our project goals, figuring out what tools and softwares we need.
 
  * Describe your goals for this iteration and the tasks that you will have to complete in order to achieve these goals.
  * Order the items from most to least important.
