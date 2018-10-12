@@ -23,7 +23,7 @@
 
 Re-evaluating ideas (from RGP and other ideas between team members) and settling down with our idea to create a food truck app.
 
- * After our initial call with RGP, we decided that the project was not technical or substantial enough for our course project.  Deciding to pursue our own idea instead of the RGP project allowed us to pick something that was a large enough for our group.
+ * After our initial call with RGP, we decided that the project was not technical or substantial enough for our course project.  Deciding to pursue our own idea instead of the RGP project allowed us to pick something that was large enough for our group.
 
 Setup organizations: Communications, boards, setting up first meeting
 
