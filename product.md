@@ -28,7 +28,7 @@
 * Faculty
 * Pedestrians
 * Persona: **The Stressed Student**
-    * Most common/indended user for the client app
+    * Most common/intended user for the client app
     * Short on time, money, and adequate winter clothing
     * As a result, wants to avoid waiting outside in line at all costs
     * Does not want to compound stress by carrying cash and/or not knowing which trucks only take cash
