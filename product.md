@@ -18,9 +18,6 @@
 * Able to recieve digital order with payment
 * No need to handle physical cash
 
-> TODO: include diagrams/mockups/links?
-
-
 #### Q2: Who are your target users?
 
 **CLIENTS**: Want to save time in line, view menu on phone, and not carry cash
@@ -43,6 +40,8 @@
     * Wants to minimize paper cash inflow which is timely and difficult to account for
     * Wants to manage inventory effectively to avoid going out of stock or wasting food
     * Anything to drink for you?
+    
+> User Stories: https://dev.azure.com/wilbertguo/Food%20Truck%20App/_backlogs/backlog/Food%20Truck%20App%20Team/Stories
 
 #### Q3: Why would your users choose your product? What are they using today to solve their problem/need?
 
