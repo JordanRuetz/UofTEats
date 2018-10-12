@@ -60,7 +60,7 @@
 **SERVERS**:
 * Increase sales and kitchen efficiency
     * OLD: Unpredictable customer turnout and inconsistent kitchen production level throughout day
-    * NEW: Degree of predictability from digital orders leads to preempive food prep and more consistent activity
+    * NEW: Degree of predictability from digital orders leads to preemptive food prep and more consistent activity
 * No dealing with cash
     * OLD: Large volume of physical cash flow time-consuming to handle and account for
     * NEW: Income is partially digitized and bookkeeping becomes streamlined

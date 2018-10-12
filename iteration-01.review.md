@@ -21,7 +21,7 @@
 > * Feel free to refer/link to process artifact(s).
 
 
-Re-evaluating ideas (from RGP and other ideas from ourselves) and settling down with our current food truck idea
+Re-evaluating ideas (from RGP and other ideas between team members) and settling down with our idea to create a food truck app.
 
  * After our initial call with RGP, we decided that the project was not technical or substantial enough for our course project.  Deciding to pursue our own idea instead of the RGP project allowed us to pick something that was a large enough for our group.
 
@@ -43,7 +43,7 @@ Setup organizations: Communications, boards, setting up first meeting
  > * Feel free to refer/link to process artifact(s).
 
 
-The RGP assignment's difficulty did not match our course expectation well
+The RGP assignment's level of difficulty did not match our course expectation well
  * Sticking to our own idea instead of trying to do a partner project would have saved us a lot of time
 
 Timing with communicating with outside sources.

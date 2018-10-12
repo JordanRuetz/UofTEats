@@ -27,6 +27,7 @@ _This entire section is optional. Note that you will have to fill it out and mor
 Describe meetings (and other events) you are planning to have:
 
 Deliverable 1 Review: Thursday Oct 11, 2-3 PM. Wilbert's crib
+  - Review the events of the past week, which include meetings with RGP and professor, and in discussing project ideas
 
 > Other events could be coding sessions, code reviews, quick weekly sync' meeting online, etc.
 
@@ -34,9 +35,9 @@ Deliverable 1 Review: Thursday Oct 11, 2-3 PM. Wilbert's crib
 
 List/describe the artifacts you will produce in order to organize your team. 
 
-* Slack channel
-* Azure board
-* GitHub repo
+* Slack channel: Main communication channel to discuss meetings, updates
+* Azure board: For organization, presentation of scrum artifacts, prioritization of tasks
+* GitHub repo: Where code will be shared, merged and discussed on pull requests
 
 ## Product
 
@@ -45,7 +46,8 @@ _This entire section is mandatory._
 #### Goals and tasks
 
 * Complete deliverable 1 .md documents.
-* Confirming our project goals, figuring out what tools and software we need.
+* Confirming our project goals. Our original product idea being non-profit option with RGP, however, after discussing requirements with RGP, they may not meet our course load expectations. Decision will be concluded by the review meeting.
+* Figuring out what tools and software we need to complete project goals.
 * Set team standards for what needs to be done personally (reviewing Android Studio) before programming starts
 
 #### Artifacts
