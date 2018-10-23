@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               new Text(
-                'Clicks:',
+                'PLACEHOLDER',
               ),
             ],
           ),
@@ -96,12 +96,13 @@ class _MyHomePageState extends State<MyHomePage> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-              child: Text('UofT Eats'),
+              child: Icon(Icons.fastfood),
               decoration: BoxDecoration(
                 color: Colors.red,
               ),
             ),
             ListTile(
+              leading: const Icon(Icons.add_shopping_cart),
               title: Text('Menus'),
               onTap: () {
                 // Update the state of the app
@@ -111,6 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             ListTile(
+              leading: const Icon(Icons.history),
               title: Text('Orders'),
               onTap: () {
                 // Update the state of the app
@@ -120,6 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             ListTile(
+              leading: const Icon(Icons.attach_money),
               title: Text('Payment'),
               onTap: () {
                 // Update the state of the app
@@ -129,7 +132,8 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             ListTile(
-              title: Text('Options'),
+              leading: const Icon(Icons.settings),
+              title: Text('Settings'),
               onTap: () {
                 // Update the state of the app
                 // ...
