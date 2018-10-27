@@ -18,7 +18,7 @@ class MainDrawer extends StatelessWidget {
           title: Text('Menus'),
           onTap: () {
             Navigator.pop(context); // Closes the drawer before moving
-            Navigator.pushReplacementNamed(context, '/menus');
+            Navigator.pushReplacementNamed(context, '/client/menus');
           },
         ),
         ListTile(
@@ -26,7 +26,7 @@ class MainDrawer extends StatelessWidget {
           title: Text('Orders'),
           onTap: () {
             Navigator.pop(context); // Closes the drawer before moving
-            Navigator.pushReplacementNamed(context, '/orders');
+            Navigator.pushReplacementNamed(context, '/client/orders');
           },
         ),
         ListTile(
@@ -34,7 +34,7 @@ class MainDrawer extends StatelessWidget {
           title: Text('Payment'),
           onTap: () {
             Navigator.pop(context); // Closes the drawer before moving
-            Navigator.pushReplacementNamed(context, '/payment');
+            Navigator.pushReplacementNamed(context, '/client/payment');
           },
         ),
         ListTile(
@@ -42,7 +42,7 @@ class MainDrawer extends StatelessWidget {
           title: Text('Settings'),
           onTap: () {
             Navigator.pop(context); // Closes the drawer before moving
-            Navigator.pushReplacementNamed(context, '/settings');
+            Navigator.pushReplacementNamed(context, '/client/settings');
           },
         ),
       ],
