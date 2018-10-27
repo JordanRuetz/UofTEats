@@ -12,6 +12,8 @@ class LoginScreen extends StatefulWidget {
 class _MyLoginScreenState extends State<LoginScreen> {
     final TextEditingController _textController = new TextEditingController();
 
+    String dropdownValue = 'Student';
+
     @override
     Widget build(BuildContext context) {
         return new Scaffold(
@@ -40,10 +42,7 @@ class _MyLoginScreenState extends State<LoginScreen> {
                         new Container(
                             margin: new EdgeInsets.all(10.0),
                             width: 200.0,
-                            child: new TextField(
-                                decoration: InputDecoration(
-                                    hintText: "Send a message"),
-                            ),
+                            child: new TextField(),
                         ),
                         new Container(
                             margin: new EdgeInsets.all(10.0),
@@ -52,10 +51,24 @@ class _MyLoginScreenState extends State<LoginScreen> {
                         new Container(
                             margin: new EdgeInsets.all(10.0),
                             width: 200.0,
-                            child: new TextField(
-                                decoration: InputDecoration(
-                                    hintText: "Send a message"),
-                            )
+                            child: new TextField()
+                        ),
+                        new Container(
+                            margin: new EdgeInsets.all(5.0),
+                            height: 50.0,
+                            child: new DropdownButton<String>(
+                                value: dropdownValue,
+                                items: <String>['Student', 'Food Truck'].map((String value) {
+                                    return new DropdownMenuItem<String>(
+                                        value: value,
+                                        child: new Text(value),
+                                    );
+                                }).toList(),
+                                onChanged: (String _value){
+                                    setState(() {
+                                        dropdownValue = _value;
+                                    });
+                                })
                         ),
                         new RaisedButton(
                             onPressed: _login,

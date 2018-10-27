@@ -18,7 +18,7 @@ class MainDrawer extends StatelessWidget {
           title: Text('Menus'),
           onTap: () {
             Navigator.pop(context); // Closes the drawer before moving
-            Navigator.pushReplacementNamed(context, '/');
+            Navigator.pushReplacementNamed(context, '/menus');
           },
         ),
         ListTile(
