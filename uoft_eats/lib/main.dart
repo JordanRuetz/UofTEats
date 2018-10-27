@@ -6,6 +6,10 @@ import 'client/PaymentScreen.dart';
 import 'client/SettingsScreen.dart';
 import 'LoginScreen.dart';
 import 'NewAccountScreen.dart';
+import 'server/ServerMenusScreen.dart';
+import 'server/ScannerScreen.dart';
+import 'server/ServerOrdersScreen.dart';
+import 'server/BillingInfoScreen.dart';
 
 void main() => runApp(new MyApp());
 
@@ -29,6 +33,10 @@ class MyApp extends StatelessWidget {
         '/login': (BuildContext context) => LoginScreen(title: 'Login'),
         '/client/menus': (BuildContext context) => MenusScreen(title: 'Menus'),
         '/newAccount': (BuildContext context) => NewAccountScreen(title: 'New Account'),
+        '/server/menus': (BuildContext context) => ServerMenusScreen(title: 'Menus'),
+        '/server/scanner': (BuildContext context) => ScannerScreen(title: 'Scanner'),
+        '/server/orders': (BuildContext context) => ServerOrdersScreen(title: 'Orders'),
+        '/server/billingInfo': (BuildContext context) => BillingInfoScreen(title: 'Billing Info'),
       },
     );
   }

@@ -105,8 +105,13 @@ class _MyLoginScreenState extends State<LoginScreen> {
     }
 
     void _login() {
-        Navigator.pop(context);
-        Navigator.pushReplacementNamed(context, '/client/menus');
+        if (dropdownValue == 'Student') {
+            Navigator.pop(context);
+            Navigator.pushReplacementNamed(context, '/client/menus');
+        } else {
+            Navigator.pop(context);
+            Navigator.pushReplacementNamed(context, '/server/menus');
+        }
     }
 
     void _support() {
