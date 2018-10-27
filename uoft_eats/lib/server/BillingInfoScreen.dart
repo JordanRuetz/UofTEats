@@ -21,14 +21,54 @@ class _MyBillingInfoScreenState extends State<BillingInfoScreen> {
             ),
             body: new Center(
                 child: new Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                        new Text(
-                            'PLACEHOLDER',
+                        new Spacer(flex: 5),
+                        new Container(
+                            child: new Text(
+                                'Paypal Account Email:',
+                                style: TextStyle(
+                                    fontSize: 25.0,
+                                ),
+                            ),
                         ),
+                        new Container(
+                            margin: new EdgeInsets.all(10.0),
+                            child: new Text('N/A'),
+                        ),
+                        new Spacer(flex: 2),
+                        new Container(
+                            child: new Text(
+                                'Change PayPal Account',
+                                style: TextStyle(
+                                    fontSize: 25.0,
+                                ),
+                            ),
+                        ),
+                        new Container(
+                            margin: new EdgeInsets.only(top: 10.0),
+                            child: new Text('Email Address for new Paypal Account:'),
+                        ),
+                        new Container(
+                            width: 200.0,
+                            child: new TextField(),
+                        ),
+                        new Container(
+                            margin: new EdgeInsets.all(10.0),
+                            child: new RaisedButton(
+                                onPressed: _validateAccount,
+                                child: new Text('Change Account'),
+                            ),
+                        ),
+                        new Spacer(flex: 5)
                     ],
                 ),
             ),
         );
+    }
+
+    void _validateAccount() {
+
     }
 }
