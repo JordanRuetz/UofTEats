@@ -30,14 +30,6 @@ class MainDrawer extends StatelessWidget {
           },
         ),
         ListTile(
-          leading: const Icon(Icons.history),
-          title: Text('Login'),
-          onTap: () {
-            Navigator.pop(context); // Closes the drawer before moving
-            Navigator.pushReplacementNamed(context, '/login');
-          },
-        ),
-        ListTile(
           leading: const Icon(Icons.attach_money),
           title: Text('Payment'),
           onTap: () {
