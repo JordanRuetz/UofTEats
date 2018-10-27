@@ -89,7 +89,12 @@ class _MyNewAccountScreenState extends State<NewAccountScreen> {
     }
 
     void _createAccount() {
-        Navigator.pop(context);
-        Navigator.pushReplacementNamed(context, '/client/menus');
+        if (dropdownValue == 'Student') {
+            Navigator.pop(context);
+            Navigator.pushReplacementNamed(context, '/client/menus');
+        } else {
+            Navigator.pop(context);
+            Navigator.pushReplacementNamed(context, '/server/menus');
+        }
     }
 }
