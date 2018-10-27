@@ -4,6 +4,7 @@ import 'MenusScreen.dart';
 import 'OrdersScreen.dart';
 import 'PaymentScreen.dart';
 import 'SettingsScreen.dart';
+import 'LoginScreen.dart';
 
 void main() => runApp(new MyApp());
 
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: new ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: new MenusScreen(title: 'Menus'),
+      home: new LoginScreen(title: 'Login'),
 
       // TODO: Add to tree structure for navigating screens as needed
       routes: <String, WidgetBuilder>{
@@ -24,6 +25,8 @@ class MyApp extends StatelessWidget {
         '/payment': (BuildContext context) => PaymentScreen(title: 'Payment'),
         '/settings': (BuildContext context) =>
             SettingsScreen(title: 'Settings'),
+        '/login': (BuildContext context) => LoginScreen(title: 'Login'),
+        '/menus': (BuildContext context) => MenusScreen(title: 'Menus'),
       },
     );
   }
