@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'MenusScreen.dart';
-import 'OrdersScreen.dart';
-import 'PaymentScreen.dart';
-import 'SettingsScreen.dart';
+import 'client/MenusScreen.dart';
+import 'client/OrdersScreen.dart';
+import 'client/PaymentScreen.dart';
+import 'client/SettingsScreen.dart';
+import 'LoginScreen.dart';
+import 'NewAccountScreen.dart';
 
 void main() => runApp(new MyApp());
 
@@ -16,14 +18,17 @@ class MyApp extends StatelessWidget {
       theme: new ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: new MenusScreen(title: 'Menus'),
+      home: new LoginScreen(title: 'Login'),
 
       // TODO: Add to tree structure for navigating screens as needed
       routes: <String, WidgetBuilder>{
-        '/orders': (BuildContext context) => OrdersScreen(title: 'Orders'),
-        '/payment': (BuildContext context) => PaymentScreen(title: 'Payment'),
-        '/settings': (BuildContext context) =>
+        '/client/orders': (BuildContext context) => OrdersScreen(title: 'Orders'),
+        '/client/payment': (BuildContext context) => PaymentScreen(title: 'Payment'),
+        '/client/settings': (BuildContext context) =>
             SettingsScreen(title: 'Settings'),
+        '/login': (BuildContext context) => LoginScreen(title: 'Login'),
+        '/client/menus': (BuildContext context) => MenusScreen(title: 'Menus'),
+        '/newAccount': (BuildContext context) => NewAccountScreen(title: 'New Account'),
       },
     );
   }

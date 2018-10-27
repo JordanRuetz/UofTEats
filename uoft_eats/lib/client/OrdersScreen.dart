@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'MainDrawer.dart';
+import 'package:uoft_eats/client/MainDrawer.dart';
 
 class OrdersScreen extends StatefulWidget {
   OrdersScreen({Key key, this.title}) : super(key: key);
