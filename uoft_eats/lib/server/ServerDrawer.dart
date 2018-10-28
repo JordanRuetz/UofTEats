@@ -31,6 +31,14 @@ class ServerDrawer extends StatelessWidget {
                     ),
                     ListTile(
                         leading: const Icon(Icons.history),
+                        title: Text('Quantities'),
+                        onTap: () {
+                            Navigator.pop(context); // Closes the drawer before moving
+                            Navigator.pushReplacementNamed(context, '/server/quantities');
+                        },
+                    ),
+                    ListTile(
+                        leading: const Icon(Icons.history),
                         title: Text('Scanner'),
                         onTap: () {
                             Navigator.pop(context); // Closes the drawer before moving
