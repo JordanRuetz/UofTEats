@@ -23,31 +23,43 @@ class _MyMenusScreenState extends State<MenusScreen> {
         padding: const EdgeInsets.all(20.0),
         children: <Widget>[
           ListTile(
-            leading: const Icon(Icons.restaurant, color: Colors.brown,),
+            leading: const Icon(
+              Icons.restaurant,
+              color: Colors.brown,
+            ),
             title: const Text('Ideal Catering'),
             onTap: () {
-              Navigator.pushReplacementNamed(context, '/client/menus');
+              Navigator.pushNamed(context, '/client/menus/template');
             },
           ),
           ListTile(
-            leading: const Icon(Icons.restaurant, color: Colors.red,),
+            leading: const Icon(
+              Icons.restaurant,
+              color: Colors.red,
+            ),
             title: const Text('Inferior Food Truck 1'),
             onTap: () {
-              Navigator.pushReplacementNamed(context, '/client/menus');
+              Navigator.pushNamed(context, '/client/menus/template');
             },
           ),
           ListTile(
-            leading: const Icon(Icons.restaurant, color: Colors.blue,),
+            leading: const Icon(
+              Icons.restaurant,
+              color: Colors.blue,
+            ),
             title: const Text('Inferior Food Truck 2'),
             onTap: () {
-              Navigator.pushReplacementNamed(context, '/client/menus');
+              Navigator.pushNamed(context, '/client/menus/template');
             },
           ),
           ListTile(
-            leading: const Icon(Icons.restaurant, color: Colors.green,),
+            leading: const Icon(
+              Icons.restaurant,
+              color: Colors.green,
+            ),
             title: const Text('Inferior Food Truck 3'),
             onTap: () {
-              Navigator.pushReplacementNamed(context, '/client/menus');
+              Navigator.pushNamed(context, '/client/menus/template');
             },
           ),
         ],
@@ -56,4 +68,3 @@ class _MyMenusScreenState extends State<MenusScreen> {
     );
   }
 }
-

@@ -8,6 +8,7 @@ import 'client/MenusScreen.dart';
 import 'client/OrdersScreen.dart';
 import 'client/PaymentScreen.dart';
 import 'client/SettingsScreen.dart';
+import 'client/TemplateMenuScreen.dart';
 
 import 'server/ServerMenusScreen.dart';
 import 'server/ScannerScreen.dart';
@@ -36,8 +37,8 @@ class MyApp extends StatelessWidget {
         '/client/menus': (BuildContext context) => MenusScreen(title: 'Menus'),
         '/client/orders': (BuildContext context) => OrdersScreen(title: 'Orders'),
         '/client/payment': (BuildContext context) => PaymentScreen(title: 'Payment'),
-        '/client/settings': (BuildContext context) =>
-            SettingsScreen(title: 'Settings'),
+        '/client/settings': (BuildContext context) => SettingsScreen(title: 'Settings'),
+        '/client/menus/template': (BuildContext context) => TemplateMenuScreen(title: 'Template Menu'),
 
         '/server/menus': (BuildContext context) => ServerMenusScreen(title: 'Menus'),
         '/server/scanner': (BuildContext context) => ScannerScreen(title: 'Scanner'),
