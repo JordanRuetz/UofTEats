@@ -14,7 +14,8 @@ class TemplateMenuScreen extends StatefulWidget {
 // TODO: Example template for presenting food data.
 // TODO: Will eventually pull data from database to populate.
 class _MyTemplateMenuScreenState extends State<TemplateMenuScreen> {
-  double _subtotal = 0.0;
+  List<String> order = new List();
+  double _subtotal = 0.00;
 
   @override
   Widget build(BuildContext context) {
@@ -27,71 +28,49 @@ class _MyTemplateMenuScreenState extends State<TemplateMenuScreen> {
         shrinkWrap: true,
         padding: const EdgeInsets.all(20.0),
         children: <Widget>[
-          ListTile(
-            leading: const Icon(
-              Icons.fastfood,
-            ),
-            title: const Text('Poutine'),
-            subtitle: const Text('\$3.50'),
-            onTap: () {
-              setState(() {
-                _subtotal += 3.5;
-              });
-            },
-          ),
-          ListTile(
-            leading: const Icon(
-              Icons.fastfood,
-            ),
-            title: const Text('Burger'),
-            subtitle: const Text('\$2.50'),
-            onTap: () {
-              setState(() {
-                _subtotal += 2.5;
-              });
-            },
-          ),
-          ListTile(
-            leading: const Icon(
-              Icons.fastfood,
-            ),
-            title: const Text('Fries'),
-            subtitle: const Text('\$1.50'),
-            onTap: () {
-              setState(() {
-                _subtotal += 1.5;
-              });
-            },
-          ),
-          ListTile(
-            leading: const Icon(
-              Icons.local_drink,
-            ),
-            title: const Text('Anything to drink for you?'),
-            subtitle: const Text('\$1.00'),
-            onTap: () {
-              setState(() {
-                _subtotal += 1.0;
-              });
-            },
-          ),
+
+          _newMenuItemTile('Poutine', 3.50, true),
+          _newMenuItemTile('Burger', 2.50, true),
+          _newMenuItemTile('Fries', 1.50, true),
+          _newMenuItemTile('Anything to drink for you?', 1.00, false),
+
           new Container(
             margin: new EdgeInsets.only(top: 100.0),
-            // TODO subtotal needs to display updates
-            child: new Text('Subtotal: \$$_subtotal'),
-          ),
-          new Container(
-            margin: new EdgeInsets.all(5.0),
             child: new RaisedButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/client/checkout');
+                // TODO implement checkout screen and link
+                //Navigator.pushNamed(context, '/client/checkout');
               },
-              child: new Text('Checkout'),
+              child: new Text('Checkout \$${_subtotal.toStringAsFixed(2)}'),
             ),
           ),
         ],
       ),
       drawer: MainDrawer(),
+    );
+  }
+
+  CheckboxListTile _newMenuItemTile(
+      String title, double price, bool foodOrDrink) {
+    return new CheckboxListTile(
+      secondary: Icon(
+        foodOrDrink ? Icons.fastfood : Icons.local_drink,
+      ),
+      title: Text('$title'),
+      subtitle: Text('\$${price.toStringAsFixed(2)}'),
+      value: order.contains('$title'),
+      onChanged: (bool value) {
+        setState(() {
+          if (value) {
+            order.add('$title');
+            _subtotal += price;
+          } else {
+            order.remove('$title');
+            _subtotal -= price;
+          }
+        });
+      },
+      activeColor: Colors.brown,
     );
   }
 }
