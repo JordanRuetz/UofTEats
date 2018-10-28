@@ -4,60 +4,65 @@ void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+  final int orderNum = 12;
+  final String foodTruck = "The Blue Truck";
+  final double tax = 0.00;
+  final Map<String, List> singleOrder = {
+    "Poutine": ["M", 1, 4.50],
+    "Hot Dog": ["S", 2, 2.50]
+  };
+
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: 'Flutter Demo',
+      title: 'ReceiptPage',
       theme: new ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: new Scaffold(
-          appBar: new AppBar(
-            title: new Text("Receipt"),
-          ),
-          body: MyReceipt()),
+      home: MyReceipt(
+          orderNum: orderNum,
+          foodTruck: foodTruck,
+          order: singleOrder,
+          tax: tax),
     );
   }
 }
 
 class MyReceipt extends StatelessWidget {
+  final int orderNum;
+  final String foodTruck;
+  final Map<String, List> order;
+  final double tax;
+
+  MyReceipt({Key key, this.orderNum, this.foodTruck, this.order, this.tax})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Container(
-        padding: new EdgeInsets.all(20.0),
-        child: new ListView(
-          children: <Widget>[
-            new Align(
-                alignment: Alignment.topRight,
-                child:
-                    new Text("Order#12", style: new TextStyle(fontSize: 16.0))),
-            new Align(
-              alignment: Alignment.topLeft,
-              child: new Text("The Blue Truck",
-                  style: new TextStyle(
-                      fontSize: 20.0, fontWeight: FontWeight.bold)),
-            ),
-            ReceiptHeaders(),
-            new Divider(color: Colors.blue),
-            FoodOrdered(),
-            new Divider(color: Colors.grey),
-            new Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
-                  new Container(
-                      padding: new EdgeInsets.only(top: 10.0, bottom: 12.0),
-                      child: new Text("Subtotal: \$9.50")),
-                  new Container(
-                    padding: new EdgeInsets.only(bottom: 12.0),
-                    child: new Text("Tax: \$0.00"))
-                ]),
-            new Divider(color: Colors.grey),
-            new Container(padding: new EdgeInsets.only(top: 10.0),
-            child: new Text("Total: \$9.50", textAlign: TextAlign.end,),),
-            QRcode()
-          ],
-        ));
+    return new Scaffold(
+        appBar: new AppBar(
+          title: new Text("Receipt#$orderNum"),
+        ),
+        body: Container(
+            padding: new EdgeInsets.all(20.0),
+            child: new ListView(
+              children: <Widget>[
+                new Align(
+                    alignment: Alignment.topRight,
+                    child: new Text("Order#$orderNum",
+                        style: new TextStyle(fontSize: 16.0))),
+                new Align(
+                  alignment: Alignment.topLeft,
+                  child: new Text("$foodTruck",
+                      style: new TextStyle(
+                          fontSize: 20.0, fontWeight: FontWeight.bold)),
+                ),
+                ReceiptHeaders(),
+                new Divider(color: Colors.blue),
+                FoodOrdered(order: order, tax: tax),
+                QRcode()
+              ],
+            )));
   }
 }
 
@@ -77,7 +82,7 @@ class ReceiptHeaders extends StatelessWidget {
             new Container(
                 child:
                     new Text("Quantity", style: new TextStyle(fontSize: 16.0)),
-                padding: new EdgeInsets.only(right: 40.0)),
+                padding: new EdgeInsets.only(right: 38.0)),
             new Container(
                 child: new Text("Price", style: new TextStyle(fontSize: 16.0)))
           ],
@@ -86,67 +91,124 @@ class ReceiptHeaders extends StatelessWidget {
 }
 
 class FoodOrdered extends StatelessWidget {
+  final Map<String, List> order;
+  final double tax;
+  final double listSpacing = 12.0;
+
+  FoodOrdered({Key key, this.order, this.tax}) : super(key: key);
+
+  List<Widget> _getItems(Map<String, List> order) {
+    List<String> listOfItems = (order.keys).toList();
+    List<Widget> orderWidgets = new List<Widget>();
+    for (var i = 0; i < listOfItems.length; i++) {
+      orderWidgets.add(new Container(
+          width: 120.0,
+          padding: new EdgeInsets.only(bottom: listSpacing),
+          child: new Text(listOfItems[i])));
+    }
+    return orderWidgets;
+  }
+
+  List<Widget> _getSizes(Map<String, List> order) {
+    List<String> listOfItems = (order.keys).toList();
+    List<Widget> sizeWidgets = new List<Widget>();
+    for (String item in listOfItems) {
+      sizeWidgets.add(new Container(
+          width: 95.0,
+          padding: new EdgeInsets.only(bottom: listSpacing),
+          child: new Text(order[item][0])));
+    }
+    return sizeWidgets;
+  }
+
+  List<Widget> _getQuantities(Map<String, List> order) {
+    List<String> listOfItems = (order.keys).toList();
+    List<Widget> quantityWidgets = new List<Widget>();
+    for (String item in listOfItems) {
+      String num = (order[item][1]).toString();
+      quantityWidgets.add(new Container(
+          width: 82.0,
+          padding: new EdgeInsets.only(bottom: listSpacing),
+          child: new Text(num + "x")));
+    }
+    return quantityWidgets;
+  }
+
+  List<Widget> _getPrices(Map<String, List> order) {
+    List<String> listOfItems = (order.keys).toList();
+    List<Widget> priceWidgets = new List<Widget>();
+    for (String item in listOfItems) {
+      priceWidgets.add(new Container(
+          padding: new EdgeInsets.only(bottom: listSpacing),
+          child: new Text("\$" + (order[item][2]).toStringAsFixed(2))));
+    }
+    return priceWidgets;
+  }
+
+  Widget _getTotals() {
+    List<String> listOfItems = (order.keys).toList();
+    double subtotal = 0.00;
+    for (String item in listOfItems) {
+      List itemInfo = order[item];
+      int num = itemInfo[1];
+      subtotal += (num * itemInfo[2]);
+    }
+    double total = (subtotal + tax);
+
+    return new Column(children: <Widget>[
+      new Column(crossAxisAlignment: CrossAxisAlignment.end, children: <Widget>[
+        new Container(
+            padding: new EdgeInsets.only(top: 10.0, bottom: listSpacing),
+            child: new Text("Subtotal: \$" + subtotal.toStringAsFixed(2))),
+        new Container(
+            padding: new EdgeInsets.only(bottom: listSpacing),
+            child: new Text("Tax: \$" + tax.toStringAsFixed(2))),
+        new Divider(color: Colors.grey),
+        new Container(
+          padding: new EdgeInsets.only(top: 10.0),
+          child: new Text(
+            "Total: \$" + total.toStringAsFixed(2),
+            textAlign: TextAlign.end,
+          ),
+        )
+      ])
+    ]);
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Container(
-                padding: new EdgeInsets.only(top: 15.0, bottom: 15.0),
-                child: new Row(
-                  children: <Widget>[
-                    new Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        new Container(
-                            padding: new EdgeInsets.only(bottom: 12.0),
-                            child: new Text("Poutine")),
-                        new Container(
-                            padding: new EdgeInsets.only(bottom: 12.0),
-                            child: new Text("Hot Dog"))
-                      ],
-                    ),
-                    SizedBox(width: 60.0),
-                    new Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          new Container(
-                              padding: new EdgeInsets.only(bottom: 12.0),
-                              child: new Text("Med.")),
-                          new Container(
-                              padding: new EdgeInsets.only(bottom: 12.0),
-                              child: new Text("N/A"))
-                        ]),
-                    SizedBox(width: 70.0),
-                    new Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          new Container(
-                              padding: new EdgeInsets.only(bottom: 12.0),
-                              child: new Text("1x")),
-                          new Container(
-                              padding: new EdgeInsets.only(bottom: 12.0),
-                              child: new Text("2x"))
-                        ]),
-                    SizedBox(width: 65.0),
-                    new Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          new Container(
-                              padding: new EdgeInsets.only(bottom: 12.0),
-                              child: new Text("\$4.50")),
-                          new Container(
-                              padding: new EdgeInsets.only(bottom: 12.0),
-                              child: new Text("\$2.50"))
-                        ]),
-                  ],
-                ));
+        padding: new EdgeInsets.only(top: 15.0, bottom: 15.0),
+        child: new Column(
+          children: <Widget>[
+            new Row(
+              children: <Widget>[
+                new Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: _getItems(order)),
+                new Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: _getSizes(order)),
+                new Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: _getQuantities(order)),
+                new Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: _getPrices(order)),
+              ],
+            ),
+            new Divider(color: Colors.grey),
+            _getTotals(),
+          ],
+        ));
   }
-
 }
 
 class QRcode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(padding: new EdgeInsets.all(50.0),
-      child: new Image.network("https://www.qrstuff.com/images/sample.png"));
+    return Container(
+        padding: new EdgeInsets.all(50.0),
+        child: new Image.network("https://www.qrstuff.com/images/sample.png"));
   }
-
 }
