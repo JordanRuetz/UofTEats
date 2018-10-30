@@ -66,7 +66,7 @@ class EditableMenuItem extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => MenuCategoryEdit(name: name)),
+                    MaterialPageRoute(builder: (context) => MenuCategoryEdit(name: name, description: description,)),
                   );
                 },
               )

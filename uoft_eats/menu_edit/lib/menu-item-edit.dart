@@ -4,52 +4,85 @@ void main() => runApp(new MenuItemEdit());
 
 class MenuItemEdit extends StatelessWidget {
   final String name;
+  final String description;
+  final double price;
 
-  const MenuItemEdit({Key key, this.name}) : super(key: key);
+  const MenuItemEdit(
+      {Key key, this.name, this.description, this.price}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      theme: new ThemeData(
-        primarySwatch: Colors.green,
-      ),
-      home: new Scaffold(
-          appBar: AppBar(
-            title: Text("Edit $name"),
-          ),
-          body: ItemEditable(name: name)
-      ),
+      home: new ItemEditablesPage(
+          name: name, description: description, price: price,),
+      theme: new ThemeData(primarySwatch: Colors.green),
     );
   }
 }
 
-class ItemEditable extends StatelessWidget{
+class ItemEditablesPage extends StatefulWidget {
   final String name;
+  final String description;
+  final double price;
 
-  const ItemEditable({Key key, this.name}) : super(key: key);
+  const ItemEditablesPage(
+      {Key key, this.name, this.description, this.price}) : super(key: key);
 
   @override
+  State<StatefulWidget> createState() {
+    return new ItemEditables();
+  }
+}
+
+class ItemEditables extends State<ItemEditablesPage> {
+  @override
   Widget build(BuildContext context) {
-    return new ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(50.0, 60.0, 50.0, 50.0),
-            child: new TextField(
-              textAlign: TextAlign.center,
-              style: new TextStyle(fontSize: 32.0, color: Colors.black),
-              decoration: InputDecoration(  hintText: '$name', ),
-            ),
-          ),
-          new Container(
-            height: 30.0,
-            color: Colors.black12,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20.0, top:5.0, bottom: 5.0),
-              child: new Text("Size",
-                style: new TextStyle(color: Colors.black45, fontSize: 16.0)),
-            ),
-          )
-        ]
+    return new Scaffold(
+      appBar: AppBar(
+        title: Text("Edit menu"),
+      ),
+      body: new Container(
+          padding: const EdgeInsets.all(38.0),
+          child: new Column(
+            children: <Widget>[
+              new TextFormField(
+                initialValue: widget.name,
+                decoration: new InputDecoration(
+                    labelText: "Enter your new name",),
+                keyboardType: TextInputType.text,
+              ),
+              new TextFormField(
+                initialValue: widget.price.toString(),
+                decoration: new InputDecoration(
+                    labelText: "Enter your new price",),
+                keyboardType: TextInputType.number,
+              ),
+              new TextFormField(
+                maxLength: 40,
+                initialValue: widget.description,
+                decoration: new InputDecoration(
+                  labelText: "Enter your new description",),
+                keyboardType: TextInputType.text,
+              ),
+              new Row (
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget> [
+                  new RaisedButton(
+                    onPressed: () {
+  //                  this doesn't seem to work... why?
+  //                  Navigator.of(context).pop(true);
+                    }, child: Text("Confirm")
+                  ),
+                  new RaisedButton(
+                      onPressed: () {
+  //                  this doesn't seem to work... why?
+  //                  Navigator.of(context).pop(true);
+                      }, child: Text("Cancel")
+                  ),
+                ],
+              )
+            ],
+          )),
     );
   }
 }

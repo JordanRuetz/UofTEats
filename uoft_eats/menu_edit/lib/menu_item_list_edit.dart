@@ -28,9 +28,9 @@ class CatagoryItems extends StatelessWidget{
     // TODO: implement build
     return new ListView(
       children: [
-        new EditableMenuItem(name: "Small Poutine", description: "Frenshly cut french fries with gravy, serves 1",),
-        new EditableMenuItem(name: "Medium Poutine", description: "Frenshly cut french fries with gravy, serves 1-2",),
-        new EditableMenuItem(name: "Large Poutine", description: "Frenshly cut french fries with gravy, serves 1-3",),
+        new EditableMenuItem(name: "Small Poutine", description: "Serves 1", price: 4.50),
+        new EditableMenuItem(name: "Medium Poutine", description: "Serves 1-2", price: 5.50),
+        new EditableMenuItem(name: "Large Poutine", description: "Serves 1-3", price: 6.50,),
       ]
     );
   }
@@ -39,8 +39,9 @@ class CatagoryItems extends StatelessWidget{
 class EditableMenuItem extends StatelessWidget {
   final String name;
   final String description;
+  final double price;
 
-  const EditableMenuItem({Key key, this.name, this.description}) : super(key: key);
+  const EditableMenuItem({Key key, this.name, this.description, this.price}) : super(key: key);
 
   Widget build(BuildContext context) {
     return new Container(
@@ -58,12 +59,13 @@ class EditableMenuItem extends StatelessWidget {
                 icon: Icon( Icons.edit, ),
                 tooltip: 'Edit this item',
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => (MenuItemEdit(name: name))),
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) =>
+                    (MenuItemEdit(name: name, description: description , price: price))),
                   );
                 },
-              )
+              ),
+              trailing: Text("\$$price    ", style: TextStyle(fontSize: 16.0),),
             ),
             Divider(),
           ],
