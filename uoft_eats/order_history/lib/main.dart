@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+void main() => runApp(new OrderHistory());
+
 class OrderHistory extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -18,7 +20,7 @@ class OrderHistory extends StatelessWidget {
                 Tab(text: "BY QUANTITY"),
               ],
             ),
-            title: Text("Order History"),
+            title: Text("ORDER HISTORY"),
           ),
           body: TabBarView(
             children: [
@@ -212,7 +214,7 @@ class ItemCard extends StatelessWidget {
                           children: <Widget>[
                             // Name
                             Text("$name",
-                                style: new TextStyle(fontSize: 26.0),
+                                style: new TextStyle(fontSize: 26.0)),
                           ],
                         ),
                       ),
