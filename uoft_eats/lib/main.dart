@@ -10,6 +10,7 @@ import 'server/ServerMenusScreen.dart';
 import 'server/ScannerScreen.dart';
 import 'server/ServerOrdersScreen.dart';
 import 'server/BillingInfoScreen.dart';
+import 'server/ServerOrderHistory.dart';
 
 void main() => runApp(new MyApp());
 
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
         '/server/scanner': (BuildContext context) => ScannerScreen(title: 'Scanner'),
         '/server/orders': (BuildContext context) => ServerOrdersScreen(title: 'Orders'),
         '/server/billingInfo': (BuildContext context) => BillingInfoScreen(title: 'Billing Info'),
+        '/server/orderhistory': (BuildContext context) => OrderHistory(),
       },
     );
   }
