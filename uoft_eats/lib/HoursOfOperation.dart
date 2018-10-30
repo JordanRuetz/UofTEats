@@ -84,6 +84,7 @@ class HoursOfOperation extends StatelessWidget {
                     ),
                   ],
                 ),
+                Container(height: 30.0),
                 // Save Button
                 RaisedButton(
                   child: Text("Save"),
