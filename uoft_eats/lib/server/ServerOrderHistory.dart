@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
 
-class OrderHistory extends StatelessWidget {
+class ServerOrderHistory extends StatefulWidget {
+  ServerOrderHistory({Key key, this.title}) : super(key: key);
+
+  final String title;
+
+  @override
+  OrderHistory createState() => new OrderHistory();
+}
+
+class OrderHistory extends State<ServerOrderHistory> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -18,7 +27,7 @@ class OrderHistory extends StatelessWidget {
                 Tab(text: "BY QUANTITY"),
               ],
             ),
-            title: Text("Order History"),
+            title: Text("ORDER HISTORY"),
           ),
           body: TabBarView(
             children: [
@@ -201,7 +210,12 @@ class ItemCard extends StatelessWidget {
                       // Icon
                       Padding(
                           padding: const EdgeInsets.only(right: 15.0),
-                          child: Text("$quantity", style: new TextStyle(fontWeight: FontWeight.bold, color: Colors.green, fontSize: 48.0))
+                          child: Text("$quantity",
+                              style: new TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.green, fontSize: 48.0
+                              )
+                          )
                       ),
                       // Order
                       Container(
@@ -212,7 +226,7 @@ class ItemCard extends StatelessWidget {
                           children: <Widget>[
                             // Name
                             Text("$name",
-                                style: new TextStyle(fontSize: 26.0),
+                                style: new TextStyle(fontSize: 26.0)),
                           ],
                         ),
                       ),
