@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(new HoursOfOperationScreen());
-
 class HoursOfOperationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return new Scaffold(
       appBar: AppBar(title: Text("Hours of Operation")),
       body: Container(
@@ -20,7 +17,6 @@ class HoursOfOperationScreen extends StatelessWidget {
     );
   }
 }
-
 
 TextStyle defaultTextStyle(){
   return TextStyle(
@@ -225,7 +221,6 @@ class GenerateClosingTimes extends StatelessWidget{
 class SaveButton extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     var button = Container(
       child: RaisedButton(
         child: Text("Save"),

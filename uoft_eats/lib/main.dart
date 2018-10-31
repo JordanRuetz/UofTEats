@@ -47,8 +47,8 @@ class MyApp extends StatelessWidget {
         '/client/payment': (BuildContext context) => PaymentScreen(title: 'Payment'),
         '/client/settings': (BuildContext context) => SettingsScreen(title: 'Settings'),
         '/client/menus/template': (BuildContext context) => TemplateMenuScreen(title: 'Template Menu'),
-        '/server/paymentConfirmation': (BuildContext context) => PaymentConfirmationScreen(),
-        '/client/menus/template/receipt': (BuildContext context) => ReceiptScreen(title: 'Receipt'),
+        '/client/paymentConfirmation': (BuildContext context) => PaymentConfirmationScreen(),
+        '/client/paymentConfirmation/receipt': (BuildContext context) => ReceiptScreen(title: 'Receipt'),
 
         '/server/menus': (BuildContext context) => ServerMenusScreen(title: 'Menus'),
         '/server/scanner': (BuildContext context) => ScannerScreen(title: 'Scanner'),
