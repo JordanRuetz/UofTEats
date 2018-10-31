@@ -12,6 +12,7 @@ import 'client/TemplateMenuScreen.dart';
 import 'client/PaymentConfirmationScreen.dart';
 import 'client/ReceiptScreen.dart';
 
+import 'server/ServerHomeScreen.dart';
 import 'server/ServerMenusScreen.dart';
 import 'server/ScannerScreen.dart';
 import 'server/ServerOrdersScreen.dart';
@@ -50,6 +51,7 @@ class MyApp extends StatelessWidget {
         '/client/paymentConfirmation': (BuildContext context) => PaymentConfirmationScreen(),
         '/client/paymentConfirmation/receipt': (BuildContext context) => ReceiptScreen(title: 'Receipt'),
 
+        '/server': (BuildContext context) => ServerHomeScreen(title: 'Home'),
         '/server/menus': (BuildContext context) => ServerMenusScreen(title: 'Menus'),
         '/server/scanner': (BuildContext context) => ScannerScreen(title: 'Scanner'),
         '/server/orders': (BuildContext context) => ServerOrdersScreen(title: 'Orders'),
