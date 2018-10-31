@@ -15,6 +15,10 @@ import 'server/ScannerScreen.dart';
 import 'server/ServerOrdersScreen.dart';
 import 'server/BillingInfoScreen.dart';
 import 'server/QuantitiesOrderedScreen.dart';
+import 'server/ServerOrderHistory.dart';
+import 'server/MenuEditCategoryList.dart';
+import 'server/MenuEditItemList.dart';
+
 
 void main() => runApp(new MyApp());
 
@@ -46,6 +50,10 @@ class MyApp extends StatelessWidget {
         '/server/orders': (BuildContext context) => ServerOrdersScreen(title: 'Orders'),
         '/server/billingInfo': (BuildContext context) => BillingInfoScreen(title: 'Billing Info'),
         '/server/quantities': (BuildContext context) => QuantitiesOrderedScreen(title: 'Quantities'),
+        '/server/orderhistory': (BuildContext context) => ServerOrderHistory(title: 'Order History'),
+        '/server/editmenucategorylist': (BuildContext context) => MenuEditCategoryList(title: 'Edit Menu Category'),
+        '/server/editmenuitemlist': (BuildContext context) => MenuEditItemList(title: 'Edit Menu Items',),
+
       },
     );
   }
