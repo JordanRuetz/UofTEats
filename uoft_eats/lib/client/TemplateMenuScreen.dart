@@ -21,7 +21,7 @@ class _MyTemplateMenuScreenState extends State<TemplateMenuScreen> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('[FOODTRUCK] Menu'),
+        title: new Text('Ideal Catering Menu'),
         backgroundColor: Colors.brown,
       ),
       body: new ListView(
