@@ -16,10 +16,8 @@ import 'server/ServerOrdersScreen.dart';
 import 'server/BillingInfoScreen.dart';
 import 'server/QuantitiesOrderedScreen.dart';
 import 'server/ServerOrderHistory.dart';
-import 'server/MenuCategoryEdit.dart';
 import 'server/MenuEditCategoryList.dart';
 import 'server/MenuEditItemList.dart';
-import 'server/MenuItemEdit.dart';
 
 
 void main() => runApp(new MyApp());
