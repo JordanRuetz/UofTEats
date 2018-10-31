@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+void main() => runApp(new HoursOfOperationScreen());
+
 class HoursOfOperationScreen extends StatelessWidget {
 
   @override
@@ -17,13 +19,14 @@ class HoursOfOperationScreen extends StatelessWidget {
       )
     );
   }
+}
 
-  TextStyle defaultTextStyle(){
-    return TextStyle(
-      fontSize: 20.0,
-      decoration: TextDecoration.none
-    );
-  }
+
+TextStyle defaultTextStyle(){
+  return TextStyle(
+    fontSize: 20.0,
+    decoration: TextDecoration.none
+  );
 }
 
 class HoursOfOperationsTable extends StatelessWidget{
@@ -217,13 +220,6 @@ class GenerateClosingTimes extends StatelessWidget{
       margin: new EdgeInsets.only(right: 0.0, left: 0.0),
     );
   }
-}
-
-TextStyle defaultTextStyle(){
-  return TextStyle(
-    fontSize: 20.0,
-    decoration: TextDecoration.none
-  );
 }
 
 class SaveButton extends StatelessWidget{

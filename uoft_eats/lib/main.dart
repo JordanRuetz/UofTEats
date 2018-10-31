@@ -18,6 +18,7 @@ import 'server/QuantitiesOrderedScreen.dart';
 import 'server/ServerOrderHistory.dart';
 import 'server/MenuEditCategoryList.dart';
 import 'server/MenuEditItemList.dart';
+import 'server/HoursOfOperationScreen.dart';
 
 
 void main() => runApp(new MyApp());
@@ -53,7 +54,7 @@ class MyApp extends StatelessWidget {
         '/server/orderhistory': (BuildContext context) => ServerOrderHistory(title: 'Order History'),
         '/server/editmenucategorylist': (BuildContext context) => MenuEditCategoryList(title: 'Edit Menu Category'),
         '/server/editmenuitemlist': (BuildContext context) => MenuEditItemList(title: 'Edit Menu Items',),
-
+        '/server/editHoursOfOperation': (BuildContext context) => HoursOfOperationScreen(),
       },
     );
   }
