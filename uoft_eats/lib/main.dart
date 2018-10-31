@@ -9,6 +9,7 @@ import 'client/OrdersScreen.dart';
 import 'client/PaymentScreen.dart';
 import 'client/SettingsScreen.dart';
 import 'client/TemplateMenuScreen.dart';
+import 'client/ReceiptScreen.dart';
 
 import 'server/ServerMenusScreen.dart';
 import 'server/ScannerScreen.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
         '/client/payment': (BuildContext context) => PaymentScreen(title: 'Payment'),
         '/client/settings': (BuildContext context) => SettingsScreen(title: 'Settings'),
         '/client/menus/template': (BuildContext context) => TemplateMenuScreen(title: 'Template Menu'),
+        '/client/menus/template/receipt': (BuildContext context) => ReceiptScreen(title: 'Receipt'),
 
         '/server/menus': (BuildContext context) => ServerMenusScreen(title: 'Menus'),
         '/server/scanner': (BuildContext context) => ScannerScreen(title: 'Scanner'),

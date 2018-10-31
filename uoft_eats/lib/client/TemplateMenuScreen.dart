@@ -39,7 +39,7 @@ class _MyTemplateMenuScreenState extends State<TemplateMenuScreen> {
             child: new RaisedButton(
               onPressed: () {
                 // TODO implement checkout screen and link
-                //Navigator.pushNamed(context, '/client/checkout');
+                Navigator.pushNamed(context, '/client/menus/template/receipt');
               },
               child: new Text('Checkout \$${_subtotal.toStringAsFixed(2)}'),
             ),
