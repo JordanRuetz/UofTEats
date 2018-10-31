@@ -1,5 +1,19 @@
 import 'package:flutter/material.dart';
 
+void main() => runApp(new PaymentConfirmationScreen());
+
+class PaymentConfirmationScreen extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return new Scaffold(
+      appBar: AppBar(title: Text("Hours of Operation")),
+      body: new PaymentConfirmation()
+    );
+  }
+}
+
 class PaymentConfirmation extends StatelessWidget {
 
   final double tax = 2.47;
