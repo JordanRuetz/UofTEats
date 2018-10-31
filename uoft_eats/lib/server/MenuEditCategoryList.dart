@@ -15,7 +15,6 @@ class MenuEditCategoryList extends StatefulWidget {
 }
 
 class CategoryItems extends State<MenuEditCategoryList> {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -24,7 +23,7 @@ class CategoryItems extends State<MenuEditCategoryList> {
       ),
       home: new Scaffold(
           appBar: AppBar(
-            title: Text("Edit menu"),
+            title: Text(widget.title),
           ),
           body: new ListView(
               children: [
@@ -61,7 +60,7 @@ class EditableMenuItem extends StatelessWidget {
               onTap: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context)
-                    => MenuItemListEdit()));
+                    => MenuEditItemList()));
               },
               title: Padding(
                 padding: const EdgeInsets.only(bottom: 5.0),
