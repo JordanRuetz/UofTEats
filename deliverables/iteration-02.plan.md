@@ -1,13 +1,9 @@
 # FOOD TRUCK APP
 
- > _Note:_ This document is meant to be written during (or shortly after) your initial planning meeting.     
- > It does not really make sense for you to edit this document much (if at all) while working on the project - Instead, at the end of the planning phase, you can refer back to this document and decide which parts of your plan you are happy with and which parts you would like to change.
-
-
-## Iteration XX
+## Iteration 02
 
  * Start date: Oct 16, 2018
- * End date: Nov 30, 2018
+ * End date: Nov 2, 2018
 
 ## Process
 
@@ -15,7 +11,13 @@
 
 #### Roles & responsibilities
 
-Describe the different roles on the team and the responsibilities associated with each role.
+Product Manager: Finnbarr
+* Responible for knowing the roadmap of our project, making sure the we are accomplishing enough so that we finish on time.  Also responsible for feature definition, choosing which features are most important in our app and what we should not include based on our project goals.
+Scrum Master: Jordan
+* Responsible for making sure the team follows processes and improving the process in order to make the team more effective.  Responsible for helping anyone with obstacles such as merge conflicts and responsibility uncertainty by communicating with them and calling meetings as necessary.  Also works with the product manager to make sure the backlog is in good shape.
+Video Editor: Kara
+* Responsible for editing the videos that the team producing to complete the deliverable on time.
+
 
 #### Events
 
