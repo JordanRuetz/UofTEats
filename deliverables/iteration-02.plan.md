@@ -13,8 +13,10 @@
 
 Product Manager: Finnbarr
 * Responible for knowing the roadmap of our project, making sure the we are accomplishing enough so that we finish on time.  Also responsible for feature definition, choosing which features are most important in our app and what we should not include based on our project goals.
+
 Scrum Master: Jordan
 * Responsible for making sure the team follows processes and improving the process in order to make the team more effective.  Responsible for helping anyone with obstacles such as merge conflicts and responsibility uncertainty by communicating with them and calling meetings as necessary.  Also works with the product manager to make sure the backlog is in good shape.
+
 Video Editor: Kara
 * Responsible for editing the videos that the team producing to complete the deliverable on time.
 
