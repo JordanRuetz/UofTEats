@@ -9,10 +9,11 @@ class ReceiptScreen extends StatefulWidget {
 
   static final int orderNum = 12;
   static final String foodTruck = "Ideal Catering";
-  static final double tax = 0.00;
+  static final double tax = 0.91;
   static final Map<String, List> singleOrder = {
-    "Poutine": ["M", 1, 4.50],
-    "Hot Dog": ["S", 2, 2.50]
+    "Poutine": ["M", 1, 3.50],
+    "Burger": ["S", 1, 2.50],
+    "Drink": ["S", 1, 1.00],
   };
 
   @override
@@ -43,6 +44,7 @@ class MyReceipt extends StatelessWidget {
     return new Scaffold(
         appBar: new AppBar(
           title: new Text("Receipt #$orderNum"),
+          backgroundColor: Colors.brown,
         ),
         drawer: MainDrawer(),
         body: Container(
@@ -59,7 +61,7 @@ class MyReceipt extends StatelessWidget {
                       style: new TextStyle(
                           fontSize: 20.0, fontWeight: FontWeight.bold)),
                 ),
-                ReceiptHeaders(),
+                //ReceiptHeaders(),
                 new Divider(color: Colors.blue),
                 FoodOrdered(order: order, tax: tax),
               ],
@@ -74,18 +76,13 @@ class ReceiptHeaders extends StatelessWidget {
         padding: new EdgeInsets.only(top: 20.0),
         child: new Row(
           children: <Widget>[
-            new Container(
-                child: new Text("Item", style: new TextStyle(fontSize: 16.0)),
-                padding: new EdgeInsets.only(right: 80.0)),
-            new Container(
-                child: new Text("Size", style: new TextStyle(fontSize: 16.0)),
-                padding: new EdgeInsets.only(right: 50.0)),
-            new Container(
-                child:
+                new Text("Item", style: new TextStyle(fontSize: 16.0)),
+                new Spacer(),
+                /*new Text("Size", style: new TextStyle(fontSize: 16.0)),
+                new Spacer(),
                 new Text("Quantity", style: new TextStyle(fontSize: 16.0)),
-                padding: new EdgeInsets.only(right: 38.0)),
-            new Container(
-                child: new Text("Price", style: new TextStyle(fontSize: 16.0)))
+                new Spacer(),*/
+                new Text("Price", style: new TextStyle(fontSize: 16.0)),
           ],
         ));
   }
@@ -187,12 +184,13 @@ class FoodOrdered extends StatelessWidget {
                 new Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: _getItems(order)),
-                new Column(
+                new Spacer(),
+                /*new Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: _getSizes(order)),
                 new Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: _getQuantities(order)),
+                    children: _getQuantities(order)),*/
                 new Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: _getPrices(order)),
