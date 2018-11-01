@@ -1,4 +1,4 @@
-# FOOD TRUCK APP
+# U of T Eats
 
 ## Iteration 02
 
