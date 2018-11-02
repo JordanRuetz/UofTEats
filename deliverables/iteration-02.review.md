@@ -23,9 +23,10 @@
 
 We plan on sticking to the same process because it seemed to be effective for us. 
 Some things that we would like to change: 
-1. Adhere to the process a bit more strictly by making sure we use git pull requests effectively and review each others' code 
+1. Adhere to the process a bit more strictly by making sure we use git pull requests effectively and review each others' code.
 2. Avoid manual integration of code, and adhere more strictly to integrating through merging and pull requests.
-3. Making sure that each member updates the azure board as they complete the tasks assigned to them
+3. Making sure that each member updates the azure board as they complete the tasks assigned to them.
+4. Ensure that each team member can emulate their code before pushing, making sure that their screens are A) accessible in the app navigation tree, and B) work as intended as integrated parts of the whole app.
 
 ## Product - Review
 
@@ -43,6 +44,6 @@ Some things that we would like to change:
 
 Going into the next iteration, our main insights are:
 
-1. Focus on the backend in the second iteration.  The first thing we need to do is setup the database.  This will be a Firebase database becuase SQLite will not work since we need something in the cloud.  After the database is set up, we are free to assign back-end tasks to different members with the goal of completeing the backend by the end of iteration 3.  The back-end will complete the user stories that we have on our azure board and make all the screens that we created in this iteration fully functional.
-2. Start more closely reviewing each others code.  The purpose of this is to maintain good code quality.  We will always review each others code before it gets merged into the dev branch and we will not merge our own pull requests.  The benefit of doing this is to end up with cleaner, more readable code.
+1. Focus on the backend in the second iteration.  The first thing we need to do is setup the database.  This will be a Firebase database because SQLite will not work since we need something in the cloud.  After the database is set up, we are free to assign back-end tasks to different members with the goal of completeing the backend by the end of iteration 3.  The back-end will complete the user stories that we have on our azure board and make all the screens that we created in this iteration fully functional.
+2. Start more closely reviewing eachothers' code.  The purpose of this is to maintain good code quality.  We will always review each others code before it gets merged into the dev branch and we will not merge our own pull requests.  The benefit of doing this is to end up with cleaner, more readable code.
 3. Be more careful with how many tasks we assign in one weekly sprint.  We assigned to many tasks in the first sprint we had this iteration and it ended up taking the entire iteration to complete them.  We want to be able to complete the tasks that we assign by the end of a sprint so it is easier to kepp track of what is done and what needs to be done to make our deadlines.
