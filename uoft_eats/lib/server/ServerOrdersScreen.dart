@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tuple/tuple.dart';
 
 import 'package:uoft_eats/server/ServerDrawer.dart';
 
@@ -7,29 +8,29 @@ class ServerOrdersScreen extends StatefulWidget {
 
   final String title;
 
-  static final int numOrders = 215;
   static final double taxPercent = 0.13;
-  static final Map<String, Map<String, List>> customerOrders = {
-    "Anna": {
+  // key is the order number. Map is unsorted
+  static final Map<int, Tuple2<String, Map<String, List>>> customerOrders = {
+    215: new Tuple2<String, Map<String, List>>("Anna", {
       "Poutine": ["M", 1, 5.00],
       "Hot Dog": ["S", 1, 2.50],
       "Water": ["N/A", 1, 1.00]
-    },
-    "Kara": {
+    }),
+    216: new Tuple2<String, Map<String, List>>("Kara", {
       "Cheeseburger": ["N/A", 1, 5.00],
       "Soda": ["N/A", 2, 2.00]
-    },
-    "Jordan": {
+    }),
+    218: new Tuple2<String, Map<String, List>>("Jordan", {
       "Hamburger and Fries": ["S", 1, 5.50],
       "Soda": ["N/A", 1, 2.00]
-    },
-    "Wilbert": {
+    }),
+    219: new Tuple2<String, Map<String, List>>("Wilbert", {
       "Bacon Poutine": ["L", 1, 7.50]
-    },
-    "Finnbarr": {
+    }),
+    217: new Tuple2<String, Map<String, List>>("Finnbarr", {
       "Chicken Poutine": ["M", 1, 7.00],
       "Water": ["N/A", 1, 1.00]
-    }
+    })
   };
 
   @override
@@ -40,19 +41,17 @@ class _MyServerOrdersScreenState extends State<ServerOrdersScreen> {
   @override
   Widget build(BuildContext context) {
     return new MyPendingOrders(
-        numOrders: ServerOrdersScreen.numOrders,
         customerOrders: ServerOrdersScreen.customerOrders,
         taxPercent: ServerOrdersScreen.taxPercent);
   }
 }
 
 class MyPendingOrders extends StatelessWidget {
-  final int numOrders;
-  final Map<String, Map<String, List>> customerOrders;
+  final Map<int, Tuple2<String, Map<String, List>>> customerOrders;
   final double taxPercent;
 
   MyPendingOrders(
-      {Key key, this.numOrders, this.customerOrders, this.taxPercent})
+      {Key key, this.customerOrders, this.taxPercent})
       : super(key: key);
 
   @override
@@ -63,7 +62,6 @@ class MyPendingOrders extends StatelessWidget {
         ),
         drawer: ServerDrawer(),
         body: OrderBody(
-            numOrders: numOrders,
             customerOrders: customerOrders,
             taxPercent: taxPercent));
   }
@@ -71,7 +69,7 @@ class MyPendingOrders extends StatelessWidget {
 
 class OrderBody extends StatefulWidget {
   int numOrders;
-  Map<String, Map<String, List>> customerOrders;
+  Map<int, Tuple2<String, Map<String, List>>> customerOrders;
   double taxPercent;
 
   OrderBody({this.numOrders, this.customerOrders, this.taxPercent});
@@ -83,31 +81,31 @@ class OrderBody extends StatefulWidget {
 }
 
 class _OrderBodyState extends State<OrderBody> {
-  void _incrementOrderNum() {
-    widget.numOrders++;
-  }
 
   List<Widget> _getAllOrders() {
-    List<String> customerNames = (widget.customerOrders).keys.toList();
+    List<int> orderNumbers = (widget.customerOrders).keys.toList();
+    orderNumbers.sort();
 
     List<Widget> fullList = new List<Widget>();
-    for (String name in customerNames) {
-      _incrementOrderNum();
-      Map<String, List> singleOrder = widget.customerOrders[name];
+    for (int order in orderNumbers) {
+      Tuple2<String, Map<String, List>> singleOrder = widget.customerOrders[order];
+      String customerName = singleOrder.item1;
+      Map<String, List> customerOrder = singleOrder.item2;
+
       fullList.add(new Column(children: <Widget>[
         new Align(
             alignment: Alignment.topRight,
-            child: new Text("Order#" + widget.numOrders.toString(),
+            child: new Text("Order#" + order.toString(),
                 style: new TextStyle(fontSize: 16.0))),
         new Align(
           alignment: Alignment.topLeft,
-          child: new Text("Customer: " + name,
+          child: new Text("Customer: " + customerName,
               style:
                   new TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
         ),
         ReceiptHeaders(),
         new Divider(color: Colors.blue),
-        FoodOrdered(order: singleOrder, taxPercent: widget.taxPercent),
+        FoodOrdered(order: customerOrder, taxPercent: widget.taxPercent),
         new Divider(color: Colors.black87),
         new SizedBox(
           height: 12.0,
