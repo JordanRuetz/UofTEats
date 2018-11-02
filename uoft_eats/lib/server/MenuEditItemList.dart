@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uoft_eats/server/ServerDrawer.dart';
 import 'MenuItemEdit.dart';
 
 
@@ -10,20 +11,17 @@ class MenuEditItemList extends StatefulWidget {
   final String title;
 
   @override
-  Items createState() => new Items();
+  _MenuEditItemListState createState() => new _MenuEditItemListState();
 }
 
-class Items extends State<MenuEditItemList> {
+class _MenuEditItemListState extends State<MenuEditItemList> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      theme: new ThemeData(
-        primarySwatch: Colors.green,
-      ),
-      home: new Scaffold(
+    return new Scaffold(
+          drawer: new ServerDrawer(),
           appBar: AppBar(
-            title: Text(widget.title),
+            title: Text("Edit Menu"),
           ),
           body: ListView(
               children: [
@@ -32,8 +30,7 @@ class Items extends State<MenuEditItemList> {
                 new EditableMenuItem(name: "Large Poutine", description: "Serves 1-3", price: 6.50,),
               ]
           )
-        ),
-    );
+        );
   }
 }
 

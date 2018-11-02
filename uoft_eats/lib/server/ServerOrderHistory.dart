@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uoft_eats/server/ServerDrawer.dart';
 
 class ServerOrderHistory extends StatefulWidget {
   ServerOrderHistory({Key key, this.title}) : super(key: key);
@@ -6,20 +7,17 @@ class ServerOrderHistory extends StatefulWidget {
   final String title;
 
   @override
-  OrderHistory createState() => new OrderHistory();
+  _ServerOrderHistoryState createState() => new _ServerOrderHistoryState();
 }
 
-class OrderHistory extends State<ServerOrderHistory> {
+class _ServerOrderHistoryState extends State<ServerOrderHistory> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      theme: new ThemeData(
-        primarySwatch: Colors.green,
-      ),
-      home: DefaultTabController(
+    return new DefaultTabController(
         length: 3,
         child: Scaffold(
+          drawer: new ServerDrawer(),
           appBar: AppBar(
             bottom: TabBar(
               tabs: [
@@ -36,7 +34,6 @@ class OrderHistory extends State<ServerOrderHistory> {
             ],
           ),
         ),
-      ),
     );
   }
 }
