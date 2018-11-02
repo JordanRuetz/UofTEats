@@ -46,14 +46,18 @@ class _MyServerOrdersScreenState extends State<ServerOrdersScreen> {
   }
 }
 
-class MyPendingOrders extends StatelessWidget {
-  final Map<int, Tuple2<String, Map<String, List>>> customerOrders;
+class MyPendingOrders extends StatefulWidget {
+  Map<int, Tuple2<String, Map<String, List>>> customerOrders;
   final double taxPercent;
 
-  MyPendingOrders(
-      {Key key, this.customerOrders, this.taxPercent})
+  MyPendingOrders({Key key, this.customerOrders, this.taxPercent})
       : super(key: key);
 
+  @override
+  _MyPendingOrders createState() => new _MyPendingOrders();
+}
+
+class _MyPendingOrders extends State<MyPendingOrders> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -62,17 +66,16 @@ class MyPendingOrders extends StatelessWidget {
         ),
         drawer: ServerDrawer(),
         body: OrderBody(
-            customerOrders: customerOrders,
-            taxPercent: taxPercent));
+            customerOrders: widget.customerOrders,
+            taxPercent: widget.taxPercent));
   }
 }
 
 class OrderBody extends StatefulWidget {
-  int numOrders;
-  Map<int, Tuple2<String, Map<String, List>>> customerOrders;
+  final Map<int, Tuple2<String, Map<String, List>>> customerOrders;
   double taxPercent;
 
-  OrderBody({this.numOrders, this.customerOrders, this.taxPercent});
+  OrderBody({this.customerOrders, this.taxPercent});
 
   @override
   State<StatefulWidget> createState() {
@@ -81,14 +84,23 @@ class OrderBody extends StatefulWidget {
 }
 
 class _OrderBodyState extends State<OrderBody> {
+  Map<int, Tuple2<String, Map<String, List>>> customerOrders;
 
   List<Widget> _getAllOrders() {
-    List<int> orderNumbers = (widget.customerOrders).keys.toList();
+    customerOrders = widget.customerOrders;
+    List<int> orderNumbers = (customerOrders).keys.toList();
     orderNumbers.sort();
 
     List<Widget> fullList = new List<Widget>();
+
+    fullList.add(new Row(
+      children: <Widget>[new RaisedButton(child: new Text("Refresh"), onPressed: () {setState(()
+      {});}
+      )]
+    ));
+
     for (int order in orderNumbers) {
-      Tuple2<String, Map<String, List>> singleOrder = widget.customerOrders[order];
+      Tuple2<String, Map<String, List>> singleOrder = customerOrders[order];
       String customerName = singleOrder.item1;
       Map<String, List> customerOrder = singleOrder.item2;
 
@@ -106,6 +118,7 @@ class _OrderBodyState extends State<OrderBody> {
         ReceiptHeaders(),
         new Divider(color: Colors.blue),
         FoodOrdered(order: customerOrder, taxPercent: widget.taxPercent),
+      
         new Divider(color: Colors.black87),
         new SizedBox(
           height: 12.0,
@@ -125,7 +138,15 @@ class _OrderBodyState extends State<OrderBody> {
   }
 }
 
-class ReceiptHeaders extends StatelessWidget {
+class ReceiptHeaders extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return new _ReceiptHeaders();
+  }
+}
+
+class _ReceiptHeaders extends State<ReceiptHeaders> {
   @override
   Widget build(BuildContext context) {
     return new Container(
@@ -149,12 +170,20 @@ class ReceiptHeaders extends StatelessWidget {
   }
 }
 
-class FoodOrdered extends StatelessWidget {
+class FoodOrdered extends StatefulWidget {
   final Map<String, List> order;
   final double taxPercent;
-  final double listSpacing = 12.0;
 
   FoodOrdered({Key key, this.order, this.taxPercent}) : super(key: key);
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return new _FoodOrdered();
+  }
+}
+
+class _FoodOrdered extends State<FoodOrdered> {
+  final double listSpacing = 12.0;
 
   List<Widget> _getItems(Map<String, List> order) {
     List<String> listOfItems = (order.keys).toList();
@@ -205,14 +234,14 @@ class FoodOrdered extends StatelessWidget {
   }
 
   Widget _getTotals() {
-    List<String> listOfItems = (order.keys).toList();
+    List<String> listOfItems = (widget.order.keys).toList();
     double subtotal = 0.00;
     for (String item in listOfItems) {
-      List itemInfo = order[item];
+      List itemInfo = widget.order[item];
       int num = itemInfo[1];
       subtotal += (num * itemInfo[2]);
     }
-    double tax = subtotal * taxPercent;
+    double tax = subtotal * widget.taxPercent;
     double total = (subtotal + tax);
 
     return new Column(children: <Widget>[
@@ -245,16 +274,16 @@ class FoodOrdered extends StatelessWidget {
               children: <Widget>[
                 new Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: _getItems(order)),
+                    children: _getItems(widget.order)),
                 new Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: _getSizes(order)),
+                    children: _getSizes(widget.order)),
                 new Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: _getQuantities(order)),
+                    children: _getQuantities(widget.order)),
                 new Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: _getPrices(order)),
+                    children: _getPrices(widget.order)),
               ],
             ),
             new Divider(color: Colors.grey),
