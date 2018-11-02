@@ -94,7 +94,7 @@ class _MyLoginScreenState extends State<LoginScreen> {
     if (dropdownValue == 'Student') {
       Navigator.pushReplacementNamed(context, '/client/menus');
     } else {
-      Navigator.pushReplacementNamed(context, '/server/menus');
+      Navigator.pushReplacementNamed(context, '/server');
     }
   }
 
