@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uoft_eats/server/ServerDrawer.dart';
 import 'MenuEditItemList.dart';
 import 'MenuCategoryEdit.dart';
 
@@ -17,11 +18,8 @@ class MenuEditCategoryList extends StatefulWidget {
 class CategoryItems extends State<MenuEditCategoryList> {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      theme: new ThemeData(
-        primarySwatch: Colors.green,
-      ),
-      home: new Scaffold(
+    return new Scaffold(
+          drawer: new ServerDrawer(),
           appBar: AppBar(
             title: Text(widget.title),
           ),
@@ -39,8 +37,7 @@ class CategoryItems extends State<MenuEditCategoryList> {
                   description: "Pop drinks",),
               ]
           )
-        ),
-    );
+        );
   }
 }
 
@@ -60,7 +57,7 @@ class EditableMenuItem extends StatelessWidget {
               onTap: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context)
-                    => MenuEditItemList()));
+                    => MenuEditItemList(title: "Poutine")));
               },
               title: Padding(
                 padding: const EdgeInsets.only(bottom: 5.0),

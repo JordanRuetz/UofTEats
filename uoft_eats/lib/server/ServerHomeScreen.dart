@@ -36,23 +36,26 @@ class _MyServerHomeScreenState extends State<ServerHomeScreen> {
                 new Row(children: [
                   Text("You currently have ",
                       style:
-                          new TextStyle(fontSize: 20.0, color: Colors.black45)),
+                      new TextStyle(fontSize: 20.0, color: Colors.black45)),
                   FlatButton(
                     child: Text("12 orders",
                         style: new TextStyle(
                             fontSize: 20.0, color: Colors.black45)),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(context, '/server/orders');
+                    },
                   )
                 ]),
                 new Row(children: [
                   Text("Today's revenue ",
                       style:
-                          new TextStyle(fontSize: 20.0, color: Colors.black45)),
+                      new TextStyle(fontSize: 20.0, color: Colors.black45)),
                   FlatButton(
                     child: Text("\$ 2207.50",
                         style: new TextStyle(
                             fontSize: 20.0, color: Colors.black45)),
-                    onPressed: () {},
+                    onPressed: () {Navigator.pop(context); // Closes the drawer before moving
+                    Navigator.pushReplacementNamed(context, '/server/orderhistory');},
                   )
                 ]),
                 Divider(

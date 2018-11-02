@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uoft_eats/server/ServerDrawer.dart';
 
 void main() => runApp(new MenuItemEdit());
 
@@ -12,11 +13,8 @@ class MenuItemEdit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      home: new ItemEditablesPage(
-          name: name, description: description, price: price,),
-      theme: new ThemeData(primarySwatch: Colors.green),
-    );
+    return new ItemEditablesPage(
+          name: name, description: description, price: price,);
   }
 }
 
@@ -38,6 +36,7 @@ class ItemEditables extends State<ItemEditablesPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      drawer: new ServerDrawer(),
       appBar: AppBar(
         title: Text("Edit menu"),
       ),

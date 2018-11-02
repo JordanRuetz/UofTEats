@@ -18,11 +18,11 @@ class ServerDrawer extends StatelessWidget {
                         title: Text('Menus'),
                         onTap: () {
                             Navigator.pop(context); // Closes the drawer before moving
-                            Navigator.pushReplacementNamed(context, '/server/menus');
+                            Navigator.pushReplacementNamed(context, '/server/editmenucategorylist');
                         },
                     ),
                     ListTile(
-                        leading: const Icon(Icons.history),
+                        leading: const Icon(Icons.calendar_today),
                         title: Text('Pending Orders'),
                         onTap: () {
                             Navigator.pop(context); // Closes the drawer before moving
@@ -30,7 +30,7 @@ class ServerDrawer extends StatelessWidget {
                         },
                     ),
                     ListTile(
-                        leading: const Icon(Icons.history),
+                        leading: const Icon(Icons.format_list_numbered),
                         title: Text('Quantities'),
                         onTap: () {
                             Navigator.pop(context); // Closes the drawer before moving
@@ -39,6 +39,14 @@ class ServerDrawer extends StatelessWidget {
                     ),
                     ListTile(
                         leading: const Icon(Icons.history),
+                        title: Text('Order History'),
+                        onTap: () {
+                            Navigator.pop(context); // Closes the drawer before moving
+                            Navigator.pushReplacementNamed(context, '/server/orderhistory');
+                        },
+                    ),
+                    ListTile(
+                        leading: const Icon(Icons.camera),
                         title: Text('Scanner'),
                         onTap: () {
                             Navigator.pop(context); // Closes the drawer before moving
