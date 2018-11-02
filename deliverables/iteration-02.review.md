@@ -21,7 +21,11 @@
 
 #### Planned changes
 
-We plan on sticking to the same process because it seemed to be effective for us.  The only thing that we would like to do is adhere to the process a bit more strictly by making sure we use git pull requests effectively and review each others code and also making sure that each member updates the azure board as they complete the tasks assigned to them.
+We plan on sticking to the same process because it seemed to be effective for us. 
+Some things that we would like to change: 
+1. Adhere to the process a bit more strictly by making sure we use git pull requests effectively and review each others' code 
+2. Avoid manual integration of code, and adhere more strictly to integrating through merging and pull requests.
+3. Making sure that each member updates the azure board as they complete the tasks assigned to them
 
 ## Product - Review
 
