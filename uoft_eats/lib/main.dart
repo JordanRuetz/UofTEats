@@ -1,5 +1,29 @@
 import 'package:flutter/material.dart';
 
+import 'LoginScreen.dart';
+import 'NewAccountScreen.dart';
+import 'SupportScreen.dart';
+
+import 'client/MenusScreen.dart';
+import 'client/OrdersScreen.dart';
+import 'client/PaymentScreen.dart';
+import 'client/SettingsScreen.dart';
+import 'client/TemplateMenuScreen.dart';
+import 'client/PaymentConfirmationScreen.dart';
+import 'client/ReceiptScreen.dart';
+
+import 'server/ServerHomeScreen.dart';
+import 'server/ServerMenusScreen.dart';
+import 'server/ScannerScreen.dart';
+import 'server/ServerOrdersScreen.dart';
+import 'server/BillingInfoScreen.dart';
+import 'server/QuantitiesOrderedScreen.dart';
+import 'server/ServerOrderHistory.dart';
+import 'server/MenuEditCategoryList.dart';
+import 'server/MenuEditItemList.dart';
+import 'server/HoursOfOperationScreen.dart';
+
+
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
@@ -9,171 +33,35 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       title: 'UofT Eats',
       theme: new ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or press Run > Flutter Hot Reload in IntelliJ). Notice that the
-        // counter didn't reset back to zero; the application is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: new MyHomePage(title: 'Menus'),
-    );
-  }
-}
+      home: new LoginScreen(title: 'Login'),
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+      // TODO: Add to tree structure for navigating screens as needed
+      routes: <String, WidgetBuilder>{
+        '/login': (BuildContext context) => LoginScreen(title: 'Login'),
+        '/newAccount': (BuildContext context) => NewAccountScreen(title: 'New Account'),
+        '/support': (BuildContext context) => SupportScreen(title: 'Support'),
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
+        '/client/menus': (BuildContext context) => MenusScreen(title: 'Menus'),
+        '/client/orders': (BuildContext context) => OrdersScreen(title: 'Orders'),
+        '/client/payment': (BuildContext context) => PaymentScreen(title: 'Payment'),
+        '/client/settings': (BuildContext context) => SettingsScreen(title: 'Settings'),
+        '/client/menus/template': (BuildContext context) => TemplateMenuScreen(title: 'Template Menu'),
+        '/client/paymentConfirmation': (BuildContext context) => PaymentConfirmationScreen(),
+        '/client/paymentConfirmation/receipt': (BuildContext context) => ReceiptScreen(title: 'Receipt'),
 
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => new _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return new Scaffold(
-        appBar: new AppBar(
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
-          title: new Text(widget.title),
-        ),
-        body: new Center(
-          // Center is a layout widget. It takes a single child and positions it
-          // in the middle of the parent.
-          child: new Column(
-            // Column is also layout widget. It takes a list of children and
-            // arranges them vertically. By default, it sizes itself to fit its
-            // children horizontally, and tries to be as tall as its parent.
-            //
-            // Invoke "debug paint" (press "p" in the console where you ran
-            // "flutter run", or select "Toggle Debug Paint" from the Flutter tool
-            // window in IntelliJ) to see the wireframe for each widget.
-            //
-            // Column has various properties to control how it sizes itself and
-            // how it positions its children. Here we use mainAxisAlignment to
-            // center the children vertically; the main axis here is the vertical
-            // axis because Columns are vertical (the cross axis would be
-            // horizontal).
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              new Text(
-                'PLACEHOLDER',
-              ),
-            ],
-          ),
-        ),
-        drawer: Drawer(
-            // Add a ListView to the drawer. This ensures the user can scroll
-            // through the options in the Drawer if there isn't enough vertical
-            // space to fit everything.
-            child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              child: Icon(Icons.fastfood),
-              decoration: BoxDecoration(
-                color: Colors.red,
-              ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.add_shopping_cart),
-              title: Text('Menus'),
-              onTap: () {
-                // Update the state of the app
-                // TODO
-                // Then close the drawer
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.history),
-              title: Text('Orders'),
-              onTap: () {
-                // Update the state of the app
-                // TODO
-                // Then close the drawer
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.attach_money),
-              title: Text('Payment'),
-              onTap: () {
-                // Update the state of the app
-                // TODO
-                // Then close the drawer
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: Text('Settings'),
-              onTap: () {
-                // Update the state of the app
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SettingsScreen()));
-                // Then close the drawer
-              },
-            ),
-          ],
-        )));
-  }
-}
-
-class SettingsScreen extends StatefulWidget {
-  SettingsScreen({Key key, this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  _SettingsScreenState createState() => new _SettingsScreenState();
-}
-
-class _SettingsScreenState extends State<SettingsScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Settings"),
-      ),
-      body: Center(
-        child: RaisedButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Text('Go back!'),
-        ),
-      ),
+        '/server': (BuildContext context) => ServerHomeScreen(title: 'Home'),
+        '/server/menus': (BuildContext context) => ServerMenusScreen(title: 'Menus'),
+        '/server/scanner': (BuildContext context) => ScannerScreen(title: 'Scanner'),
+        '/server/orders': (BuildContext context) => ServerOrdersScreen(title: 'Orders'),
+        '/server/billingInfo': (BuildContext context) => BillingInfoScreen(title: 'Billing Info'),
+        '/server/quantities': (BuildContext context) => QuantitiesOrderedScreen(title: 'Quantities'),
+        '/server/orderhistory': (BuildContext context) => ServerOrderHistory(title: 'Order History'),
+        '/server/editmenucategorylist': (BuildContext context) => MenuEditCategoryList(title: 'Edit Menu Category'),
+        '/server/editmenuitemlist': (BuildContext context) => MenuEditItemList(title: 'Edit Menu Items',),
+        '/server/editHoursOfOperation': (BuildContext context) => HoursOfOperationScreen(),
+      },
     );
   }
 }
