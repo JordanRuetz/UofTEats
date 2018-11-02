@@ -17,6 +17,7 @@ Scrum Master: Jordan
 
 Video Editor: Kara
 * Responsible for editing the videos that the team produces to complete the deliverable on time.
+* __Product demo video: https://youtu.be/re57kHAOsbA__
 
 
 #### Events
@@ -51,7 +52,7 @@ To manage our GitHub repository, we will create a dev branch of the master and f
  
 #### Artifacts
 
- 1. A video demoing our work up to the end of iteration 2.  This is a required part of deliverable 2.
+ 1. **[A video](https://youtu.be/re57kHAOsbA__)** demoing our work up to the end of iteration 2.  This is a required part of deliverable 2.
  2. The prototypes and layouts for all the screens of our app.  The prototype is useful so different people working on different screens in the app have a common reference for what the app should look like.  THe prototypes will allow us to present what the project will look like.  The prototypes are stored on the GitHub repo in a folder called prototypes.
  3. The code for the layout of the screens of the app.  This will allow us to simulate someone using our app for the demo video that we need to do.  It also allows us to code the backend, hooking it up to the layouts we create.
  4. Screenshots of our Azure board to give a view of our workflow.

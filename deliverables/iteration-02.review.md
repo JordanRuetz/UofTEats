@@ -11,7 +11,7 @@
  
 1. Our Azure board was very effective in organizing our team.  Team members stuck to working on the tasks that they were assigned on the board at the start of a sprint and we had no confusion about who was doing what task.  This means that everything assigned was completed by the person it was assigned to and no one wasted time accidentally working on a feature that someone else was already working on.
 2. The way that we structured our git repo worked very well.  The way that we had everyone work on their own branches and merge them into a shared dev branch turned out to be very effective.  Our dev branch only contained working code and team members could reclone from it whenever they needed to.  We were also able to merge our work together without conflicts, which was partly due to us sticking to the tasks assigned.
-3. Weekly sprint planning and review meetings worked out well.  Everyone knew what we wanted to get done and who was responsible for what tasks.  The meetings were especially helpful when coordinating the making of our demo video for this deliverable.
+3. Weekly sprint planning and review meetings worked out well.  Everyone knew what we wanted to get done and who was responsible for what tasks.  The meetings were especially helpful when coordinating the making of our demo [video](https://youtu.be/re57kHAOsbA) for this deliverable.
 
 #### Decisions that did not turn out as well as we hoped
 
@@ -34,7 +34,7 @@ Some things that we would like to change:
  
 1. Prototyped the app using justinMind.  This was useful when creating screen layouts in flutter.  The prototypes and images of the screens are in a prototypes folder in our git repo.
 2. Created screen layouts in flutter.  This allowed us to make a demo video and be ready to implement the back-end.  This is the code that we have in the uofteats/lib folder in our git repo.
-3. Created the demo video for this iteration.  This is also on our git repo.
+3. Created the demo [video](https://youtu.be/re57kHAOsbA) for this iteration.  Due to large file size, we have put this in an [unlisted YouTube link](https://youtu.be/re57kHAOsbA) at: https://youtu.be/re57kHAOsbA
 
 #### Goals and/or tasks that were planned but not met/completed:
 
