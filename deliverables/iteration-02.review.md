@@ -15,8 +15,9 @@
 
 #### Decisions that did not turn out as well as we hoped
 
-1. We did not use git pull requests very effectively.  We initially planned to use git pull requests to review code, have discussions about it and maybe request changes bfore merging from a members personal dev branch to the dev branch.  Although the code was sometimes reviewed, no feedback was provided or discussions had.  In some cases, members approved their own pull requests.  This was not ideal as it starts to lead to poor code quality.
-2. We assigned too much work during the first sprint.  This was a result of it being midterm season and a lot of members did not have much free time to work on the app.  The result was that we didn't meet a lot of the tasks we wanted to have done in the first sprint and just made them tasks to do in the second sprint.  We should have took in other commitments as a factor when we set the sprint goals.
+1. We did not use git pull requests very effectively.  We initially planned to use git pull requests to review code, have discussions about it and maybe request changes before merging from a members personal dev branch to the dev branch.  Although the code was sometimes reviewed, no feedback was provided or discussions had.  In some cases, members approved their own pull requests.  This was not ideal as it starts to lead to poor code quality.
+2. Collaboration between members on code integration was a little disorganized at times. At some point, code was integrated manually instead of merging from a member's dev branch into the dev branch. This is not ideal as it could lead to difficulty in tracking individual members' contribution. 
+3. We assigned too much work during the first sprint.  This was a result of it being midterm season and a lot of members did not have much free time to work on the app.  The result was that we didn't meet a lot of the tasks we wanted to have done in the first sprint and just made them tasks to do in the second sprint.  We should have took in other commitments as a factor when we set the sprint goals.
 
 #### Planned changes
 
