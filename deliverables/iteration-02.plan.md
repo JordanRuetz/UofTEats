@@ -10,7 +10,7 @@
 #### Roles & responsibilities
 
 Product Manager: Finnbarr
-* Responible for knowing the roadmap of our project, making sure the we are accomplishing enough so that we finish on time.  Also responsible for feature definition, choosing which features are most important in our app and what we should not include based on our project goals.
+* Responible for knowing the roadmap of our project, making sure the we are accomplishing enough so that we finish on time.  Also responsible for feature definition, choosing which features are most important in our app and what we should not include based on our project goals.  Filmed and voiced demo video to present current state of the app and outline general value to users.
 
 Scrum Master: Jordan
 * Responsible for making sure the team follows processes and improving the process in order to make the team more effective.  Responsible for helping anyone with obstacles such as merge conflicts and responsibility uncertainty by communicating with them and calling meetings as necessary.  Also works with the product manager to make sure the backlog is in good shape.
@@ -29,10 +29,10 @@ We also plan to have a prototyping meeting near the start of this iteration in o
    
 * Azure board
   * We will backlog tasks that need to get done on the Azure board.  At the start of a sprint we prioritize which tasks need to get doen during the week and then add them to our board for the week.  From the board we can see what is currently beign worked on, tested or is finished.  We will have a general discussion during the sprint planning meeting about who will work on what during the week and can assign tasks on the azure board based on this discussion.  This is flexible however, and may change depending on how much time each member can commit in a given week.  So we can reassign tasks during the week as needed.
-  * Azure board link:
+  * Azure board link: https://dev.azure.com/wilbertguo/Food%20Truck%20App/
+  * (See Azure Board folder for screenshots)
 * Slack Channel
   * Used for any communication between members, so everyone can see what is going on
-  * Slack link: 
 * Github Repo
   * This is where code with be shared, merged and discussed in pull requests
 
@@ -54,3 +54,4 @@ To manage our GitHub repository, we will create a dev branch of the master and f
  1. A video demoing our work up to the end of iteration 2.  This is a required part of deliverable 2.
  2. The prototypes and layouts for all the screens of our app.  The prototype is useful so different people working on different screens in the app have a common reference for what the app should look like.  THe prototypes will allow us to present what the project will look like.  The prototypes are stored on the GitHub repo in a folder called prototypes.
  3. The code for the layout of the screens of the app.  This will allow us to simulate someone using our app for the demo video that we need to do.  It also allows us to code the backend, hooking it up to the layouts we create.
+ 4. Screenshots of our Azure board to give a view of our workflow.
