@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class NewAccountScreen extends StatefulWidget {
   final String title;
@@ -11,6 +13,11 @@ class NewAccountScreen extends StatefulWidget {
 
 class _MyNewAccountScreenState extends State<NewAccountScreen> {
   String dropdownValue = 'Student';
+
+  final userController = TextEditingController();
+  String userHint = "";
+  final passController = TextEditingController();
+  final confirmPassController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +44,12 @@ class _MyNewAccountScreenState extends State<NewAccountScreen> {
             new Container(
               margin: new EdgeInsets.only(bottom: 10.0),
               width: 200.0,
-              child: new TextField(),
+              child: new TextField(
+                decoration: InputDecoration(
+                    hintText: userHint,
+                ),
+                controller: userController,
+              ),
             ),
             new Container(
               margin: new EdgeInsets.only(top: 10.0),
@@ -46,7 +58,7 @@ class _MyNewAccountScreenState extends State<NewAccountScreen> {
             new Container(
                 margin: new EdgeInsets.only(bottom: 10.0),
                 width: 200.0,
-                child: new TextField()),
+                child: new TextField(controller: passController,)),
             new Container(
               margin: new EdgeInsets.only(top: 10.0),
               child: new Text('Repeat Password:'),
@@ -54,7 +66,7 @@ class _MyNewAccountScreenState extends State<NewAccountScreen> {
             new Container(
                 margin: new EdgeInsets.only(bottom: 10.0),
                 width: 200.0,
-                child: new TextField()),
+                child: new TextField(controller: confirmPassController,)),
             new Container(
                 margin: new EdgeInsets.all(5.0),
                 height: 50.0,
@@ -73,7 +85,7 @@ class _MyNewAccountScreenState extends State<NewAccountScreen> {
                       });
                     })),
             new RaisedButton(
-                onPressed: _createAccount, child: new Text('Create Account')),
+                onPressed: createAccount, child: new Text('Create Account')),
             new Spacer(flex: 3),
           ],
         ),
@@ -81,11 +93,40 @@ class _MyNewAccountScreenState extends State<NewAccountScreen> {
     );
   }
 
-  void _createAccount() {
-    if (dropdownValue == 'Student') {
-      Navigator.pushReplacementNamed(context, '/client/menus');
+  void createAccount() {
+    String user = userController.text;
+    String pass = Text(passController.text).data;
+    String confirmPass = Text(confirmPassController.text).data;
+
+
+    if (user == '') {
+      print("confirmed");
+      userHint = "can't be empty";
+    } else if (false) {
+
     } else {
-      Navigator.pushReplacementNamed(context, '/server/menus');
+      if (dropdownValue == 'Student') {
+        Navigator.pushReplacementNamed(context, '/client/menus');
+      } else {
+        Navigator.pushReplacementNamed(context, '/server/menus');
+      }
     }
+
+    Firestore fs = Firestore.instance;
+    fs.collection("accounts").snapshots().listen((data) => (
+        data.documents.forEach((doc) => (print(doc.data['testVal'])))
+    ));
+
+
   }
+
+  @override
+  void dispose() {
+    userController.dispose();
+    passController.dispose();
+    confirmPassController.dispose();
+    super.dispose();
+  }
+
+
 }
