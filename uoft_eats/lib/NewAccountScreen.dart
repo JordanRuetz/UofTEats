@@ -117,53 +117,35 @@ class _MyNewAccountScreenState extends State<NewAccountScreen> {
           timeInSecForIos: 2
       );
     } else {
-//      if (dropdownValue == 'Student') {
-//        Navigator.pushReplacementNamed(context, '/client/menus');
-//      } else {
-//        Navigator.pushReplacementNamed(context, '/server/menus');
-//      }
+      Firestore fs = Firestore.instance;
+      QuerySnapshot query = await fs.collection("accounts").getDocuments();
+      List<DocumentSnapshot> docs = query.documents;
+
+      for (int i = 0; i < docs.length; i++) {
+        existingUsers.add(docs[i]['username']);
+      }
+
+      if (existingUsers.contains(user)) {
+        Fluttertoast.showToast(
+            msg: "Username taken",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIos: 2
+        );
+      } else {
+        if (dropdownValue == 'Student') {
+          Firestore.instance.collection('accounts').document()
+              .setData({'username': user, 'password': pass, 'isStudent': true});
+
+          Navigator.pushReplacementNamed(context, '/client/menus');
+        } else {
+          Firestore.instance.collection('accounts').document()
+              .setData({'username': user, 'password': pass, 'isStudent': false});
+
+          Navigator.pushReplacementNamed(context, '/server/menus');
+        }
+      }
     }
-
-    Firestore fs = Firestore.instance;
-    await fs.collection("accounts").snapshots().listen((data) => (
-        data.documents.forEach((doc) => (print(doc.data['username'])))
-    )).asFuture();
-    
-    print("here");
-
-    fs.collection("accounts").snapshots().listen((data) => (() {
-      print("hi");
-      data.documents.forEach((doc) => (() {
-        print(doc['username']);
-        existingUsers.add(doc['username']);
-      }));
-    }));
-
-    //existingUsers = await getUsers();
-
-
-    print("here");
-    print(existingUsers);
-
-    if (existingUsers.contains(user)) {
-      Fluttertoast.showToast(
-          msg: "Username taken",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIos: 2
-      );
-    } else {
-      Fluttertoast.showToast(
-          msg: "Username not taken",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIos: 2
-      );
-    }
-
-    //Firestore.instance.collection('accounts').document()
-    //    .setData({ 'username': 'testUsername', 'password': 'testPass' });
-
   }
 
   Future<List<String>> getUsers() async {
