@@ -93,6 +93,13 @@ class _MyLoginScreenState extends State<LoginScreen> {
 
   void _login() {
     if (dropdownValue == 'Student') {
+      Firestore fs = Firestore.instance;
+      fs.collection("test").snapshots().listen((data) => (
+          data.documents.forEach((doc) => (print(doc.data['testVal'])))
+      ));
+
+
+
       Navigator.pushReplacementNamed(context, '/client/menus');
     } else {
       Navigator.pushReplacementNamed(context, '/server');
