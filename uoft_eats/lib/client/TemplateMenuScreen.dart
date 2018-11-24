@@ -18,7 +18,7 @@ class TemplateMenuScreen extends StatefulWidget {
 }
 
 class _MyTemplateMenuScreenState extends State<TemplateMenuScreen> {
-  List<String> order = new List();
+  Map order = new Map();
   double _subtotal = 0.00;
 
   @override
@@ -49,7 +49,8 @@ class _MyTemplateMenuScreenState extends State<TemplateMenuScreen> {
           padding: EdgeInsets.only(bottom: 15.0, left: 45.0, right: 45.0),
           child: FloatingActionButton(
             onPressed: () {
-              // TODO: push necessary data to paymentConfirmation
+              // TODO: push necessary data to paymentConfirmation ...
+              // TODO: ... build on simple data stored in "order"
               Navigator.pushNamed(context, '/client/paymentConfirmation');
             },
             child: new Text('Checkout \$${_subtotal.toStringAsFixed(2)}'),
@@ -65,36 +66,48 @@ class _MyTemplateMenuScreenState extends State<TemplateMenuScreen> {
       leading: Icon(
         document['foodOrDrink'] ? Icons.fastfood : Icons.local_drink,
       ),
-      title: Text(document['name']),
+      title: Text(document['name'].toString()),
       backgroundColor: Colors.white70,
       children: _generateItemTile(document),
     );
   }
 
-  List<ListTile> _generateItemTile(DocumentSnapshot document) {
+  List<Widget> _generateItemTile(DocumentSnapshot document) {
     Map pricingMap = Map.from(document['pricing']);
-    List<ListTile> returnList = new List(pricingMap.length);
+    List<Widget> returnList = new List(pricingMap.length);
 
     List sizes = pricingMap.keys.toList();
     List prices = pricingMap.values.toList();
 
     for (int i = 0; i < pricingMap.length; i++) {
+      // Initialize 'order' with a key for every size + item combo
+      // corresponding to a value representing quantity of combo in order
+      order.putIfAbsent(sizes[i] + ' ' + document['name'].toString(), () => 0);
+      String itemName = document['name'];
+
       returnList[i] = new ListTile(
         trailing: new Row(
           children: <Widget>[
             new Text(sizes[i]),
-            Spacer(flex: 5,),
+            Spacer(flex: 5),
             new Text('\$${prices[i].toStringAsFixed(2)}'),
-            Spacer(flex: 5,),
-            // TODO: make buttons work properly
-            new IconButton(
-              icon: new Icon(Icons.remove),
-              onPressed: () => setState(() => _subtotal -= prices[i]),
-            ),
-            new Text('0'),
+            Spacer(flex: 5),
+            order[sizes[i] + ' ' + itemName] != 0
+                ? new IconButton(
+                    icon: new Icon(Icons.remove),
+                    onPressed: () => setState(() {
+                          _subtotal -= prices[i];
+                          order[sizes[i] + ' ' + itemName] -= 1;
+                        }),
+                  )
+                : new Container(),
+            new Text(order[sizes[i] + ' ' + itemName].toString()),
             new IconButton(
                 icon: new Icon(Icons.add),
-                onPressed: () => setState(() => _subtotal += prices[i]))
+                onPressed: () => setState(() {
+                      _subtotal += prices[i];
+                      order[sizes[i] + ' ' + itemName] += 1;
+                    }))
           ],
         ),
       );
