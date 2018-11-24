@@ -1,4 +1,3 @@
-# CSC301-tempRepo
+UofT Eats
 
-https://dillinger.io/
-^ More user-friendly for working with these .md files than GitHub.
+https://console.firebase.google.com/u/3/project/uoft-eats/database/firestore/
