@@ -9,7 +9,7 @@ import 'client/OrdersScreen.dart';
 import 'client/PaymentScreen.dart';
 import 'client/SettingsScreen.dart';
 import 'client/TemplateMenuScreen.dart';
-import 'client/PaymentConfirmationScreen.dart'
+import 'client/PaymentConfirmationScreen.dart';
 
 import 'server/ServerMenusScreen.dart';
 import 'server/ScannerScreen.dart';
