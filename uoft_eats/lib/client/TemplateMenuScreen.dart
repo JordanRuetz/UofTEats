@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:uoft_eats/client/MainDrawer.dart';
+import 'package:uoft_eats/client/PaymentConfirmationScreen.dart';
 
 class TemplateMenuScreen extends StatefulWidget {
   TemplateMenuScreen(
@@ -49,9 +50,13 @@ class _MyTemplateMenuScreenState extends State<TemplateMenuScreen> {
           padding: EdgeInsets.only(bottom: 15.0, left: 45.0, right: 45.0),
           child: FloatingActionButton(
             onPressed: () {
-              // TODO: push necessary data to paymentConfirmation ...
-              // TODO: ... build on simple data stored in "order"
-              Navigator.pushNamed(context, '/client/paymentConfirmation');
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => PaymentConfirmationScreen(
+                            subtotal: _subtotal,
+                            order: order,
+                          )));
             },
             child: new Text('Checkout \$${_subtotal.toStringAsFixed(2)}'),
             backgroundColor: Colors.green,
@@ -82,31 +87,31 @@ class _MyTemplateMenuScreenState extends State<TemplateMenuScreen> {
     for (int i = 0; i < pricingMap.length; i++) {
       // Initialize 'order' with a key for every size + item combo
       // corresponding to a value representing quantity of combo in order
-      order.putIfAbsent(sizes[i] + ' ' + document['name'].toString(), () => 0);
-      String itemName = document['name'];
+      order.putIfAbsent(sizes[i] + ' ' + document['name'].toString(),
+          () => [0, document['name'], sizes[i], prices[i]]);
 
       returnList[i] = new ListTile(
         trailing: new Row(
           children: <Widget>[
             new Text(sizes[i]),
-            Spacer(flex: 5),
+            Spacer(flex: 1),
             new Text('\$${prices[i].toStringAsFixed(2)}'),
-            Spacer(flex: 5),
-            order[sizes[i] + ' ' + itemName] != 0
+            SizedBox(width: 75.0),
+            order[sizes[i] + ' ' + document['name']][0] != 0
                 ? new IconButton(
                     icon: new Icon(Icons.remove),
                     onPressed: () => setState(() {
                           _subtotal -= prices[i];
-                          order[sizes[i] + ' ' + itemName] -= 1;
+                          order[sizes[i] + ' ' + document['name']][0] -= 1;
                         }),
                   )
-                : new Container(),
-            new Text(order[sizes[i] + ' ' + itemName].toString()),
+                : new SizedBox(width: 48.0),
+            new Text(order[sizes[i] + ' ' + document['name']][0].toString()),
             new IconButton(
                 icon: new Icon(Icons.add),
                 onPressed: () => setState(() {
                       _subtotal += prices[i];
-                      order[sizes[i] + ' ' + itemName] += 1;
+                      order[sizes[i] + ' ' + document['name']][0] += 1;
                     }))
           ],
         ),
