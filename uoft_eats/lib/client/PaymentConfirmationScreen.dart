@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 
 class PaymentConfirmationScreen extends StatelessWidget {
+  PaymentConfirmationScreen({Key key, this.subtotal, this.order})
+      : super(key: key);
+
+  // TODO: my order format; I'd recommend modifying how you print to use this
+  final Map order;
+  // TODO: subtotal for ya Wilbert, feel free to pass this along as needed
+  final double subtotal;
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -8,11 +16,15 @@ class PaymentConfirmationScreen extends StatelessWidget {
           title: Text("Payment Confirmation"),
           backgroundColor: Colors.brown,
         ),
-        body: new PaymentConfirmation());
+        body: new PaymentConfirmation(order: order));
   }
 }
 
 class PaymentConfirmation extends StatelessWidget {
+  PaymentConfirmation({Key key, this.order})
+      : super(key: key);
+
+  final Map order;
   final double tax = 0.91;
   final Map<String, List> singleOrder = {
     "Poutine": ["M", 1, 3.50],
@@ -104,8 +116,7 @@ class OrderSummary extends StatelessWidget {
     return orderWidgets;
   }
 
-  // TODO: implement later
-  /*List<Widget> _getSizes(Map<String, List> order) {
+  List<Widget> _getSizes(Map<String, List> order) {
     List<String> listOfItems = (order.keys).toList();
     List<Widget> sizeWidgets = new List<Widget>();
     for (String item in listOfItems) {
@@ -115,10 +126,9 @@ class OrderSummary extends StatelessWidget {
         child: new Text(order[item][0])));
     }
     return sizeWidgets;
-  }*/
+  }
 
-  // TODO: implement later
-  /*List<Widget> _getQuantities(Map<String, List> order) {
+  List<Widget> _getQuantities(Map<String, List> order) {
     List<String> listOfItems = (order.keys).toList();
     List<Widget> quantityWidgets = new List<Widget>();
     for (String item in listOfItems) {
@@ -130,7 +140,7 @@ class OrderSummary extends StatelessWidget {
         child: new Text(num + "x")));
     }
     return quantityWidgets;
-  }*/
+  }
 
   List<Widget> _getPrices(Map<String, List> order) {
     List<String> listOfItems = (order.keys).toList();
@@ -161,12 +171,12 @@ class OrderSummary extends StatelessWidget {
                 new Spacer(
                   flex: 1,
                 ),
-                /*new Column(
+                new Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: _getSizes(order)),
               new Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: _getQuantities(order)),*/
+                children: _getQuantities(order)),
                 new Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: _getPrices(order)),
