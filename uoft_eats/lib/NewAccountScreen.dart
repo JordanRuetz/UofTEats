@@ -134,13 +134,18 @@ class _MyNewAccountScreenState extends State<NewAccountScreen> {
         );
       } else {
         if (dropdownValue == 'Student') {
-          Firestore.instance.collection('accounts').document()
+          fs.collection('accounts').document()
               .setData({'username': user, 'password': pass, 'isStudent': true});
+
+          fs.collection("clients").document(user).setData({"paymentEmail": "N/A"});
 
           Navigator.pushReplacementNamed(context, '/client/menus');
         } else {
-          Firestore.instance.collection('accounts').document()
+          fs.collection('accounts').document()
               .setData({'username': user, 'password': pass, 'isStudent': false});
+
+          fs.collection("servers").document(user).setData({"paymentEmail": "N/A",
+            "name": user, "hours": [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, -1, -1], "color": 0});
 
           Navigator.pushReplacementNamed(context, '/server/menus');
         }

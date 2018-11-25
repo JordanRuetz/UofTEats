@@ -14,7 +14,7 @@ class BillingInfoScreen extends StatefulWidget {
 }
 
 class _MyBillingInfoScreenState extends State<BillingInfoScreen> {
-    String user = "jordan";
+    String user = "ideal catering";
 
     final emailController = TextEditingController();
 
@@ -42,7 +42,7 @@ class _MyBillingInfoScreenState extends State<BillingInfoScreen> {
                         new Container(
                             margin: new EdgeInsets.all(10.0),
                             child: new StreamBuilder<DocumentSnapshot>(
-                                stream: Firestore.instance.collection("clients").document(user).snapshots(),
+                                stream: Firestore.instance.collection("servers").document(user).snapshots(),
                                 builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
                                     if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
                                     switch (snapshot.connectionState) {
@@ -97,7 +97,7 @@ class _MyBillingInfoScreenState extends State<BillingInfoScreen> {
             );
         } else {
             Firestore fs = Firestore.instance;
-            fs.collection("clients").document(user).updateData({"paymentEmail": email});
+            fs.collection("servers").document(user).updateData({"paymentEmail": email});
         }
 
         emailController.text = "";
