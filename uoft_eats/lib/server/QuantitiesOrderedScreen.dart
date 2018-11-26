@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:uoft_eats/server/ServerDrawer.dart';
 
@@ -13,6 +14,10 @@ class QuantitiesOrderedScreen extends StatefulWidget {
 }
 
 class _MyQuantitiesOrderedScreenState extends State<QuantitiesOrderedScreen> {
+  List<NewMenuItemTile> menuItems = new List();
+
+  String server = "ideal catering";
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -20,16 +25,36 @@ class _MyQuantitiesOrderedScreenState extends State<QuantitiesOrderedScreen> {
         appBar: new AppBar(
           title: new Text(widget.title),
         ),
-        body: new ListView(
+        body: new StreamBuilder<QuerySnapshot>(
+          stream: Firestore.instance.collection("orders").where("server", isEqualTo: server).snapshots(),
+          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
+            switch (snapshot.connectionState) {
+              case ConnectionState.waiting:
+                return new Text('Loading...');
+              default: {
+
+                  return NewMenuItemTile("something", 7, true);
+                }
+
+                //return NewMenuItemTile("something", 7, true);
+            }
+          },
+        ),
+
+/*        new ListView(
           shrinkWrap: true,
           padding: const EdgeInsets.all(20.0),
-          children: <Widget>[
+          children:
+
+
+          <Widget>[
             NewMenuItemTile('Poutine', 7, true),
             NewMenuItemTile('Burger', 4, true),
             NewMenuItemTile('Fries', 11, true),
             NewMenuItemTile('Drink', 14, false),
           ],
-        ));
+        ));*/
   }
 }
 
