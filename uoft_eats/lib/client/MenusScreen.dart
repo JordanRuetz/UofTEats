@@ -28,6 +28,7 @@ class _MyMenusScreenState extends State<MenusScreen> {
               color: Colors.brown,
             ),
             title: const Text('Ideal Catering'),
+            subtitle: const Text('Open 24/7'),
             onTap: () {
               Navigator.pushNamed(context, '/client/menus/template');
             },
@@ -38,6 +39,7 @@ class _MyMenusScreenState extends State<MenusScreen> {
               color: Colors.red,
             ),
             title: const Text('Inferior Food Truck 1'),
+            subtitle: const Text('Open 8 AM - 6 PM'),
             onTap: () {
               Navigator.pushNamed(context, '/client/menus/template');
             },
@@ -48,6 +50,7 @@ class _MyMenusScreenState extends State<MenusScreen> {
               color: Colors.blue,
             ),
             title: const Text('Inferior Food Truck 2'),
+            subtitle: const Text('Open 8 AM - 6 PM'),
             onTap: () {
               Navigator.pushNamed(context, '/client/menus/template');
             },
@@ -58,6 +61,7 @@ class _MyMenusScreenState extends State<MenusScreen> {
               color: Colors.green,
             ),
             title: const Text('Inferior Food Truck 3'),
+            subtitle: const Text('Open 8 AM - 6 PM'),
             onTap: () {
               Navigator.pushNamed(context, '/client/menus/template');
             },

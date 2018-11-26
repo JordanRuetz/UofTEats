@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(new PaymentConfirmationScreen());
-
 class PaymentConfirmationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return new Scaffold(
       appBar: AppBar(title: Text("Hours of Operation")),
       body: new PaymentConfirmation()
@@ -28,13 +25,7 @@ class PaymentConfirmation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      title: 'Payment Confirmation Page',
-      theme: new ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyPaymentConfirmation(order: singleOrder, tax: tax)
-    );
+    return new MyPaymentConfirmation(order: singleOrder, tax: tax);
   }
 }
 
@@ -292,14 +283,15 @@ class ConfirmButton extends StatelessWidget{
         elevation: 5.0,
         color: Colors.lightBlue,
         onPressed: (){
-          confirmOrder(context);
+          Navigator.pushReplacementNamed(context, '/client/paymentConfirmation/receipt');
         }
       )
     );
     return button;
   }
 
-  void confirmOrder(BuildContext context){
+  // TODO: implement this alert + redirect to receipt page if wanted
+  /*void confirmOrder(BuildContext context){
     var alert = AlertDialog(
       title: Text("Order has been placed!"),
       content: Text("Order Number: 10234")
@@ -310,7 +302,7 @@ class ConfirmButton extends StatelessWidget{
         return alert;
       }
     );
-  }
+  }*/
 }
 
 TextStyle defaultTextStyle(){

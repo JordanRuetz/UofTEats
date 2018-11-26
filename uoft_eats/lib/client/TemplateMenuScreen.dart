@@ -21,7 +21,7 @@ class _MyTemplateMenuScreenState extends State<TemplateMenuScreen> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('[FOODTRUCK] Menu'),
+        title: new Text('Ideal Catering Menu'),
         backgroundColor: Colors.brown,
       ),
       body: new ListView(
@@ -39,7 +39,7 @@ class _MyTemplateMenuScreenState extends State<TemplateMenuScreen> {
             child: new RaisedButton(
               onPressed: () {
                 // TODO implement checkout screen and link
-                //Navigator.pushNamed(context, '/client/checkout');
+                Navigator.pushNamed(context, '/client/paymentConfirmation');
               },
               child: new Text('Checkout \$${_subtotal.toStringAsFixed(2)}'),
             ),

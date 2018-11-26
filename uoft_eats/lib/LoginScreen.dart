@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LoginScreen extends StatefulWidget {
   final String title;
@@ -94,7 +95,7 @@ class _MyLoginScreenState extends State<LoginScreen> {
     if (dropdownValue == 'Student') {
       Navigator.pushReplacementNamed(context, '/client/menus');
     } else {
-      Navigator.pushReplacementNamed(context, '/server/menus');
+      Navigator.pushReplacementNamed(context, '/server');
     }
   }
 
