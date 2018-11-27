@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:uoft_eats/server/ServerDrawer.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 class ServerOrderHistory extends StatefulWidget {
   ServerOrderHistory({Key key, this.title}) : super(key: key);
@@ -40,52 +42,45 @@ class _ServerOrderHistoryState extends State<ServerOrderHistory> {
 }
 
 class OrderByTime extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new ListView(
-        children: <Widget>[
-          new OrderCard(
-              name: "Wilbert",
-              time: "7:36PM, Oct 29, 2018",
-              price: "\$ 15.00",
-              orderContents: "1 x Small Poutine\n2 x Hot Dog\n2 x Fanta Pop"
-          ),
-          new OrderCard(
-              name: "Anna",
-              time: "6:21PM, Oct 29, 2018",
-              price: "\$ 5.00",
-              orderContents: "1 x Medium Poutine"
-          ),
-          new OrderCard(
-              name: "Jordan",
-              time: "5:43PM, Oct 29, 2018",
-              price: "\$ 6.50",
-              orderContents: "1 x Hot Dog & Fries"
-          ),
-          new OrderCard(
-              name: "Finnbarr",
-              time: "4:10PM, Oct 29, 2018",
-              price: "\$ 7.25",
-              orderContents: "1 x Fish & Chips\n\t- with extra chips"
-          ),
-          new OrderCard(
-              name: "Kara",
-              time: "3:59PM, Oct 29, 2018",
-              price: "\$ 5.00",
-              orderContents: "1 x Medium Poutine"
-          ),
-          // Added another to test scroll-ability
-          new OrderCard(
-              name: "Kara",
-              time: "3:32PM, Oct 29, 2018",
-              price: "\$ 3.00",
-              orderContents: "3 x Coke Diet"
-          )
-        ]
+  Widget _buildOrderCard(BuildContext context, DocumentSnapshot document) {
+    List items = document['items'];
+    StringBuffer order = new StringBuffer();
+    for (final item in items) {
+      StringBuffer name = new StringBuffer();
+      name.write(item['quantity'].toString() + 'x ');
+      if (item['size'] != '-1') {
+        name.write(item['size'].toString() + ' ');
+      }
+      name.write(item['type'].toString() + '\n');
+      order.write(name.toString());
+    }
+    return OrderCard(
+      name: document['client'],
+      price: document['subtotal'],
+      orderContents: order.toString(),
     );
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+        stream: Firestore.instance.collection('orders').snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return const Text("Loading...");
+          }
+          return ListView.builder(
+            itemExtent: 80.0,
+            itemCount: snapshot.data.documents.length,
+            itemBuilder: (context, index) =>
+                _buildOrderCard(context, snapshot.data.documents[index]),
+          );
+        },
+    );
+  }
 }
+
+
 
 class OrderByQuantity extends StatelessWidget {
   @override
@@ -135,55 +130,24 @@ class OrderByQuantity extends StatelessWidget {
 
 class OrderCard extends StatelessWidget {
   final String name;
-  final String time;
   final String price;
   final String orderContents;
 
   OrderCard(
-      {Key key, this.name, this.time, this.price, this.orderContents})
+      {Key key, this.name, this.price, this.orderContents})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return new Card(
-        child: new Column(
-//        crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Container(
-              margin: const EdgeInsets.all(20.0),
-              child: new Row(
-                  children: <Widget>[
-                    // Icon
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(5.0, 5.0, 25.0, 5.0),
-                      child: Icon(Icons.check_circle_outline),
-                    ),
-                    // Order
-                    Padding(
-                      padding: const EdgeInsets.only(right: 100.0),
-                      child: new Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          // Name
-                          Text("$name",
-                              style: new TextStyle(fontSize: 28.0,
-                                  fontWeight: FontWeight.bold)),
-                          // Order
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: Text("$time\n$orderContents"),
-                          ),
-                        ],
-                      ),
-                    ),
-                    // Price
-                    new Text("$price"),
-                  ]
-              ),
-            ),
-          ],
-        )
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 25.0),
+      child:
+        ListTile(
+          leading: Icon(Icons.check_circle_outline),
+          title: Text("$name", style: new TextStyle(fontSize: 28.0,
+              fontWeight: FontWeight.bold)),
+          subtitle: Text("$orderContents"),
+        ),
     );
   }
 }
