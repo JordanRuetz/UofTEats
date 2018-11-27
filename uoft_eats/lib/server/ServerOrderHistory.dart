@@ -47,7 +47,7 @@ class OrderByTime extends StatelessWidget {
     StringBuffer order = new StringBuffer();
     for (final item in items) {
       StringBuffer name = new StringBuffer();
-      name.write(item['quantity'].toString() + 'x ');
+      name.write(item['quantity'].toString() + ' x ');
       if (item['size'] != '-1') {
         name.write(item['size'].toString() + ' ');
       }
@@ -64,18 +64,26 @@ class OrderByTime extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: Firestore.instance.collection('orders').snapshots(),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return const Text("Loading...");
+      stream: Firestore.instance.collection('orders').snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) return Center(
+            child: const Text("Loading...",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            )
+        );
+        List documents = [];
+        for (final document in snapshot.data.documents) {
+          if (document['status'].toString() == '2') {
+            documents.add(document);
           }
-          return ListView.builder(
-            itemExtent: 80.0,
-            itemCount: snapshot.data.documents.length,
-            itemBuilder: (context, index) =>
-                _buildOrderCard(context, snapshot.data.documents[index]),
-          );
-        },
+        }
+        return new ListView.builder(
+          itemCount: documents.length,
+          itemBuilder: (context, index) {
+            return _buildOrderCard(context, documents[index]);
+          },
+        );
+      },
     );
   }
 }
@@ -83,48 +91,80 @@ class OrderByTime extends StatelessWidget {
 
 
 class OrderByQuantity extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
-    return new ListView(
-        children: <Widget>[
-          new ItemCard(
-            name: "Medium Poutine",
-            quantity: 53,
-            revenue: 265.0,
-          ),
-          new ItemCard(
-            name: "All-Beef Hot Dog",
-            quantity: 49,
-            revenue: 147.0,
-          ),
-          new ItemCard(
-            name: "Hot Dog with Fries",
-            quantity: 48,
-            revenue: 288.0,
-          ),
-          new ItemCard(
-            name: "Cheeseburger with Fries",
-            quantity: 34,
-            revenue: 221.0,
-          ),
-          new ItemCard(
-            name: "Small Poutine",
-            quantity: 32,
-            revenue: 144.0,
-          ),
-          new ItemCard(
-            name: "Large Poutine",
-            quantity: 30,
-            revenue: 180.0,
-          ),
-          new ItemCard(
-            name: "Veggie Hot Dog",
-            quantity: 15,
-            revenue: 45.0,
-          ),
-        ]
+    return StreamBuilder(
+      stream: Firestore.instance.collection('orders').snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Center(
+              child: const Text("Loading...",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              )
+          );
+        }
+        List documents = [];
+        for (final document in snapshot.data.documents) {
+          if (document['status'].toString() == '2') {
+            documents.add(document);
+          }
+        }
+        return new ListView.builder(
+          itemCount: documents.length,
+          itemBuilder: (context, index) {
+            return _buildQuantityCard(context, documents[index]);
+          },
+        );
+      },
     );
   }
+
+  _buildQuantityCard(BuildContext context, document) {
+//    {Key key, this.name, this.quantity, this.revenue}
+  }
+//  @override
+//  Widget build(BuildContext context) {
+//    return new ListView(
+//        children: <Widget>[
+//          new ItemCard(
+//            name: "Medium Poutine",
+//            quantity: 53,
+//            revenue: 265.0,
+//          ),
+//          new ItemCard(
+//            name: "All-Beef Hot Dog",
+//            quantity: 49,
+//            revenue: 147.0,
+//          ),
+//          new ItemCard(
+//            name: "Hot Dog with Fries",
+//            quantity: 48,
+//            revenue: 288.0,
+//          ),
+//          new ItemCard(
+//            name: "Cheeseburger with Fries",
+//            quantity: 34,
+//            revenue: 221.0,
+//          ),
+//          new ItemCard(
+//            name: "Small Poutine",
+//            quantity: 32,
+//            revenue: 144.0,
+//          ),
+//          new ItemCard(
+//            name: "Large Poutine",
+//            quantity: 30,
+//            revenue: 180.0,
+//          ),
+//          new ItemCard(
+//            name: "Veggie Hot Dog",
+//            quantity: 15,
+//            revenue: 45.0,
+//          ),
+//        ]
+//    );
+//  }
 
 }
 
@@ -152,12 +192,13 @@ class OrderCard extends StatelessWidget {
   }
 }
 
-class ItemCard extends StatelessWidget {
+class QuantityCard extends StatelessWidget {
   final String name;
   final int quantity;
   final double revenue;
 
-  const ItemCard({Key key, this.name, this.quantity, this.revenue}) : super(key: key);
+  const QuantityCard(
+      {Key key, this.name, this.quantity, this.revenue}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
