@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uoft_eats/client/ClientReceipt.dart';
 
 class PaymentConfirmationScreen extends StatefulWidget{
   PaymentConfirmationScreen({Key key, this.subtotal, this.order})
@@ -57,7 +58,7 @@ class MyPaymentConfirmation extends StatelessWidget {
             child: new ListView(
       children: [
         //Header
-        new PaymentConfirmationHeader(),
+        new PaymentConfirmationHeader(order: order),
         new OrderSummary(order: order, tax: tax)
         //Content
       ],
@@ -66,6 +67,11 @@ class MyPaymentConfirmation extends StatelessWidget {
 }
 
 class PaymentConfirmationHeader extends StatelessWidget {
+  final Map<String, List> order;
+
+  PaymentConfirmationHeader({Key key, this.order})
+    : super(key: key);
+
   var price = 7.91;
   var headerHeight = 200.0;
 
@@ -90,7 +96,7 @@ class PaymentConfirmationHeader extends StatelessWidget {
             new Container(
               height: 10.0,
             ),
-            new ConfirmButton(),
+            new ConfirmButton(order: order),
             new Container(
               padding: EdgeInsets.only(left: 10.0),
               height: 30.0,
@@ -260,6 +266,11 @@ class OrderSummary extends StatelessWidget {
 }
 
 class ConfirmButton extends StatelessWidget {
+  final Map<String, List> order;
+
+  ConfirmButton({Key key, this.order})
+    : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     var button = Container(
@@ -268,8 +279,17 @@ class ConfirmButton extends StatelessWidget {
             elevation: 5.0,
             color: Colors.green,
             onPressed: () {
-              Navigator.pushReplacementNamed(
-                  context, '/client/paymentConfirmation/receipt');
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ClientReceipt(
+                    orderNum: 0,
+                    foodTruck: "Name",
+                    order: order,
+                    tax: 0.0
+                  )
+                )
+              );
             }));
     return button;
   }
