@@ -21,7 +21,7 @@ class _MyPaymentConfirmationScreen extends State<PaymentConfirmationScreen>{
     return new Scaffold(
         appBar: AppBar(
           title: Text("Payment Confirmation"),
-          backgroundColor: Colors.brown,
+          backgroundColor: Colors.blue,
         ),
         body: new PaymentConfirmation(order: widget.order));
   }
@@ -32,24 +32,26 @@ class PaymentConfirmation extends StatelessWidget {
       : super(key: key);
 
   final Map order;
-  final double tax = 0.91;
-  final Map<String, List> singleOrder = {
-    "Poutine": ["M", 1, 3.50],
-    "Burger": ["S", 1, 2.50],
-    "Drink": ["-", 1, 1.00],
-  };
+  final double tax = 0.0;
+//  final Map<String, List> singleOrder = {
+//    "Poutine": ["M", 1, 3.50],
+//    "Burger": ["S", 1, 2.50],
+//    "Drink": ["-", 1, 1.00],
+//  };
 
   @override
   Widget build(BuildContext context) {
-    return new MyPaymentConfirmation(order: singleOrder, tax: tax);
+    return new MyPaymentConfirmation(order: order, tax: tax);
   }
 }
 
 class MyPaymentConfirmation extends StatelessWidget {
-  final Map<String, List> order;
-  final double tax;
+  MyPaymentConfirmation({Key key, this.order, this.tax})
+    : super(key: key);
 
-  MyPaymentConfirmation({Key key, this.order, this.tax}) : super(key: key);
+  //  final Map<String, List> order;
+  Map order = new Map();
+  final double tax;
 
   @override
   Widget build(BuildContext context) {

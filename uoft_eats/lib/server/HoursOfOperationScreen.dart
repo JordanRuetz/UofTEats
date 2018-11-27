@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HoursOfOperationScreen extends StatefulWidget {
 
@@ -12,26 +13,45 @@ class _HoursOfOperationScreen extends State<HoursOfOperationScreen> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(title: Text("Hours of Operation")),
-      body: Container(
-        padding: new EdgeInsets.all(20.0),
-        child: new ListView(
-          children: <Widget>[
-            new HoursOfOperationsTable(),
-          ],
-        )
+      body: StreamBuilder<QuerySnapshot>(
+        stream: Firestore.instance.collection("servers").snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
+          if(snapshot.hasError) return new Text('Error: ${snapshot.error}');
+          switch (snapshot.connectionState){
+            case ConnectionState.waiting:
+              return new Text('Loading....');
+            default:
+              return new Container(
+                padding: new EdgeInsets.all(20.0),
+                child: new ListView(
+                  children: <Widget>[
+                    new HoursOfOperationsTable(document: snapshot.data.documents),
+                  ],
+                )
+              );
+          }
+        }
       )
     );
   }
 }
 
-TextStyle defaultTextStyle(){
-  return TextStyle(
-    fontSize: 20.0,
-    decoration: TextDecoration.none
-  );
+DocumentSnapshot getFoodTruckDocument(List<DocumentSnapshot> documentList){
+
+  DocumentSnapshot document;
+
+//  documentList.map((DocumentSnapshot d){
+//    if()
+//  });
 }
 
 class HoursOfOperationsTable extends StatelessWidget{
+  HoursOfOperationsTable({Key key, this.document}) : super(key: key);
+
+  List<DocumentSnapshot> document;
+
+
+
   @override
   Widget build(BuildContext context) {
     return new Container(
@@ -252,4 +272,12 @@ class SaveButton extends StatelessWidget{
       }
     );
   }
+}
+
+
+TextStyle defaultTextStyle(){
+  return TextStyle(
+    fontSize: 20.0,
+    decoration: TextDecoration.none
+  );
 }
