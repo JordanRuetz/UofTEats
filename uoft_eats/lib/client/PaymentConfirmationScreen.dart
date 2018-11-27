@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 
-class PaymentConfirmationScreen extends StatelessWidget {
+class PaymentConfirmationScreen extends StatefulWidget{
   PaymentConfirmationScreen({Key key, this.subtotal, this.order})
-      : super(key: key);
+    : super(key: key);
 
   // TODO: my order format; I'd recommend modifying how you print to use this
   final Map order;
   // TODO: subtotal for ya Wilbert, feel free to pass this along as needed
   final double subtotal;
+
+  @override
+  _MyPaymentConfirmationScreen createState() => new _MyPaymentConfirmationScreen();
+}
+
+class _MyPaymentConfirmationScreen extends State<PaymentConfirmationScreen>{
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +22,7 @@ class PaymentConfirmationScreen extends StatelessWidget {
           title: Text("Payment Confirmation"),
           backgroundColor: Colors.brown,
         ),
-        body: new PaymentConfirmation(order: order));
+        body: new PaymentConfirmation(order: widget.order));
   }
 }
 
