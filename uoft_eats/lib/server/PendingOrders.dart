@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:uoft_eats/server/ServerDrawer.dart';
 import 'ReceiptHeaders.dart';
@@ -8,8 +10,9 @@ import 'FoodOrdered.dart';
 class PendingOrders extends StatefulWidget {
   final Map<int, Tuple2<String, Map<String, List>>> customerOrders;
   final double taxPercent;
+  AsyncSnapshot<QuerySnapshot> snapshot;
 
-  PendingOrders({Key key, this.customerOrders, this.taxPercent})
+  PendingOrders({Key key, this.customerOrders, this.taxPercent, this.snapshot})
       : super(key: key);
 
   @override
@@ -26,16 +29,17 @@ class _PendingOrders extends State<PendingOrders> {
         drawer: ServerDrawer(),
         body: OrderBody(
             customerOrders: widget.customerOrders,
-            taxPercent: widget.taxPercent));
-  }
+            taxPercent: widget.taxPercent, snapshot: widget.snapshot));
+    }
 }
 
 
 class OrderBody extends StatefulWidget {
   final Map<int, Tuple2<String, Map<String, List>>> customerOrders;
   double taxPercent;
+  AsyncSnapshot<QuerySnapshot> snapshot;
 
-  OrderBody({this.customerOrders, this.taxPercent});
+  OrderBody({this.customerOrders, this.taxPercent, this.snapshot});
 
   @override
   State<StatefulWidget> createState() {
@@ -46,18 +50,26 @@ class OrderBody extends StatefulWidget {
 class _OrderBodyState extends State<OrderBody> {
   Map<int, Tuple2<String, Map<String, List>>> customerOrders;
 
+  void _completeOrder(int order) {
+
+      for (int i = 0; i < widget.snapshot.data.documents.length; i++) {
+        if (widget.snapshot.data.documents[i]['orderNumber'] == order) {
+          var documentID = widget.snapshot.data.documents[i].documentID;
+          Firestore.instance.collection('orders').document(documentID).updateData({'status': 1});
+        }
+      }
+
+      Navigator.pushReplacementNamed(
+          context,'/server/orders');
+
+  }
+
   List<Widget> _getAllOrders() {
     customerOrders = widget.customerOrders;
     List<int> orderNumbers = (customerOrders).keys.toList();
     orderNumbers.sort();
 
     List<Widget> fullList = new List<Widget>();
-
-    fullList.add(new Row(
-      children: <Widget>[new RaisedButton(child: new Text("Refresh"), onPressed: () {setState(()
-      {});}
-      )]
-    ));
 
     for (int order in orderNumbers) {
       Tuple2<String, Map<String, List>> singleOrder = customerOrders[order];
@@ -78,7 +90,8 @@ class _OrderBodyState extends State<OrderBody> {
         ReceiptHeaders(),
         new Divider(color: Colors.blue),
         FoodOrdered(order: customerOrder, taxPercent: widget.taxPercent),
-      
+        new RaisedButton(child: new Text("Complete Order#" + order.toString()), onPressed: () {_completeOrder(order);}
+        ),
         new Divider(color: Colors.black87),
         new SizedBox(
           height: 12.0,
