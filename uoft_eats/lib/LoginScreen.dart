@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'globals.dart' as globals;
 
 class LoginScreen extends StatefulWidget {
   final String title;
@@ -96,6 +97,8 @@ class _MyLoginScreenState extends State<LoginScreen> {
   }
 
   void _login() async {
+    print(globals.user);
+
     String user = userController.text;
     String pass = Text(passController.text).data;
 
