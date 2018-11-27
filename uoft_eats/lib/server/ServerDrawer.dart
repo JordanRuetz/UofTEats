@@ -45,6 +45,14 @@ class ServerDrawer extends StatelessWidget {
                             Navigator.pushReplacementNamed(context, '/server/billingInfo');
                         },
                     ),
+                    ListTile(
+                      leading: const Icon(Icons.settings),
+                      title: Text('Edit Hours of Operation'),
+                      onTap: () {
+                        Navigator.pop(context); // Closes the drawer before moving
+                        Navigator.pushReplacementNamed(context, '/server/editHoursOfOperation');
+                      },
+                    ),
                 ],
             ));
     }
