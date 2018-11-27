@@ -14,7 +14,7 @@ class MenuItemEdit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new ItemEditablesPage(
-          name: name, description: description, price: price,);
+      name: name, description: description, price: price,);
   }
 }
 
@@ -47,13 +47,13 @@ class ItemEditables extends State<ItemEditablesPage> {
               new TextFormField(
                 initialValue: widget.name,
                 decoration: new InputDecoration(
-                    labelText: "Enter your new name",),
+                  labelText: "Enter your new name",),
                 keyboardType: TextInputType.text,
               ),
               new TextFormField(
                 initialValue: widget.price.toString(),
                 decoration: new InputDecoration(
-                    labelText: "Enter your new price",),
+                  labelText: "Enter your new price",),
                 keyboardType: TextInputType.number,
               ),
               new TextFormField(
@@ -67,15 +67,15 @@ class ItemEditables extends State<ItemEditablesPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget> [
                   new RaisedButton(
-                    onPressed: () {
-  //                  this doesn't seem to work... why?
-  //                  Navigator.of(context).pop(true);
-                    }, child: Text("Confirm")
+                      onPressed: () {
+                        //                  this doesn't seem to work... why?
+                        //                  Navigator.of(context).pop(true);
+                      }, child: Text("Confirm")
                   ),
                   new RaisedButton(
                       onPressed: () {
-  //                  this doesn't seem to work... why?
-  //                  Navigator.of(context).pop(true);
+                        //                  this doesn't seem to work... why?
+                        //                  Navigator.of(context).pop(true);
                       }, child: Text("Cancel")
                   ),
                 ],

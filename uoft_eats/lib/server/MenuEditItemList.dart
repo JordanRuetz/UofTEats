@@ -19,18 +19,18 @@ class _MenuEditItemListState extends State<MenuEditItemList> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-          drawer: new ServerDrawer(),
-          appBar: AppBar(
-            title: Text("Edit Menu"),
-          ),
-          body: ListView(
-              children: [
-                new EditableMenuItem(name: "Small Poutine", description: "Serves 1", price: 4.50),
-                new EditableMenuItem(name: "Medium Poutine", description: "Serves 1-2", price: 5.50),
-                new EditableMenuItem(name: "Large Poutine", description: "Serves 1-3", price: 6.50,),
-              ]
-          )
-        );
+        drawer: new ServerDrawer(),
+        appBar: AppBar(
+          title: Text("Edit Menu"),
+        ),
+        body: ListView(
+            children: [
+              new EditableMenuItem(name: "Small Poutine", description: "Serves 1", price: 4.50),
+              new EditableMenuItem(name: "Medium Poutine", description: "Serves 1-2", price: 5.50),
+              new EditableMenuItem(name: "Large Poutine", description: "Serves 1-3", price: 6.50,),
+            ]
+        )
+    );
   }
 }
 

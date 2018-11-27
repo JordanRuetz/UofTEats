@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:uoft_eats/server/ServerDrawer.dart';
 
@@ -15,25 +16,25 @@ class _ServerOrderHistoryState extends State<ServerOrderHistory> {
   @override
   Widget build(BuildContext context) {
     return new DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          drawer: new ServerDrawer(),
-          appBar: AppBar(
-            bottom: TabBar(
-              tabs: [
-                Tab(text: "BY DATE"),
-                Tab(text: "BY QUANTITY"),
-              ],
-            ),
-            title: Text("ORDER HISTORY"),
-          ),
-          body: TabBarView(
-            children: [
-              OrderByTime(),
-              OrderByQuantity()
+      length: 3,
+      child: Scaffold(
+        drawer: new ServerDrawer(),
+        appBar: AppBar(
+          bottom: TabBar(
+            tabs: [
+              Tab(text: "BY DATE"),
+              Tab(text: "BY QUANTITY"),
             ],
           ),
+          title: Text("ORDER HISTORY"),
         ),
+        body: TabBarView(
+          children: [
+            OrderByTime(),
+            OrderByQuantity()
+          ],
+        ),
+      ),
     );
   }
 }
