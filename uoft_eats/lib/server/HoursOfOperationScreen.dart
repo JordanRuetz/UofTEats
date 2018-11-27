@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 
-class HoursOfOperationScreen extends StatelessWidget {
+class HoursOfOperationScreen extends StatefulWidget {
+
+  _HoursOfOperationScreen createState() => new _HoursOfOperationScreen();
+
+}
+
+class _HoursOfOperationScreen extends State<HoursOfOperationScreen> {
 
   @override
   Widget build(BuildContext context) {
