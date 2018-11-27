@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'LoginScreen.dart';
 import 'NewAccountScreen.dart';
@@ -25,10 +26,29 @@ import 'server/HoursOfOperationScreen.dart';
 
 void main() => runApp(new MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   // This widget is the root of your application.
+
+  @override
+  _MyApp createState() => new _MyApp();
+}
+
+class _MyApp extends State<MyApp> {
+
+
+  @override
+  void initState(){
+
+    Firestore.instance.collection('mountains').document()
+      .setData({ 'title': 'Mount Anna', 'type': 'Amazing Wilbert' });
+
+    super.initState();
+
+  }
+
   @override
   Widget build(BuildContext context) {
+    // TODO: implement build
     return new MaterialApp(
       title: 'UofT Eats',
       theme: new ThemeData(
@@ -61,5 +81,6 @@ class MyApp extends StatelessWidget {
         '/server/editHoursOfOperation': (BuildContext context) => HoursOfOperationScreen(),
       },
     );
+    return null;
   }
 }
