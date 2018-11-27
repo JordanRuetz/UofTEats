@@ -56,14 +56,14 @@ class OrderByTime extends StatelessWidget {
     }
     return OrderCard(
       name: document['client'],
-      price: document['subtotal'],
+      subtotal: document['subtotal'],
       orderContents: order.toString(),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
+    return new StreamBuilder(
       stream: Firestore.instance.collection('orders').snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return Center(
@@ -88,8 +88,6 @@ class OrderByTime extends StatelessWidget {
   }
 }
 
-
-
 class OrderByQuantity extends StatelessWidget {
 
   @override
@@ -104,89 +102,60 @@ class OrderByQuantity extends StatelessWidget {
               )
           );
         }
-        List documents = [];
+        List<DocumentSnapshot> documents = [];
         for (final document in snapshot.data.documents) {
           if (document['status'].toString() == '2') {
             documents.add(document);
           }
         }
+        Map<String, int> map = new Map();
+        for (final document in documents) {
+          for (final item in document['items']) {
+            StringBuffer nameBuffer = new StringBuffer('');
+            if (item['size'] != '-1') {
+              nameBuffer.write(item['size'].toString() + ' ');
+            }
+            nameBuffer.write(item['type']);
+            String name = nameBuffer.toString();
+            map.putIfAbsent(name, () => 0);
+            map[name] += item['quantity'];
+          }
+        }
         return new ListView.builder(
-          itemCount: documents.length,
+          itemCount: map.length,
           itemBuilder: (context, index) {
-            return _buildQuantityCard(context, documents[index]);
+            String name = map.keys.toList()[index];
+            int quantity = map[name];
+            return new QuantityCard(
+              name: name,
+              quantity: quantity,
+            );
           },
         );
       },
     );
   }
-
-  _buildQuantityCard(BuildContext context, document) {
-//    {Key key, this.name, this.quantity, this.revenue}
-  }
-//  @override
-//  Widget build(BuildContext context) {
-//    return new ListView(
-//        children: <Widget>[
-//          new ItemCard(
-//            name: "Medium Poutine",
-//            quantity: 53,
-//            revenue: 265.0,
-//          ),
-//          new ItemCard(
-//            name: "All-Beef Hot Dog",
-//            quantity: 49,
-//            revenue: 147.0,
-//          ),
-//          new ItemCard(
-//            name: "Hot Dog with Fries",
-//            quantity: 48,
-//            revenue: 288.0,
-//          ),
-//          new ItemCard(
-//            name: "Cheeseburger with Fries",
-//            quantity: 34,
-//            revenue: 221.0,
-//          ),
-//          new ItemCard(
-//            name: "Small Poutine",
-//            quantity: 32,
-//            revenue: 144.0,
-//          ),
-//          new ItemCard(
-//            name: "Large Poutine",
-//            quantity: 30,
-//            revenue: 180.0,
-//          ),
-//          new ItemCard(
-//            name: "Veggie Hot Dog",
-//            quantity: 15,
-//            revenue: 45.0,
-//          ),
-//        ]
-//    );
-//  }
-
 }
 
 class OrderCard extends StatelessWidget {
   final String name;
-  final String price;
+  final String subtotal;
   final String orderContents;
 
   OrderCard(
-      {Key key, this.name, this.price, this.orderContents})
+      {Key key, this.name, this.subtotal, this.orderContents})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 25.0),
+      padding: const EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0.0),
       child:
         ListTile(
           leading: Icon(Icons.check_circle_outline),
           title: Text("$name", style: new TextStyle(fontSize: 28.0,
               fontWeight: FontWeight.bold)),
-          subtitle: Text("$orderContents"),
+          subtitle: Text("Subtotal: \$$subtotal\n$orderContents"),
         ),
     );
   }
@@ -195,10 +164,10 @@ class OrderCard extends StatelessWidget {
 class QuantityCard extends StatelessWidget {
   final String name;
   final int quantity;
-  final double revenue;
+//  final double revenue;
 
   const QuantityCard(
-      {Key key, this.name, this.quantity, this.revenue}) : super(key: key);
+      {Key key, this.name, this.quantity}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -233,9 +202,8 @@ class QuantityCard extends StatelessWidget {
                           ],
                         ),
                       ),
-                      // Price
-                      Text("Revenue:\n\$$revenue", textAlign: TextAlign.center,
-                          style: new TextStyle(fontWeight: FontWeight.w100))
+//                      Text("Revenue:\n\$$revenue", textAlign: TextAlign.center,
+//                          style: new TextStyle(fontWeight: FontWeight.w100))
                     ]
                 )
             ),
