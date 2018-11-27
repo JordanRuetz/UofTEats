@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:uoft_eats/server/ServerDrawer.dart';
 
@@ -12,6 +14,10 @@ class BillingInfoScreen extends StatefulWidget {
 }
 
 class _MyBillingInfoScreenState extends State<BillingInfoScreen> {
+    String user = "ideal catering";
+
+    final emailController = TextEditingController();
+
     @override
     Widget build(BuildContext context) {
         return new Scaffold(
@@ -35,7 +41,18 @@ class _MyBillingInfoScreenState extends State<BillingInfoScreen> {
                         ),
                         new Container(
                             margin: new EdgeInsets.all(10.0),
-                            child: new Text('N/A'),
+                            child: new StreamBuilder<DocumentSnapshot>(
+                                stream: Firestore.instance.collection("servers").document(user).snapshots(),
+                                builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                                    if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
+                                    switch (snapshot.connectionState) {
+                                        case ConnectionState.waiting:
+                                            return new Text('Loading...');
+                                        default:
+                                            return new Text(snapshot.data["paymentEmail"]);
+                                    }
+                                },
+                            ),
                         ),
                         new Spacer(flex: 2),
                         new Container(
@@ -52,12 +69,12 @@ class _MyBillingInfoScreenState extends State<BillingInfoScreen> {
                         ),
                         new Container(
                             width: 200.0,
-                            child: new TextField(),
+                            child: new TextField(controller: emailController,),
                         ),
                         new Container(
                             margin: new EdgeInsets.all(10.0),
                             child: new RaisedButton(
-                                onPressed: _validateAccount,
+                                onPressed: _changeAccount,
                                 child: new Text('Change Account'),
                             ),
                         ),
@@ -68,7 +85,21 @@ class _MyBillingInfoScreenState extends State<BillingInfoScreen> {
         );
     }
 
-    void _validateAccount() {
+    void _changeAccount() async {
+        String email = emailController.text;
 
+        if (email == '') {
+            Fluttertoast.showToast(
+                msg: "Email cannot be empty",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIos: 2
+            );
+        } else {
+            Firestore fs = Firestore.instance;
+            fs.collection("servers").document(user).updateData({"paymentEmail": email});
+        }
+
+        emailController.text = "";
     }
 }
