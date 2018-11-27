@@ -108,9 +108,12 @@ class _MyLoginScreenState extends State<LoginScreen> {
     QuerySnapshot query = await fs.collection("accounts").getDocuments();
     List<DocumentSnapshot> docs = query.documents;
 
+    bool logged = false;
+
     for (int i = 0; i < docs.length; i++) {
       if (docs[i]['username'] == user && docs[i]['password'] == pass &&
           docs[i]['isStudent'] == isStudent) {
+        logged = true;
         if (isStudent) {
           Navigator.pushReplacementNamed(context, '/client/menus');
         } else {
@@ -119,12 +122,14 @@ class _MyLoginScreenState extends State<LoginScreen> {
       }
     }
 
-    Fluttertoast.showToast(
+    if (!logged) {
+      Fluttertoast.showToast(
         msg: "Invalid Login",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIos: 2
-    );
+      );
+    }
   }
 
   void _support() {
