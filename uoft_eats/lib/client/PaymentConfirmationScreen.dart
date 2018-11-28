@@ -31,6 +31,28 @@ class PaymentConfirmation extends StatelessWidget {
   List<List> myOrder;
 
 
+  List<List> createOrder(Map myOrder){
+
+    print('-------------------------------------------------------');
+    print('-------------------------------------------------------');
+    print('-------------------------------------------------------');
+    print(myOrder.toString());
+    print('-------------------------------------------------------');
+    print('-------------------------------------------------------');
+    print('-------------------------------------------------------');
+
+    List<List> temp = [];
+//    myOrder.forEach((key, value) => (){
+//      temp.add(value);
+//    });
+    var keys = myOrder.keys.toList();
+    for(int i = 0; i < myOrder.length; i++){
+      temp.add(myOrder[keys[i]]);
+    }
+
+    return temp;
+  }
+
   ExpansionTile _newMenuItemTile() {
     return ExpansionTile(
       leading: Icon(
@@ -44,40 +66,34 @@ class PaymentConfirmation extends StatelessWidget {
 
   List<Widget> _generateItemTile() {
 
-    List returnList;
+    myOrder = createOrder(order);
+    List<Widget> returnList = [];
 
     for (int i = 0; i < myOrder.length; i++) {
       // Initialize 'order' with a key for every size + item combo
       // corresponding to a value representing quantity of combo in order
 
-      print(myOrder[i]);
-
-      returnList[i] = new ListTile(
-        trailing: new Row(
-          children: <Widget>[
-            new Text(myOrder[i][1]),
-            Spacer(flex: 1),
-            new Text(myOrder[i][2]),
-            Spacer(flex: 1),
-            new Text(myOrder[i][0]),
-            Spacer(flex: 1),
-            new Text('\$${(myOrder[i][3] * myOrder[i][0]).toStringAsFixed(2)}'),
-            Spacer(flex: 1),
-          ],
-        ),
-      );
+      if(myOrder[i][0] > 0){
+        returnList.add(new ListTile(
+          trailing: new Row(
+            children: <Widget>[
+              new Text(myOrder[i][1].toString()),
+              Spacer(flex: 1),
+              new Text(myOrder[i][2].toString()),
+              Spacer(flex: 1),
+              new Text(myOrder[i][0].toString()),
+              Spacer(flex: 1),
+              new Text('\$${(myOrder[i][3] * myOrder[i][0]).toStringAsFixed(2)}'),
+              Spacer(flex: 1),
+            ],
+          ),
+        ));
+      }
     }
 
     return returnList;
   }
 
-  List<List> createOrder(Map myOrder){
-    List<List> temp = [];
-    myOrder.forEach((key, value) => (){
-      temp.add(value);
-    });
-    return temp;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +104,9 @@ class PaymentConfirmation extends StatelessWidget {
             //Header
             new PaymentConfirmationHeader(order: createOrder(order), subTotal: subTotal),
 //            new OrderSummary(order: widget.order, tax: widget.tax)
-            _newMenuItemTile()
+            new Container(
+              child: _newMenuItemTile()
+            )
             //Content
           ],
         )));
@@ -137,59 +155,6 @@ class PaymentConfirmationHeader extends StatelessWidget {
   }
 }
 
-//class myOrderSummary extends StatelessWidget{
-//  myOrderSummary({Key key, this.myOrder})
-//    : super(key: key);
-//
-//  List<List> myOrder;
-//
-//
-//  ExpansionTile _newMenuItemTile() {
-//    return ExpansionTile(
-//      leading: Icon(
-//        Icons.fastfood,
-//      ),
-//      title: Text("Order Summary"),
-//      backgroundColor: Colors.white70,
-//      children: _generateItemTile(),
-//    );
-//  }
-//
-//  List<Widget> _generateItemTile() {
-//
-//    List returnList;
-//
-//    for (int i = 0; i < myOrder.length; i++) {
-//      // Initialize 'order' with a key for every size + item combo
-//      // corresponding to a value representing quantity of combo in order
-//
-//      print(myOrder[i]);
-//
-//      returnList[i] = new ListTile(
-//        trailing: new Row(
-//          children: <Widget>[
-//            new Text(myOrder[i][1]),
-//            Spacer(flex: 1),
-//            new Text(myOrder[i][2]),
-//            Spacer(flex: 1),
-//            new Text(myOrder[i][0]),
-//            Spacer(flex: 1),
-//            new Text('\$${(myOrder[i][3] * myOrder[i][0]).toStringAsFixed(2)}'),
-//            Spacer(flex: 1),
-//          ],
-//        ),
-//      );
-//    }
-//
-//    return returnList;
-//  }
-//
-//  @override
-//  Widget build(BuildContext context) {
-//      new _newMenuItemTile();
-//  }
-//
-//}
 
 class ConfirmButton extends StatelessWidget {
   final List order;
