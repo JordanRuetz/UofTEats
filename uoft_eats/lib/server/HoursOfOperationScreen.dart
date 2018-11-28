@@ -3,8 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:uoft_eats/server/ServerDrawer.dart';
 import 'package:uoft_eats/globals.dart' as globals;
 
-List<TextEditingController> openingControllerList;
-List<TextEditingController> closingControllerList;
 List<String> textFieldValues = new List(14);
 
 class HoursOfOperationScreen extends StatefulWidget {
@@ -209,7 +207,6 @@ class _GenerateOpeningTimes extends State<GenerateOpeningTimes>{
   List<Widget> _getHours(List<String> hours) {
     List<Widget> hourWidgets = new List<Widget>();
     List<TextEditingController> controllerList = populateControllerList(widget.document);
-    openingControllerList = populateControllerList(widget.document);
     for(int i = 0; i < generateOpeningTimes(widget.document).length; i++) {
       textFieldValues[i] = generateOpeningTimes(widget.document)[i];
       hourWidgets.add(
@@ -361,7 +358,6 @@ class _GenerateClosingTimes extends State<GenerateClosingTimes>{
   List<Widget> _getHours(List<String> hours) {
     List<Widget> hourWidgets = new List<Widget>();
     List<TextEditingController> controllerList = populateControllerList(widget.document);
-    closingControllerList = populateControllerList(widget.document);
     for(int i = 0; i < generateClosingTimes(widget.document).length; i++) {
       textFieldValues[i + 7] = generateClosingTimes(widget.document)[i];
       hourWidgets.add(
