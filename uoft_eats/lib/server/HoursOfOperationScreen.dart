@@ -157,8 +157,6 @@ class _GenerateOpeningTimes extends State<GenerateOpeningTimes>{
   var satOpenController;
   var sunOpenController;
 
-//  List<TextEditingController> controllerList = [];
-
   List<TextEditingController> populateControllerList(DocumentSnapshot document){
 
     List<String> openingTimes = [];
@@ -215,11 +213,6 @@ class _GenerateOpeningTimes extends State<GenerateOpeningTimes>{
           width: widget.columnWidth,
           margin: new EdgeInsets.only(bottom: widget.rowSpacing),
           child: new TextFormField(
-//            initialValue: generateOpeningTimes(widget.document)[i],
-//            decoration: InputDecoration(
-//              border: InputBorder.none,
-//              hintText: generateOpeningTimes(widget.document)[i]
-//            ),
             controller: controllerList[i],
           ),
         )
@@ -301,6 +294,46 @@ class GenerateClosingTimes extends StatefulWidget{
 }
 
 class _GenerateClosingTimes extends State<GenerateClosingTimes>{
+
+  var monCloseController;
+  var tuesCloseController;
+  var wedCloseController;
+  var thursCloseController;
+  var friCloseController;
+  var satCloseController;
+  var sunCloseController;
+
+  List<TextEditingController> populateControllerList(DocumentSnapshot document){
+
+    List<String> closingTimes = [];
+    for(int i = 0; i < document['hours'].length; i++){
+      if(i % 2 != 0) {
+        if(document['hours'][i] == -1){
+          closingTimes.add("closed");
+        }else{
+          closingTimes.add(document['hours'][i].toString());
+        }
+      }
+    }
+
+    List<TextEditingController> L = [];
+    monCloseController = TextEditingController(text: closingTimes[0]);
+    L.add(monCloseController);
+    tuesCloseController = TextEditingController(text: closingTimes[1]);
+    L.add(tuesCloseController);
+    wedCloseController = TextEditingController(text: closingTimes[2]);
+    L.add(wedCloseController);
+    thursCloseController = TextEditingController(text: closingTimes[3]);
+    L.add(thursCloseController);
+    friCloseController = TextEditingController(text: closingTimes[4]);
+    L.add(friCloseController);
+    satCloseController = TextEditingController(text: closingTimes[5]);
+    L.add(satCloseController);
+    sunCloseController = TextEditingController(text: closingTimes[6]);
+    L.add(sunCloseController);
+    return L;
+  }
+
   List<String> generateClosingTimes(DocumentSnapshot document){
     List<String> closingTimes = [];
     for(int i = 0; i < document['hours'].length; i++){
@@ -319,12 +352,15 @@ class _GenerateClosingTimes extends State<GenerateClosingTimes>{
 
   List<Widget> _getHours(List<String> hours) {
     List<Widget> hourWidgets = new List<Widget>();
-    for(String hour in generateClosingTimes(widget.document)) {
+    List<TextEditingController> controllerList = populateControllerList(widget.document);
+    for(int i = 0; i < generateClosingTimes(widget.document).length; i++) {
       hourWidgets.add(
         new Container(
           width: widget.columnWidth,
           margin: new EdgeInsets.only(bottom: widget.rowSpacing),
-          child: new TextFormField(initialValue: hour),
+          child: new TextFormField(
+            controller: controllerList[i],
+          ),
         )
       );
     }
@@ -340,6 +376,19 @@ class _GenerateClosingTimes extends State<GenerateClosingTimes>{
       ),
       margin: new EdgeInsets.only(right: 0.0, left: 0.0),
     );
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the Widget is disposed
+    monCloseController.dispose();
+    tuesCloseController.dispose();
+    wedCloseController.dispose();
+    thursCloseController.dispose();
+    friCloseController.dispose();
+    satCloseController.dispose();
+    sunCloseController.dispose();
+    super.dispose();
   }
 }
 
