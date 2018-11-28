@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'ServerGlobals.dart' as serverGlobals;
 
 import 'PendingOrders.dart';
 
 class ServerOrdersScreen extends StatefulWidget {
   ServerOrdersScreen({Key key, this.title, this.name}) : super(key: key);
-  final String foodTruck = 'ideal catering';
   final String title;
   final String name;
   static final double taxPercent = 0.13;
@@ -52,7 +52,7 @@ class _MyServerOrdersScreenState extends State<ServerOrdersScreen> {
         stream: Firestore.instance
             .collection('orders')
             .where("status", isEqualTo: 0)
-            .where("server", isEqualTo: widget.foodTruck)
+            .where("server", isEqualTo: serverGlobals.user)
             .snapshots(),
         builder: (context, snapshot1) {
           if (!snapshot1.hasData) return const Text('Loading...');
@@ -86,7 +86,7 @@ class _MyServerOrdersScreenState extends State<ServerOrdersScreen> {
               stream: Firestore.instance
                   .collection('orders')
                   .where("status", isEqualTo: 1)
-                  .where("server", isEqualTo: widget.foodTruck)
+                  .where("server", isEqualTo: serverGlobals.user)
                   .snapshots(),
               builder: (context, snapshot2) {
                 if (!snapshot2.hasData) return const Text('Loading...');
