@@ -5,6 +5,7 @@ import 'package:uoft_eats/globals.dart' as globals;
 
 List<TextEditingController> openingControllerList;
 List<TextEditingController> closingControllerList;
+List<String> textFieldValues = new List(14);
 
 class HoursOfOperationScreen extends StatefulWidget {
   _HoursOfOperationScreen createState() => new _HoursOfOperationScreen();
@@ -210,12 +211,17 @@ class _GenerateOpeningTimes extends State<GenerateOpeningTimes>{
     List<TextEditingController> controllerList = populateControllerList(widget.document);
     openingControllerList = populateControllerList(widget.document);
     for(int i = 0; i < generateOpeningTimes(widget.document).length; i++) {
+      textFieldValues[i] = generateOpeningTimes(widget.document)[i];
       hourWidgets.add(
         new Container(
           width: widget.columnWidth,
           margin: new EdgeInsets.only(bottom: widget.rowSpacing),
-          child: new TextFormField(
+          child: new TextField(
             controller: controllerList[i],
+            onChanged: (text) {
+//              print("First text field: $text");
+              textFieldValues[i] = text;
+            }
           ),
         )
       );
@@ -357,12 +363,17 @@ class _GenerateClosingTimes extends State<GenerateClosingTimes>{
     List<TextEditingController> controllerList = populateControllerList(widget.document);
     closingControllerList = populateControllerList(widget.document);
     for(int i = 0; i < generateClosingTimes(widget.document).length; i++) {
+      textFieldValues[i + 7] = generateClosingTimes(widget.document)[i];
       hourWidgets.add(
         new Container(
           width: widget.columnWidth,
           margin: new EdgeInsets.only(bottom: widget.rowSpacing),
-          child: new TextFormField(
+          child: new TextField(
             controller: controllerList[i],
+            onChanged: (text) {
+//              print("First text field: $text");
+              textFieldValues[i + 7] = text;
+            }
           ),
         )
       );
@@ -425,43 +436,34 @@ class SaveButton extends StatelessWidget{
       }
     }
 
-    thisDocument['hours'][0] = times[0];
-    thisDocument['hours'][1] = times[1];
-    thisDocument['hours'][2] = times[2];
-    thisDocument['hours'][3] = times[3];
-    thisDocument['hours'][4] = times[4];
-    thisDocument['hours'][5] = times[5];
-    thisDocument['hours'][6] = times[6];
-    thisDocument['hours'][7] = times[7];
-    thisDocument['hours'][8] = times[8];
-    thisDocument['hours'][9] = times[9];
-    thisDocument['hours'][10] = times[10];
-    thisDocument['hours'][11] = times[11];
-    thisDocument['hours'][12] = times[12];
-    thisDocument['hours'][13] = times[13];
+//    thisDocument['hours'].set;
+
+    fs.collection('servers').document(s).updateData({ 'hours': times});
+
   }
 
   void save(BuildContext context){
     List<int> times = [];
+    List<int> temp = [];
 
-    for(int i = 0; i < openingControllerList.length; i++){
-      if(openingControllerList[i].text == "closed"){
-        times.add(-1);
+    for(int i = 0; i < textFieldValues.length; i++){
+      if(textFieldValues[i] == "closed"){
+        temp.add(-1);
       }else{
-        times.add(int.parse(openingControllerList[i].text));
-      }
-      if(closingControllerList[i].text == "closed"){
-        times.add(-1);
-      }else{
-        times.add(int.parse(closingControllerList[i].text));
+        temp.add(int.parse(textFieldValues[i]));
       }
     }
 
-//    updateDatabase(times);
+    for(int i = 0; i < 7; i++){
+      times.add(temp[i]);
+      times.add(temp[i + 7]);
+    }
+
+    updateDatabase(times);
 
     var alert = AlertDialog(
       title: Text("Success"),
-      content: Text(openingControllerList[2].text )
+      content: Text("Your hours of operations has changed!")
     );
     showDialog(
       context: context,
