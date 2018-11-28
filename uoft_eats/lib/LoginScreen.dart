@@ -139,6 +139,28 @@ class _MyLoginScreenState extends State<LoginScreen> {
         timeInSecForIos: 2
       );
     }
+
+    Firestore fs = Firestore.instance;
+    QuerySnapshot query = await fs.collection("accounts").getDocuments();
+    List<DocumentSnapshot> docs = query.documents;
+
+    for (int i = 0; i < docs.length; i++) {
+      if (docs[i]['username'] == user && docs[i]['password'] == pass &&
+          docs[i]['isStudent'] == isStudent) {
+        if (isStudent) {
+          Navigator.pushReplacementNamed(context, '/client/menus');
+        } else {
+          Navigator.pushReplacementNamed(context, '/server');
+        }
+      }
+    }
+
+    Fluttertoast.showToast(
+        msg: "Invalid Login",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIos: 2
+    );
   }
 
   void _support() {
