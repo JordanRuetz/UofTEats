@@ -43,7 +43,9 @@ class _MyLoginScreenState extends State<LoginScreen> {
             new Container(
               margin: new EdgeInsets.only(bottom: 10.0),
               width: 200.0,
-              child: new TextField(controller: userController,),
+              child: new TextFormField(
+                controller: userController,
+              ),
             ),
             new Container(
               margin: new EdgeInsets.only(top: 10.0),
@@ -52,7 +54,10 @@ class _MyLoginScreenState extends State<LoginScreen> {
             new Container(
                 margin: new EdgeInsets.only(bottom: 10.0),
                 width: 200.0,
-                child: new TextField(controller: passController,)),
+                child: new TextFormField(
+                  controller: passController,
+                  obscureText: true,
+                )),
             new Container(
                 margin: new EdgeInsets.all(5.0),
                 height: 50.0,
