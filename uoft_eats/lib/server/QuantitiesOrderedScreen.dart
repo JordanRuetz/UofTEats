@@ -68,4 +68,3 @@ class _MyQuantitiesOrderedScreenState extends State<QuantitiesOrderedScreen> {
     }
   }
 }
-

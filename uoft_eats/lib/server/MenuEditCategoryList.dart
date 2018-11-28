@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uoft_eats/server/ServerDrawer.dart';
 import 'MenuEditItemList.dart';
 import 'MenuCategoryEdit.dart';
 
@@ -17,29 +18,25 @@ class MenuEditCategoryList extends StatefulWidget {
 class CategoryItems extends State<MenuEditCategoryList> {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      theme: new ThemeData(
-        primarySwatch: Colors.green,
-      ),
-      home: new Scaffold(
-          appBar: AppBar(
-            title: Text(widget.title),
-          ),
-          body: new ListView(
-              children: [
-                new EditableMenuItem(name: "Poutine",
-                  description: "Freshly cut fries with gravy",),
-                new EditableMenuItem(name: "Hot dog",
-                  description: "Classic hot dog with condiments available",),
-                new EditableMenuItem(name: "Entrée",
-                  description: "<no description>",),
-                new EditableMenuItem(name: "Burgers",
-                  description: "<no description>",),
-                new EditableMenuItem(name: "Drinks",
-                  description: "Pop drinks",),
-              ]
-          )
+    return new Scaffold(
+        drawer: new ServerDrawer(),
+        appBar: AppBar(
+          title: Text(widget.title),
         ),
+        body: new ListView(
+            children: [
+              new EditableMenuItem(name: "Poutine",
+                description: "Freshly cut fries with gravy",),
+              new EditableMenuItem(name: "Hot dog",
+                description: "Classic hot dog with condiments available",),
+              new EditableMenuItem(name: "Entrée",
+                description: "<no description>",),
+              new EditableMenuItem(name: "Burgers",
+                description: "<no description>",),
+              new EditableMenuItem(name: "Drinks",
+                description: "Pop drinks",),
+            ]
+        )
     );
   }
 }
@@ -57,36 +54,36 @@ class EditableMenuItem extends StatelessWidget {
         child: Column(
           children: [
             ListTile(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context)
-                    => MenuEditItemList()));
-              },
-              title: Padding(
-                padding: const EdgeInsets.only(bottom: 5.0),
-                child: Text("$name",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500, fontSize: 20.0
-                    )
-                ),
-              ),
-              subtitle: Text("$description",
-                style: TextStyle(fontStyle: FontStyle.italic),),
-              leading: IconButton(
-                icon: Icon( Icons.edit, ),
-                tooltip: 'Edit this item',
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            MenuCategoryEdit(
-                                name: name, description: description,
-                            )
-                    ),
-                  );
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context)
+                      => MenuEditItemList(title: "Poutine")));
                 },
-              )
+                title: Padding(
+                  padding: const EdgeInsets.only(bottom: 5.0),
+                  child: Text("$name",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500, fontSize: 20.0
+                      )
+                  ),
+                ),
+                subtitle: Text("$description",
+                  style: TextStyle(fontStyle: FontStyle.italic),),
+                leading: IconButton(
+                  icon: Icon( Icons.edit, ),
+                  tooltip: 'Edit this item',
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              MenuCategoryEdit(
+                                name: name, description: description,
+                              )
+                      ),
+                    );
+                  },
+                )
             ),
             Divider(),
           ],
