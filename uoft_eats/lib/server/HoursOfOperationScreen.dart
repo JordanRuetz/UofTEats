@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:uoft_eats/server/ServerDrawer.dart';
 import 'package:uoft_eats/globals.dart' as globals;
 
 class HoursOfOperationScreen extends StatefulWidget {
@@ -8,14 +9,24 @@ class HoursOfOperationScreen extends StatefulWidget {
 
 }
 
-class _HoursOfOperationScreen extends State<HoursOfOperationScreen> {
+class _HoursOfOperationScreen extends State<HoursOfOperationScreen>{
+
+  Stream _stream;
+
+  @override
+  void initState() {
+    // Only create the stream once
+    _stream = Firestore.instance.collection("servers").snapshots();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(title: Text("Hours of Operation")),
+      drawer: ServerDrawer(),
       body: StreamBuilder<QuerySnapshot>(
-        stream: Firestore.instance.collection("servers").snapshots(),
+        stream: _stream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
           if(snapshot.hasError) return new Text('Error: ${snapshot.error}');
           switch (snapshot.connectionState){
@@ -70,7 +81,7 @@ class HoursOfOperationsTable extends StatelessWidget{
           ),
           new Divider(color: Colors.grey),
           new Container(height: 15.0),
-          new SaveButton()
+          new SaveButton(),
         ],
       )
     );
@@ -153,11 +164,11 @@ class GenerateOpeningTimes extends StatelessWidget{
         new Container(
           width: columnWidth,
           margin: new EdgeInsets.only(bottom: rowSpacing),
-          child: new TextField(
-            decoration: InputDecoration(
-              hintText: hour
-            ),
-          )
+//          child: new TextField(
+//            decoration: InputDecoration(
+//              hintText: hour
+//            ),
+          child: new TextFormField(initialValue: hour),
         )
       );
     }
@@ -242,11 +253,12 @@ class GenerateClosingTimes extends StatelessWidget{
         new Container(
           width: columnWidth,
           margin: new EdgeInsets.only(bottom: rowSpacing),
-          child: new TextField(
-            decoration: InputDecoration(
-              hintText: hour
-            ),
-          )
+//          child: new TextField(
+//            decoration: InputDecoration(
+//              hintText: hour
+//            ),
+//          )
+          child: new TextFormField(initialValue: hour),
         )
       );
     }
