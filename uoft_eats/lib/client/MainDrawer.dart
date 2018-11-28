@@ -47,7 +47,7 @@ class MainDrawer extends StatelessWidget {
           },
         ),
         ListTile(
-          leading: const Icon(Icons.attach_money),
+          leading: const Icon(Icons.exit_to_app),
           title: Text('Logout'),
           onTap: () {
             clientGlobals.user = "";
