@@ -3,10 +3,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:uoft_eats/server/ServerDrawer.dart';
 import 'package:uoft_eats/globals.dart' as globals;
 
+List<TextEditingController> openingControllerList;
+List<TextEditingController> closingControllerList;
+
 class HoursOfOperationScreen extends StatefulWidget {
-
   _HoursOfOperationScreen createState() => new _HoursOfOperationScreen();
-
 }
 
 class _HoursOfOperationScreen extends State<HoursOfOperationScreen>{
@@ -207,6 +208,7 @@ class _GenerateOpeningTimes extends State<GenerateOpeningTimes>{
   List<Widget> _getHours(List<String> hours) {
     List<Widget> hourWidgets = new List<Widget>();
     List<TextEditingController> controllerList = populateControllerList(widget.document);
+    openingControllerList = populateControllerList(widget.document);
     for(int i = 0; i < generateOpeningTimes(widget.document).length; i++) {
       hourWidgets.add(
         new Container(
@@ -353,6 +355,7 @@ class _GenerateClosingTimes extends State<GenerateClosingTimes>{
   List<Widget> _getHours(List<String> hours) {
     List<Widget> hourWidgets = new List<Widget>();
     List<TextEditingController> controllerList = populateControllerList(widget.document);
+    closingControllerList = populateControllerList(widget.document);
     for(int i = 0; i < generateClosingTimes(widget.document).length; i++) {
       hourWidgets.add(
         new Container(
@@ -408,10 +411,57 @@ class SaveButton extends StatelessWidget{
     return button;
   }
 
+  void updateDatabase(List<int> times) async{
+    Firestore fs = Firestore.instance;
+    QuerySnapshot query = await fs.collection("servers").getDocuments();
+    List<DocumentSnapshot> documentList = query.documents;
+
+    DocumentSnapshot thisDocument;
+
+    String s = globals.user;
+    for(int i = 0; i < documentList.length; i++){
+      if(documentList[i]['name'] == s){
+        thisDocument = documentList[i];
+      }
+    }
+
+    thisDocument['hours'][0] = times[0];
+    thisDocument['hours'][1] = times[1];
+    thisDocument['hours'][2] = times[2];
+    thisDocument['hours'][3] = times[3];
+    thisDocument['hours'][4] = times[4];
+    thisDocument['hours'][5] = times[5];
+    thisDocument['hours'][6] = times[6];
+    thisDocument['hours'][7] = times[7];
+    thisDocument['hours'][8] = times[8];
+    thisDocument['hours'][9] = times[9];
+    thisDocument['hours'][10] = times[10];
+    thisDocument['hours'][11] = times[11];
+    thisDocument['hours'][12] = times[12];
+    thisDocument['hours'][13] = times[13];
+  }
+
   void save(BuildContext context){
+    List<int> times = [];
+
+    for(int i = 0; i < openingControllerList.length; i++){
+      if(openingControllerList[i].text == "closed"){
+        times.add(-1);
+      }else{
+        times.add(int.parse(openingControllerList[i].text));
+      }
+      if(closingControllerList[i].text == "closed"){
+        times.add(-1);
+      }else{
+        times.add(int.parse(closingControllerList[i].text));
+      }
+    }
+
+//    updateDatabase(times);
+
     var alert = AlertDialog(
       title: Text("Success"),
-      content: Text("You have successfully updated your hours of operations.")
+      content: Text(openingControllerList[2].text )
     );
     showDialog(
       context: context,
