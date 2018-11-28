@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'globals.dart' as globals;
+import 'server/ServerGlobals.dart' as serverGlobals;
+import 'client/ClientGlobals.dart' as clientGlobals;
 
 class LoginScreen extends StatefulWidget {
   final String title;
@@ -43,7 +44,9 @@ class _MyLoginScreenState extends State<LoginScreen> {
             new Container(
               margin: new EdgeInsets.only(bottom: 10.0),
               width: 200.0,
-              child: new TextField(controller: userController,),
+              child: new TextFormField(
+                controller: userController,
+              ),
             ),
             new Container(
               margin: new EdgeInsets.only(top: 10.0),
@@ -52,7 +55,10 @@ class _MyLoginScreenState extends State<LoginScreen> {
             new Container(
                 margin: new EdgeInsets.only(bottom: 10.0),
                 width: 200.0,
-                child: new TextField(controller: passController,)),
+                child: new TextFormField(
+                  controller: passController,
+                  obscureText: true,
+                )),
             new Container(
                 margin: new EdgeInsets.all(5.0),
                 height: 50.0,
@@ -97,8 +103,6 @@ class _MyLoginScreenState extends State<LoginScreen> {
   }
 
   void _login() async {
-    print(globals.user);
-
     String user = userController.text;
     String pass = Text(passController.text).data;
 
@@ -118,8 +122,10 @@ class _MyLoginScreenState extends State<LoginScreen> {
           docs[i]['isStudent'] == isStudent) {
         logged = true;
         if (isStudent) {
+          clientGlobals.user = user;
           Navigator.pushReplacementNamed(context, '/client/menus');
         } else {
+          serverGlobals.user = user;
           Navigator.pushReplacementNamed(context, '/server');
         }
       }

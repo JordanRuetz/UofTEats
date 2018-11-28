@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:uoft_eats/server/ServerDrawer.dart';
 import 'ItemQuantityTile.dart';
+import 'package:uoft_eats/globals.dart' as globals;
 
 class QuantitiesOrderedScreen extends StatefulWidget {
   QuantitiesOrderedScreen({Key key, this.title}) : super(key: key);
@@ -15,7 +16,7 @@ class QuantitiesOrderedScreen extends StatefulWidget {
 }
 
 class _MyQuantitiesOrderedScreenState extends State<QuantitiesOrderedScreen> {
-  static String server = "ideal catering";
+  static String server = globals.user;
   static List<ItemQuantityTile> itemQuantities = new List();
 
   @override

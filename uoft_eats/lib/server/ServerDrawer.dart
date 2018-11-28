@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'ServerGlobals.dart' as serverGlobals;
 
 class ServerDrawer extends StatelessWidget {
     @override
@@ -53,6 +54,15 @@ class ServerDrawer extends StatelessWidget {
                         Navigator.pushReplacementNamed(context, '/server/editHoursOfOperation');
                       },
                     ),
+                    ListTile(
+                      leading: const Icon(Icons.attach_money),
+                      title: Text('Logout'),
+                      onTap: () {
+                          serverGlobals.user = "";
+                          Navigator.pop(context); // Closes the drawer before moving
+                          Navigator.pushReplacementNamed(context, '/login');
+                      },
+                    );
                 ],
             ));
     }
