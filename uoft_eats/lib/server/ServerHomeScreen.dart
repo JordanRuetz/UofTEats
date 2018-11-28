@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:uoft_eats/globals.dart' as globals;
 import 'package:uoft_eats/server/ServerDrawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'serverGlobals.dart' as serverGlobals;
 
 class ServerHomeScreen extends StatefulWidget {
   ServerHomeScreen({Key key, this.title}) : super(key: key);
@@ -33,12 +33,13 @@ class _MyServerHomeScreenState extends State<ServerHomeScreen> {
                   ));
             DocumentSnapshot truckDoc;
             for (final document in snapshot.data.documents) {
-              if (document.documentID == globals.user) {
+              if (document.documentID == serverGlobals.user) {
                 truckDoc = document;
                 break;
               }
             }
             if (truckDoc == null) {
+              print("the user: " + serverGlobals.user);
               return Center(
                 child: new Text('Error: no such food truck.'));
             }
@@ -59,7 +60,7 @@ class _MyServerHomeScreenState extends State<ServerHomeScreen> {
             "Welcome, ",
             style: new TextStyle(fontSize: 38.0, color: Colors.black45),
           ),
-          Text(globals.user,
+          Text(document['name'],
             style: new TextStyle(
               fontSize: 48.0,
               color: Colors.black,

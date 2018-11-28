@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'server/ServerGlobals.dart' as serverGlobals;
-import 'client/ClientGlobals.dart' as clientGlobals;
+import 'server/serverGlobals.dart' as serverGlobals;
 
 class LoginScreen extends StatefulWidget {
   final String title;
@@ -115,31 +114,6 @@ class _MyLoginScreenState extends State<LoginScreen> {
     QuerySnapshot query = await fs.collection("accounts").getDocuments();
     List<DocumentSnapshot> docs = query.documents;
 
-    bool logged = false;
-
-    for (int i = 0; i < docs.length; i++) {
-      if (docs[i]['username'] == user && docs[i]['password'] == pass &&
-          docs[i]['isStudent'] == isStudent) {
-        logged = true;
-        if (isStudent) {
-          clientGlobals.user = user;
-          Navigator.pushReplacementNamed(context, '/client/menus');
-        } else {
-          serverGlobals.user = user;
-          Navigator.pushReplacementNamed(context, '/server');
-        }
-      }
-    }
-
-    if (!logged) {
-      Fluttertoast.showToast(
-        msg: "Invalid Login",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIos: 2
-      );
-    }
-
     bool myLogged = false;
 
     for (int i = 0; i < docs.length; i++) {
@@ -147,9 +121,11 @@ class _MyLoginScreenState extends State<LoginScreen> {
           docs[i]['isStudent'] == isStudent) {
         if (isStudent) {
           myLogged = true;
+          serverGlobals.user = user;
           Navigator.pushReplacementNamed(context, '/client/menus');
         } else {
           myLogged = true;
+          serverGlobals.user = user;
           Navigator.pushReplacementNamed(context, '/server');
         }
       }

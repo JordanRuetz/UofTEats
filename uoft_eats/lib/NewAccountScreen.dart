@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:async';
-import 'server/ServerGlobals.dart' as serverGlobals;
-import 'client/ClientGlobals.dart' as clientGlobals;
+import 'server/serverGlobals.dart' as serverGlobals;
+import 'client/clientGlobals.dart' as clientGlobals;
 
 class NewAccountScreen extends StatefulWidget {
   final String title;
@@ -185,6 +185,4 @@ class _MyNewAccountScreenState extends State<NewAccountScreen> {
     confirmPassController.dispose();
     super.dispose();
   }
-
-
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uoft_eats/server/ServerDrawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:uoft_eats/globals.dart' as globals;
+import 'serverGlobals.dart' as serverGlobals;
 
 void main() => runApp(new MenuAddItem());
 
@@ -38,12 +38,12 @@ class _MenuAddItem extends State<MenuAddItem> {
         title: Text("Add $type"),
       ),
       body: new StreamBuilder(
-        stream: Firestore.instance.collection('servers/' + globals.user + '/menu').snapshots(),
+        stream: Firestore.instance.collection('servers/' + serverGlobals.user + '/menu').snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
           if (!snapshot.hasData) return new Text('Loading...');
           return _buildForm(
-              Firestore.instance.collection('servers/' + globals.user + '/menu')
+              Firestore.instance.collection('servers/' + serverGlobals.user + '/menu')
           );
         },
       ),

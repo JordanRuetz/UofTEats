@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'ServerGlobals.dart' as serverGlobals;
+import 'serverGlobals.dart' as serverGlobals;
 
 class ServerDrawer extends StatelessWidget {
     @override
