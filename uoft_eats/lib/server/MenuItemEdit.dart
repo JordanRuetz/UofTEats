@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uoft_eats/server/ServerDrawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:uoft_eats/globals.dart';
+import 'serverGlobals.dart' as serverGlobals;
 
 void main() => runApp(new MenuItemEdit());
 
@@ -32,7 +32,7 @@ class _MenuItemEdit extends State<MenuItemEdit> {
       title: Text("Edit menu"),
       ),
       body: new StreamBuilder(
-        stream: Firestore.instance.collection('servers/' + Globals.user + '/menu').snapshots(),
+        stream: Firestore.instance.collection('servers/' + serverGlobals.user + '/menu').snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
           if (!snapshot.hasData) return new Text('Loading...');

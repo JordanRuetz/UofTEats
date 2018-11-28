@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'ServerGlobals.dart' as serverGlobals;
+import 'serverGlobals.dart' as serverGlobals;
 
 import 'PendingOrders.dart';
 

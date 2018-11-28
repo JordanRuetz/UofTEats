@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uoft_eats/server/ServerDrawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:uoft_eats/globals.dart';
+import 'serverGlobals.dart' as serverGlobals;
 
 class ServerOrderHistory extends StatefulWidget {
   ServerOrderHistory({Key key, this.title}) : super(key: key);
@@ -71,7 +71,7 @@ class OrderByTime extends StatelessWidget {
         List documents = [];
         for (final document in snapshot.data.documents) {
           if (document['status'].toString() == '2' &&
-              document['server'] == Globals.user) {
+              document['server'] == serverGlobals.user) {
             documents.add(document);
           }
         }
@@ -102,7 +102,7 @@ class OrderByQuantity extends StatelessWidget {
         List<DocumentSnapshot> documents = [];
         for (final document in snapshot.data.documents) {
           if (document['status'].toString() == '2' &&
-              document['server'] == Globals.user) {
+              document['server'] == serverGlobals.user) {
             documents.add(document);
           }
         }

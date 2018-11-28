@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:uoft_eats/server/ServerDrawer.dart';
-import 'package:uoft_eats/globals.dart';
+import 'serverGlobals.dart' as serverGlobals;
 
 List<String> textFieldValues = new List(14);
 
@@ -59,7 +59,7 @@ class _HoursOfOperationsTable extends State<HoursOfOperationsTable>{
 
   DocumentSnapshot getFoodTruckDocument(List<DocumentSnapshot> documentList){
     DocumentSnapshot thisDocument;
-    String s = Globals.user;
+    String s = serverGlobals.user;
     for(int i = 0; i < documentList.length; i++){
       if(documentList[i]['name'] == s){
         thisDocument = documentList[i];
