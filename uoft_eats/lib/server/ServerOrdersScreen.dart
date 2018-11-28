@@ -41,12 +41,6 @@ class ServerOrdersScreen extends StatefulWidget {
 class _MyServerOrdersScreenState extends State<ServerOrdersScreen> {
   @override
   Widget build(BuildContext context) {
-    //look at menuscreen
-    // pull at status 0 - done
-    // foodtruck name - hardcoded at the moment
-    // change status to 1 when completed - done
-    // status 2 when picked up
-    // two listviews for both statuses
 
     Map<int, Tuple2<String, Map<String, List>>> customerOrders =
         new Map<int, Tuple2<String, Map<String, List>>>();
@@ -54,50 +48,6 @@ class _MyServerOrdersScreenState extends State<ServerOrdersScreen> {
     Map<int, Tuple2<String, Map<String, List>>> customerPickup =
         new Map<int, Tuple2<String, Map<String, List>>>();
 
-/*    return StreamBuilder<QuerySnapshot>(
-        stream: Firestore.instance
-            .collection('orders')
-            .where("status", isEqualTo: 0)
-            .where("server", isEqualTo: widget.foodTruck)
-            .snapshots(),
-        builder:
-            (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot1) {
-          if (!snapshot1.hasData) return const Text('Loading...');
-          final int count = snapshot1.data.documents.length;
-          for (int i = 0; i < count; i++) {
-            //iterate each document(order)
-            Map<String, List> allItems = new Map<String, List>();
-            List orderQuery = snapshot1.data.documents[i]['items'];
-            for (int j = 0; j < orderQuery.length; j++) {
-              List ItemInfo = new List(3);
-              if (orderQuery[j]["size"] != "-1") {
-                ItemInfo[0] = orderQuery[j]["size"];
-              } else {
-                ItemInfo[0] = "";
-              }
-              ItemInfo[1] = orderQuery[j]["quantity"];
-              ItemInfo[2] = orderQuery[j]["price"];
-
-              allItems[orderQuery[j]["type"]] = ItemInfo;
-
-              Tuple2<String, Map<String, List>> NameToOrder1 =
-                  Tuple2<String, Map<String, List>>(
-                      snapshot1.data.documents[i]["client"], allItems);
-
-              customerOrders[snapshot1.data.documents[i]['orderNumber']] =
-                  NameToOrder1;
-                   print(customerOrders);
-
-            }
-          }
-          return new PendingOrders(
-            customerOrders: customerOrders,
-            taxPercent: ServerOrdersScreen.taxPercent,
-            snapshot1: snapshot1,);
-              //snapshot2: snapshot2);
-
-
-        });*/
     return StreamBuilder(
         stream: Firestore.instance
             .collection('orders')
