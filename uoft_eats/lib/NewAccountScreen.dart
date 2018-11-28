@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:async';
-import 'globals.dart' as globals;
+import 'server/ServerGlobals.dart' as serverGlobals;
+import 'client/ClientGlobals.dart' as clientGlobals;
 
 class NewAccountScreen extends StatefulWidget {
   final String title;
@@ -140,8 +141,8 @@ class _MyNewAccountScreenState extends State<NewAccountScreen> {
             timeInSecForIos: 2
         );
       } else {
-        globals.user = user;
         if (dropdownValue == 'Student') {
+          clientGlobals.user = user;
           fs.collection('accounts').document()
               .setData({'username': user, 'password': pass, 'isStudent': true});
 
@@ -149,6 +150,7 @@ class _MyNewAccountScreenState extends State<NewAccountScreen> {
 
           Navigator.pushReplacementNamed(context, '/client/menus');
         } else {
+          serverGlobals.user = user;
           fs.collection('accounts').document()
               .setData({'username': user, 'password': pass, 'isStudent': false});
 

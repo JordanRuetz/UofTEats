@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'globals.dart' as globals;
+import 'server/ServerGlobals.dart' as serverGlobals;
+import 'client/ClientGlobals.dart' as clientGlobals;
 
 class LoginScreen extends StatefulWidget {
   final String title;
@@ -120,10 +121,11 @@ class _MyLoginScreenState extends State<LoginScreen> {
       if (docs[i]['username'] == user && docs[i]['password'] == pass &&
           docs[i]['isStudent'] == isStudent) {
         logged = true;
-        globals.user = user;
         if (isStudent) {
+          clientGlobals.user = user;
           Navigator.pushReplacementNamed(context, '/client/menus');
         } else {
+          serverGlobals.user = user;
           Navigator.pushReplacementNamed(context, '/server');
         }
       }
