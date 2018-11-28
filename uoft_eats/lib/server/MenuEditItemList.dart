@@ -75,19 +75,23 @@ class _MenuEditItemListState extends State<MenuEditItemList> {
   }
 
   Widget _buildItemCard(DocumentSnapshot document) {
+//    Map<String, dynamic> pricing = new Map<String, dynamic>();
+//    for (final key in document['pricing'].keys) {
+//      pricing.putIfAbsent(key, );
+//      pricing.update(key, update)
+//    }
     return new EditableMenuItem(
       name: document['name'],
-      price: 9.0,
-//      price: document['pricing'],
+      price: Map.from(document['pricing']),
     );
   }
 }
 
 class EditableMenuItem extends StatelessWidget {
   final String name;
-  final double price;
+  final Map<String, dynamic> price;
 
-  const EditableMenuItem({Key key, this.name, this.price}) : super(key: key);
+  EditableMenuItem({Key key, this.name, this.price}) : super(key: key);
 
   Widget build(BuildContext context) {
     return new Container(
@@ -113,10 +117,6 @@ class EditableMenuItem extends StatelessWidget {
                             (MenuItemEdit(name: name, price: price))),
                   );
                 },
-              ),
-              trailing: Text(
-                "\$$price    ",
-                style: TextStyle(fontSize: 16.0),
               ),
             ),
           ],

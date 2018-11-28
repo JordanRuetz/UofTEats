@@ -1,8 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:uoft_eats/server/ServerDrawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:uoft_eats/globals.dart' as globals;
 
 class ServerOrderHistory extends StatefulWidget {
   ServerOrderHistory({Key key, this.title}) : super(key: key);
@@ -31,10 +30,7 @@ class _ServerOrderHistoryState extends State<ServerOrderHistory> {
           title: Text("ORDER HISTORY"),
         ),
         body: TabBarView(
-          children: [
-            OrderByTime(),
-            OrderByQuantity()
-          ],
+          children: [OrderByTime(), OrderByQuantity()],
         ),
       ),
     );
@@ -66,14 +62,16 @@ class OrderByTime extends StatelessWidget {
     return new StreamBuilder(
       stream: Firestore.instance.collection('orders').snapshots(),
       builder: (context, snapshot) {
-        if (!snapshot.hasData) return Center(
-            child: const Text("Loading...",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            )
-        );
+        if (!snapshot.hasData)
+          return Center(
+              child: const Text(
+            "Loading...",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ));
         List documents = [];
         for (final document in snapshot.data.documents) {
-          if (document['status'].toString() == '2') {
+          if (document['status'].toString() == '2' &&
+              document['server'] == globals.user) {
             documents.add(document);
           }
         }
@@ -89,7 +87,6 @@ class OrderByTime extends StatelessWidget {
 }
 
 class OrderByQuantity extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -97,14 +94,15 @@ class OrderByQuantity extends StatelessWidget {
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return Center(
-              child: const Text("Loading...",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              )
-          );
+              child: const Text(
+            "Loading...",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ));
         }
         List<DocumentSnapshot> documents = [];
         for (final document in snapshot.data.documents) {
-          if (document['status'].toString() == '2') {
+          if (document['status'].toString() == '2' &&
+              document['server'] == globals.user) {
             documents.add(document);
           }
         }
@@ -142,21 +140,19 @@ class OrderCard extends StatelessWidget {
   final String subtotal;
   final String orderContents;
 
-  OrderCard(
-      {Key key, this.name, this.subtotal, this.orderContents})
+  OrderCard({Key key, this.name, this.subtotal, this.orderContents})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0.0),
-      child:
-        ListTile(
-          leading: Icon(Icons.check_circle_outline),
-          title: Text("$name", style: new TextStyle(fontSize: 28.0,
-              fontWeight: FontWeight.bold)),
-          subtitle: Text("Subtotal: \$$subtotal\n$orderContents"),
-        ),
+      child: ListTile(
+        leading: Icon(Icons.check_circle_outline),
+        title: Text("$name",
+            style: new TextStyle(fontSize: 28.0, fontWeight: FontWeight.bold)),
+        subtitle: Text("Subtotal: \$$subtotal\n$orderContents"),
+      ),
     );
   }
 }
@@ -164,51 +160,44 @@ class OrderCard extends StatelessWidget {
 class QuantityCard extends StatelessWidget {
   final String name;
   final int quantity;
+
 //  final double revenue;
 
-  const QuantityCard(
-      {Key key, this.name, this.quantity}) : super(key: key);
+  const QuantityCard({Key key, this.name, this.quantity}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return new Card(
         child: new Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Container(
-                margin: const EdgeInsets.all(20.0),
-                child: new Row(
-                    children: <Widget>[
-                      // Icon
-                      Padding(
-                          padding: const EdgeInsets.only(right: 15.0),
-                          child: Text("$quantity",
-                              style: new TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.green, fontSize: 48.0
-                              )
-                          )
-                      ),
-                      // Order
-                      Container(
-                        width: 220.0,
-                        padding: const EdgeInsets.only(right: 5.0),
-                        child: new Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            // Name
-                            Text("$name",
-                                style: new TextStyle(fontSize: 26.0)),
-                          ],
-                        ),
-                      ),
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Container(
+            margin: const EdgeInsets.all(20.0),
+            child: new Row(children: <Widget>[
+              // Icon
+              Padding(
+                  padding: const EdgeInsets.only(right: 15.0),
+                  child: Text("$quantity",
+                      style: new TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green,
+                          fontSize: 48.0))),
+              // Order
+              Container(
+                width: 220.0,
+                padding: const EdgeInsets.only(right: 5.0),
+                child: new Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    // Name
+                    Text("$name", style: new TextStyle(fontSize: 26.0)),
+                  ],
+                ),
+              ),
 //                      Text("Revenue:\n\$$revenue", textAlign: TextAlign.center,
 //                          style: new TextStyle(fontWeight: FontWeight.w100))
-                    ]
-                )
-            ),
-          ],
-        )
-    );
+            ])),
+      ],
+    ));
   }
 }
