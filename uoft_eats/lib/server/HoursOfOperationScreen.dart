@@ -148,6 +148,29 @@ class GenerateOpeningTimes extends StatefulWidget{
 }
 
 class _GenerateOpeningTimes extends State<GenerateOpeningTimes>{
+
+  final monOpenController = TextEditingController();
+  final tuesOpenController = TextEditingController();
+  final wedOpenController = TextEditingController();
+  final thursOpenController = TextEditingController();
+  final friOpenController = TextEditingController();
+  final satOpenController = TextEditingController();
+  final sunOpenController = TextEditingController();
+
+//  List<TextEditingController> controllerList = [];
+
+  List<TextEditingController> populateControllerList(){
+    List<TextEditingController> L = [];
+    L.add(monOpenController);
+    L.add(tuesOpenController);
+    L.add(wedOpenController);
+    L.add(thursOpenController);
+    L.add(friOpenController);
+    L.add(satOpenController);
+    L.add(sunOpenController);
+    return L;
+  }
+
   List<String> generateOpeningTimes(DocumentSnapshot document){
     List<String> openingTimes = [];
     for(int i = 0; i < document['hours'].length; i++){
@@ -166,12 +189,20 @@ class _GenerateOpeningTimes extends State<GenerateOpeningTimes>{
 
   List<Widget> _getHours(List<String> hours) {
     List<Widget> hourWidgets = new List<Widget>();
-    for(String hour in generateOpeningTimes(widget.document)) {
+    List<TextEditingController> controllerList = populateControllerList();
+    for(int i = 0; i < generateOpeningTimes(widget.document).length; i++) {
       hourWidgets.add(
         new Container(
           width: widget.columnWidth,
           margin: new EdgeInsets.only(bottom: widget.rowSpacing),
-          child: new TextFormField(initialValue: hour),
+          child: new TextField(
+//            initialValue: generateOpeningTimes(widget.document)[i],
+//            decoration: InputDecoration(
+//              border: InputBorder.none,
+//              hintText: generateOpeningTimes(widget.document)[i]
+//            ),
+            controller: controllerList[i],
+          ),
         )
       );
     }
@@ -187,6 +218,20 @@ class _GenerateOpeningTimes extends State<GenerateOpeningTimes>{
       ),
       margin: new EdgeInsets.only(right: 0.0, left: 0.0),
     );
+  }
+
+
+  @override
+  void dispose() {
+    // Clean up the controller when the Widget is disposed
+    monOpenController.dispose();
+    tuesOpenController.dispose();
+    wedOpenController.dispose();
+    thursOpenController.dispose();
+    friOpenController.dispose();
+    satOpenController.dispose();
+    sunOpenController.dispose();
+    super.dispose();
   }
 }
 
