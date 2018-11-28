@@ -111,10 +111,10 @@ class _OrderBodyState extends State<OrderBody> {
 
     if (orderNumbers.isEmpty) {
       fullList.add(new Container(
-          padding: new EdgeInsets.all(5),
+          padding: new EdgeInsets.all(5.0),
           child: new Text("** No Pending Orders **",
               style: new TextStyle(
-                  fontSize: 20,
+                  fontSize: 20.0,
                   fontStyle: FontStyle.italic,
                   color: Colors.red))));
     }
@@ -160,7 +160,7 @@ class _OrderBodyState extends State<OrderBody> {
     List<Widget> fullList = new List<Widget>();
 
     fullList.add(new Container(
-      margin: new EdgeInsets.all(3),
+      margin: new EdgeInsets.all(3.0),
       child: new Text("Pickup:",
           style: new TextStyle(
               fontSize: 25.0,
@@ -171,10 +171,10 @@ class _OrderBodyState extends State<OrderBody> {
 
     if (orderNumbers.isEmpty) {
       fullList.add(new Container(
-          padding: new EdgeInsets.all(5),
+          padding: new EdgeInsets.all(5.0),
           child: new Text("** No orders to be picked up **",
               style: new TextStyle(
-                  fontSize: 20,
+                  fontSize: 20.0,
                   fontStyle: FontStyle.italic,
                   color: Colors.red))));
     }
@@ -219,11 +219,11 @@ class _OrderBodyState extends State<OrderBody> {
         padding: new EdgeInsets.all(10.0),
         child: new ListView(children: <Widget>[
           new Container(
-              padding: new EdgeInsets.all(8),
+              padding: new EdgeInsets.all(8.0),
               color: Colors.amberAccent,
               child: new Column(children: _getPendingOrders())),
           new Container(
-              padding: new EdgeInsets.all(8),
+              padding: new EdgeInsets.all(8.0),
               color: Colors.lime,
               child: new Column(children: _getCompletedOrders()))
         ]));
