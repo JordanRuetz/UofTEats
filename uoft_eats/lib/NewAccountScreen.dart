@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:async';
+import 'server/ServerGlobals.dart' as serverGlobals;
+import 'client/ClientGlobals.dart' as clientGlobals;
 
 class NewAccountScreen extends StatefulWidget {
   final String title;
@@ -53,7 +55,10 @@ class _MyNewAccountScreenState extends State<NewAccountScreen> {
             new Container(
                 margin: new EdgeInsets.only(bottom: 10.0),
                 width: 200.0,
-                child: new TextField(controller: passController,)),
+                child: new TextFormField(
+                  controller: passController,
+                  obscureText: true,
+                )),
             new Container(
               margin: new EdgeInsets.only(top: 10.0),
               child: new Text('Repeat Password:'),
@@ -61,7 +66,10 @@ class _MyNewAccountScreenState extends State<NewAccountScreen> {
             new Container(
                 margin: new EdgeInsets.only(bottom: 10.0),
                 width: 200.0,
-                child: new TextField(controller: confirmPassController,)),
+                child: new TextFormField(
+                  controller: confirmPassController,
+                  obscureText: true,
+                )),
             new Container(
                 margin: new EdgeInsets.all(5.0),
                 height: 50.0,
@@ -134,14 +142,21 @@ class _MyNewAccountScreenState extends State<NewAccountScreen> {
         );
       } else {
         if (dropdownValue == 'Student') {
-          Firestore.instance.collection('accounts').document()
+          clientGlobals.user = user;
+          fs.collection('accounts').document()
               .setData({'username': user, 'password': pass, 'isStudent': true});
+
+          fs.collection("clients").document(user).setData({"paymentEmail": "N/A"});
 
           Navigator.pushReplacementNamed(context, '/client/menus');
         } else {
-          Firestore.instance.collection('accounts').document()
+          serverGlobals.user = user;
+          fs.collection('accounts').document()
               .setData({'username': user, 'password': pass, 'isStudent': false});
 
+          fs.collection("servers").document(user).setData({"paymentEmail": "N/A",
+            "name": user, "hours": [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, -1, -1], "color": 0});
+          
           Navigator.pushReplacementNamed(context, '/server/menus');
         }
       }
@@ -149,8 +164,7 @@ class _MyNewAccountScreenState extends State<NewAccountScreen> {
   }
 
   Future<List<String>> getUsers() async {
-
-
+    
     List<String> existingUsers = [];
 
     Firestore fs = Firestore.instance;

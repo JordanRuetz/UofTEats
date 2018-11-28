@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'globals.dart' as globals;
+import 'server/ServerGlobals.dart' as serverGlobals;
+import 'client/ClientGlobals.dart' as clientGlobals;
 
 class LoginScreen extends StatefulWidget {
   final String title;
@@ -43,7 +44,9 @@ class _MyLoginScreenState extends State<LoginScreen> {
             new Container(
               margin: new EdgeInsets.only(bottom: 10.0),
               width: 200.0,
-              child: new TextField(controller: userController,),
+              child: new TextFormField(
+                controller: userController,
+              ),
             ),
             new Container(
               margin: new EdgeInsets.only(top: 10.0),
@@ -52,7 +55,10 @@ class _MyLoginScreenState extends State<LoginScreen> {
             new Container(
                 margin: new EdgeInsets.only(bottom: 10.0),
                 width: 200.0,
-                child: new TextField(controller: passController,)),
+                child: new TextFormField(
+                  controller: passController,
+                  obscureText: true,
+                )),
             new Container(
                 margin: new EdgeInsets.all(5.0),
                 height: 50.0,
@@ -103,6 +109,35 @@ class _MyLoginScreenState extends State<LoginScreen> {
     bool isStudent = false;
     if (dropdownValue == 'Student') {
       isStudent = true;
+    }
+
+    Firestore fs = Firestore.instance;
+    QuerySnapshot query = await fs.collection("accounts").getDocuments();
+    List<DocumentSnapshot> docs = query.documents;
+
+    bool logged = false;
+
+    for (int i = 0; i < docs.length; i++) {
+      if (docs[i]['username'] == user && docs[i]['password'] == pass &&
+          docs[i]['isStudent'] == isStudent) {
+        logged = true;
+        if (isStudent) {
+          clientGlobals.user = user;
+          Navigator.pushReplacementNamed(context, '/client/menus');
+        } else {
+          serverGlobals.user = user;
+          Navigator.pushReplacementNamed(context, '/server');
+        }
+      }
+    }
+
+    if (!logged) {
+      Fluttertoast.showToast(
+        msg: "Invalid Login",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIos: 2
+      );
     }
 
     Firestore fs = Firestore.instance;
