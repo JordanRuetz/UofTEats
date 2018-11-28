@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:async';
-import 'server/ServerGlobals.dart' as serverGlobals;
-import 'client/ClientGlobals.dart' as clientGlobals;
+import 'globals.dart';
 
 class NewAccountScreen extends StatefulWidget {
   final String title;
@@ -142,7 +141,7 @@ class _MyNewAccountScreenState extends State<NewAccountScreen> {
         );
       } else {
         if (dropdownValue == 'Student') {
-          clientGlobals.user = user;
+          Globals.user = user;
           fs.collection('accounts').document()
               .setData({'username': user, 'password': pass, 'isStudent': true});
 
@@ -150,7 +149,7 @@ class _MyNewAccountScreenState extends State<NewAccountScreen> {
 
           Navigator.pushReplacementNamed(context, '/client/menus');
         } else {
-          serverGlobals.Globals.user = user;
+          Globals.user = user;
           fs.collection('accounts').document()
               .setData({'username': user, 'password': pass, 'isStudent': false});
 
@@ -185,6 +184,4 @@ class _MyNewAccountScreenState extends State<NewAccountScreen> {
     confirmPassController.dispose();
     super.dispose();
   }
-
-
 }

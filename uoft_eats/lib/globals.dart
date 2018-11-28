@@ -1,3 +1,3 @@
-library uofteats.globals;
-
-String user = "blue truck";
+class Globals {
+    static String user = "";
+}

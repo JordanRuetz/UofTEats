@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'ClientGlobals.dart' as clientGlobals;
+import 'package:uoft_eats/globals.dart';
 
 class MainDrawer extends StatelessWidget {
   @override
@@ -50,7 +50,7 @@ class MainDrawer extends StatelessWidget {
           leading: const Icon(Icons.exit_to_app),
           title: Text('Logout'),
           onTap: () {
-            clientGlobals.user = "";
+            Globals.user = "";
             Navigator.pop(context); // Closes the drawer before moving
             Navigator.pushReplacementNamed(context, '/login');
           },

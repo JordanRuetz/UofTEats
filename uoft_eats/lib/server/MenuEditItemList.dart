@@ -3,7 +3,7 @@ import 'package:uoft_eats/server/ServerDrawer.dart';
 import 'MenuItemEdit.dart';
 import 'MenuAddItem.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:uoft_eats/globals.dart' as globals;
+import 'package:uoft_eats/globals.dart';
 
 void main() => runApp(new MenuEditItemList());
 
@@ -59,7 +59,7 @@ class _MenuEditItemListState extends State<MenuEditItemList> {
               "Loading...",
               style: TextStyle(fontWeight: FontWeight.bold),
             ));
-          String name = globals.user;
+          String name = Globals.user;
           DocumentSnapshot truckDoc;
           for (final document in snapshot.data.documents) {
             if (document.documentID == name) {

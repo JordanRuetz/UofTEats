@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:uoft_eats/server/ServerDrawer.dart';
-import 'ServerGlobals.dart' as serverGlobals;
+import 'package:uoft_eats/globals.dart';
 
 class BillingInfoScreen extends StatefulWidget {
     BillingInfoScreen({Key key, this.title}) : super(key: key);
@@ -15,7 +15,7 @@ class BillingInfoScreen extends StatefulWidget {
 }
 
 class _MyBillingInfoScreenState extends State<BillingInfoScreen> {
-    String user = serverGlobals.Globals.user;
+    String user = Globals.user;
     final emailController = TextEditingController();
 
     @override
