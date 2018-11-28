@@ -49,10 +49,13 @@ class _HoursOfOperationScreen extends State<HoursOfOperationScreen>{
 }
 
 
-class HoursOfOperationsTable extends StatelessWidget{
+class HoursOfOperationsTable extends StatefulWidget{
   HoursOfOperationsTable({Key key, this.document}) : super(key: key);
-
   List<DocumentSnapshot> document;
+  _HoursOfOperationsTable createState() => new _HoursOfOperationsTable();
+}
+
+class _HoursOfOperationsTable extends State<HoursOfOperationsTable>{
 
   DocumentSnapshot getFoodTruckDocument(List<DocumentSnapshot> documentList){
     DocumentSnapshot thisDocument;
@@ -74,9 +77,9 @@ class HoursOfOperationsTable extends StatelessWidget{
           new Row(
             children: <Widget>[
               new GenerateDays(),
-              new GenerateOpeningTimes(document: getFoodTruckDocument(document)),
+              new GenerateOpeningTimes(document: getFoodTruckDocument(widget.document)),
               new GenerateHyphen(),
-              new GenerateClosingTimes(document: getFoodTruckDocument(document)),
+              new GenerateClosingTimes(document: getFoodTruckDocument(widget.document)),
             ],
           ),
           new Divider(color: Colors.grey),
@@ -133,7 +136,7 @@ class GenerateDays extends StatelessWidget{
   }
 }
 
-class GenerateOpeningTimes extends StatelessWidget{
+class GenerateOpeningTimes extends StatefulWidget{
 
   GenerateOpeningTimes({Key key, this.document}) : super(key: key);
   DocumentSnapshot document;
@@ -141,6 +144,10 @@ class GenerateOpeningTimes extends StatelessWidget{
   final double rowSpacing = 10.0;
   final double columnWidth = 50.0;
 
+  _GenerateOpeningTimes createState() => new _GenerateOpeningTimes();
+}
+
+class _GenerateOpeningTimes extends State<GenerateOpeningTimes>{
   List<String> generateOpeningTimes(DocumentSnapshot document){
     List<String> openingTimes = [];
     for(int i = 0; i < document['hours'].length; i++){
@@ -159,15 +166,11 @@ class GenerateOpeningTimes extends StatelessWidget{
 
   List<Widget> _getHours(List<String> hours) {
     List<Widget> hourWidgets = new List<Widget>();
-    for(String hour in generateOpeningTimes(document)) {
+    for(String hour in generateOpeningTimes(widget.document)) {
       hourWidgets.add(
         new Container(
-          width: columnWidth,
-          margin: new EdgeInsets.only(bottom: rowSpacing),
-//          child: new TextField(
-//            decoration: InputDecoration(
-//              hintText: hour
-//            ),
+          width: widget.columnWidth,
+          margin: new EdgeInsets.only(bottom: widget.rowSpacing),
           child: new TextFormField(initialValue: hour),
         )
       );
@@ -180,7 +183,7 @@ class GenerateOpeningTimes extends StatelessWidget{
     return new Container(
       child: new Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: _getHours(generateOpeningTimes(document))
+        children: _getHours(generateOpeningTimes(widget.document))
       ),
       margin: new EdgeInsets.only(right: 0.0, left: 0.0),
     );
@@ -223,13 +226,17 @@ class GenerateHyphen extends StatelessWidget{
   }
 }
 
-class GenerateClosingTimes extends StatelessWidget{
+class GenerateClosingTimes extends StatefulWidget{
   GenerateClosingTimes({Key key, this.document}) : super(key: key);
   DocumentSnapshot document;
 
   final double rowSpacing = 10.0;
   final double columnWidth = 50.0;
 
+  _GenerateClosingTimes createState() => new _GenerateClosingTimes();
+}
+
+class _GenerateClosingTimes extends State<GenerateClosingTimes>{
   List<String> generateClosingTimes(DocumentSnapshot document){
     List<String> closingTimes = [];
     for(int i = 0; i < document['hours'].length; i++){
@@ -248,16 +255,11 @@ class GenerateClosingTimes extends StatelessWidget{
 
   List<Widget> _getHours(List<String> hours) {
     List<Widget> hourWidgets = new List<Widget>();
-    for(String hour in generateClosingTimes(document)) {
+    for(String hour in generateClosingTimes(widget.document)) {
       hourWidgets.add(
         new Container(
-          width: columnWidth,
-          margin: new EdgeInsets.only(bottom: rowSpacing),
-//          child: new TextField(
-//            decoration: InputDecoration(
-//              hintText: hour
-//            ),
-//          )
+          width: widget.columnWidth,
+          margin: new EdgeInsets.only(bottom: widget.rowSpacing),
           child: new TextFormField(initialValue: hour),
         )
       );
@@ -270,7 +272,7 @@ class GenerateClosingTimes extends StatelessWidget{
     return new Container(
       child: new Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: _getHours(generateClosingTimes(document))
+        children: _getHours(generateClosingTimes(widget.document))
       ),
       margin: new EdgeInsets.only(right: 0.0, left: 0.0),
     );
