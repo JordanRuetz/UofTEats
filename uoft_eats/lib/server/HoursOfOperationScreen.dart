@@ -425,7 +425,7 @@ class SaveButton extends StatelessWidget{
 
     DocumentSnapshot thisDocument;
 
-    String s = Globals.user;
+    String s = serverGlobals.user;
     for(int i = 0; i < documentList.length; i++){
       if(documentList[i]['name'] == s){
         thisDocument = documentList[i];
