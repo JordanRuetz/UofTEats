@@ -62,7 +62,7 @@ class ServerDrawer extends StatelessWidget {
                           Navigator.pop(context); // Closes the drawer before moving
                           Navigator.pushReplacementNamed(context, '/login');
                       },
-                    );
+                    )
                 ],
             ));
     }
