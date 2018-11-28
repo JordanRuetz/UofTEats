@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:uoft_eats/client/ClientReceipt.dart';
 
-class PaymentConfirmationScreen extends StatelessWidget {
+class PaymentConfirmationScreen extends StatefulWidget{
   PaymentConfirmationScreen({Key key, this.subtotal, this.order})
-      : super(key: key);
+    : super(key: key);
 
   // TODO: my order format; I'd recommend modifying how you print to use this
   final Map order;
@@ -10,13 +11,19 @@ class PaymentConfirmationScreen extends StatelessWidget {
   final double subtotal;
 
   @override
+  _MyPaymentConfirmationScreen createState() => new _MyPaymentConfirmationScreen();
+}
+
+class _MyPaymentConfirmationScreen extends State<PaymentConfirmationScreen>{
+
+  @override
   Widget build(BuildContext context) {
     return new Scaffold(
         appBar: AppBar(
           title: Text("Payment Confirmation"),
-          backgroundColor: Colors.brown,
+          backgroundColor: Colors.blue,
         ),
-        body: new PaymentConfirmation(order: order));
+        body: new PaymentConfirmation(order: widget.order));
   }
 }
 
@@ -25,24 +32,26 @@ class PaymentConfirmation extends StatelessWidget {
       : super(key: key);
 
   final Map order;
-  final double tax = 0.91;
-  final Map<String, List> singleOrder = {
-    "Poutine": ["M", 1, 3.50],
-    "Burger": ["S", 1, 2.50],
-    "Drink": ["-", 1, 1.00],
-  };
+  final double tax = 0.0;
+//  final Map<String, List> singleOrder = {
+//    "Poutine": ["M", 1, 3.50],
+//    "Burger": ["S", 1, 2.50],
+//    "Drink": ["-", 1, 1.00],
+//  };
 
   @override
   Widget build(BuildContext context) {
-    return new MyPaymentConfirmation(order: singleOrder, tax: tax);
+    return new MyPaymentConfirmation(order: order, tax: tax);
   }
 }
 
 class MyPaymentConfirmation extends StatelessWidget {
-  final Map<String, List> order;
-  final double tax;
+  MyPaymentConfirmation({Key key, this.order, this.tax})
+    : super(key: key);
 
-  MyPaymentConfirmation({Key key, this.order, this.tax}) : super(key: key);
+  //  final Map<String, List> order;
+  Map order = new Map();
+  final double tax;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +60,7 @@ class MyPaymentConfirmation extends StatelessWidget {
             child: new ListView(
       children: [
         //Header
-        new PaymentConfirmationHeader(),
+        new PaymentConfirmationHeader(order: order),
         new OrderSummary(order: order, tax: tax)
         //Content
       ],
@@ -60,6 +69,11 @@ class MyPaymentConfirmation extends StatelessWidget {
 }
 
 class PaymentConfirmationHeader extends StatelessWidget {
+  final Map<String, List> order;
+
+  PaymentConfirmationHeader({Key key, this.order})
+    : super(key: key);
+
   var price = 7.91;
   var headerHeight = 200.0;
 
@@ -84,7 +98,7 @@ class PaymentConfirmationHeader extends StatelessWidget {
             new Container(
               height: 10.0,
             ),
-            new ConfirmButton(),
+            new ConfirmButton(order: order),
             new Container(
               padding: EdgeInsets.only(left: 10.0),
               height: 30.0,
@@ -254,6 +268,11 @@ class OrderSummary extends StatelessWidget {
 }
 
 class ConfirmButton extends StatelessWidget {
+  final Map<String, List> order;
+
+  ConfirmButton({Key key, this.order})
+    : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     var button = Container(
@@ -262,8 +281,17 @@ class ConfirmButton extends StatelessWidget {
             elevation: 5.0,
             color: Colors.green,
             onPressed: () {
-              Navigator.pushReplacementNamed(
-                  context, '/client/paymentConfirmation/receipt');
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ClientReceipt(
+                    orderNum: 0,
+                    foodTruck: "Name",
+                    order: order,
+                    tax: 0.0
+                  )
+                )
+              );
             }));
     return button;
   }

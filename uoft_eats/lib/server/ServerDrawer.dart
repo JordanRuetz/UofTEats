@@ -47,14 +47,22 @@ class ServerDrawer extends StatelessWidget {
                         },
                     ),
                     ListTile(
-                        leading: const Icon(Icons.attach_money),
-                        title: Text('Logout'),
-                        onTap: () {
-                            serverGlobals.user = "";
-                            Navigator.pop(context); // Closes the drawer before moving
-                            Navigator.pushReplacementNamed(context, '/login');
-                        },
+                      leading: const Icon(Icons.settings),
+                      title: Text('Edit Hours of Operation'),
+                      onTap: () {
+                        Navigator.pop(context); // Closes the drawer before moving
+                        Navigator.pushReplacementNamed(context, '/server/editHoursOfOperation');
+                      },
                     ),
+                    ListTile(
+                      leading: const Icon(Icons.attach_money),
+                      title: Text('Logout'),
+                      onTap: () {
+                          serverGlobals.user = "";
+                          Navigator.pop(context); // Closes the drawer before moving
+                          Navigator.pushReplacementNamed(context, '/login');
+                      },
+                    );
                 ],
             ));
     }
