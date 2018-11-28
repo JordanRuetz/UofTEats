@@ -10,7 +10,7 @@ class ServerOrdersScreen extends StatefulWidget {
   final String title;
   final String name;
   static final double taxPercent = 0.13;
-  // key is the order number. Map is unsorted
+  // key is the order number.
   /* static final Map<int, Tuple2<String, Map<String, List>>> customerOrders = {
     215: new Tuple2<String, Map<String, List>>("Anna", {
       "Poutine": ["M", 1, 5.00],
