@@ -97,8 +97,6 @@ class _MyLoginScreenState extends State<LoginScreen> {
   }
 
   void _login() async {
-    print(globals.user);
-
     String user = userController.text;
     String pass = Text(passController.text).data;
 
@@ -117,6 +115,7 @@ class _MyLoginScreenState extends State<LoginScreen> {
       if (docs[i]['username'] == user && docs[i]['password'] == pass &&
           docs[i]['isStudent'] == isStudent) {
         logged = true;
+        globals.user = user;
         if (isStudent) {
           Navigator.pushReplacementNamed(context, '/client/menus');
         } else {

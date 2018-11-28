@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:uoft_eats/client/MainDrawer.dart';
+import 'package:uoft_eats/globals.dart' as globals;
 
 class PaymentScreen extends StatefulWidget {
   PaymentScreen({Key key, this.title}) : super(key: key);
@@ -14,7 +15,7 @@ class PaymentScreen extends StatefulWidget {
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
-  String user = "jordan";
+  String user = globals.user;
   final emailController = TextEditingController();
 
   @override
