@@ -11,7 +11,7 @@ class ServerOrdersScreen extends StatefulWidget {
   final String name;
   static final double taxPercent = 0.13;
   // key is the order number. Map is unsorted
- /* static final Map<int, Tuple2<String, Map<String, List>>> customerOrders = {
+  /* static final Map<int, Tuple2<String, Map<String, List>>> customerOrders = {
     215: new Tuple2<String, Map<String, List>>("Anna", {
       "Poutine": ["M", 1, 5.00],
       "Hot Dog": ["S", 1, 2.50],
@@ -42,55 +42,138 @@ class _MyServerOrdersScreenState extends State<ServerOrdersScreen> {
   @override
   Widget build(BuildContext context) {
     //look at menuscreen
-    // pull at status 0
-    // change status to 1 when completed, status 2 when picked up
-    // two listviews for both statuse
+    // pull at status 0 - done
+    // foodtruck name - hardcoded at the moment
+    // change status to 1 when completed - done
+    // status 2 when picked up
+    // two listviews for both statuses
 
-    Map<int, Tuple2<String, Map<String, List>>> customerOrders = new Map<int, Tuple2<String, Map<String, List>>>();
+    Map<int, Tuple2<String, Map<String, List>>> customerOrders =
+        new Map<int, Tuple2<String, Map<String, List>>>();
 
-    return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance.collection('orders')
-          .where("status", isEqualTo: 0)
-          .where("server", isEqualTo: widget.foodTruck)
-          .snapshots(),
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (!snapshot.hasData) return const Text('Loading...');
-        final int count = snapshot.data.documents.length;
-        for (int i = 0; i < count; i++) {
-          //iterate each document(order)
-          Map<String, List> allItems = new Map<String, List>();
-          List orderQuery = snapshot.data.documents[i]['items'];
-          for (int j = 0; j < orderQuery.length; j++) {
-            List ItemInfo = new List(3);;
-            if (orderQuery[j]["size"] != "-1") {
-              ItemInfo[0] = orderQuery[j]["size"];
+    Map<int, Tuple2<String, Map<String, List>>> customerPickup =
+        new Map<int, Tuple2<String, Map<String, List>>>();
+
+/*    return StreamBuilder<QuerySnapshot>(
+        stream: Firestore.instance
+            .collection('orders')
+            .where("status", isEqualTo: 0)
+            .where("server", isEqualTo: widget.foodTruck)
+            .snapshots(),
+        builder:
+            (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot1) {
+          if (!snapshot1.hasData) return const Text('Loading...');
+          final int count = snapshot1.data.documents.length;
+          for (int i = 0; i < count; i++) {
+            //iterate each document(order)
+            Map<String, List> allItems = new Map<String, List>();
+            List orderQuery = snapshot1.data.documents[i]['items'];
+            for (int j = 0; j < orderQuery.length; j++) {
+              List ItemInfo = new List(3);
+              if (orderQuery[j]["size"] != "-1") {
+                ItemInfo[0] = orderQuery[j]["size"];
+              } else {
+                ItemInfo[0] = "";
+              }
+              ItemInfo[1] = orderQuery[j]["quantity"];
+              ItemInfo[2] = orderQuery[j]["price"];
+
+              allItems[orderQuery[j]["type"]] = ItemInfo;
+
+              Tuple2<String, Map<String, List>> NameToOrder1 =
+                  Tuple2<String, Map<String, List>>(
+                      snapshot1.data.documents[i]["client"], allItems);
+
+              customerOrders[snapshot1.data.documents[i]['orderNumber']] =
+                  NameToOrder1;
+                   print(customerOrders);
+
             }
-            else {
-              ItemInfo[0] = "";
-            }
-            ItemInfo[1] = orderQuery[j]["quantity"];
-            ItemInfo[2] = orderQuery[j]["price"];
-
-            allItems[orderQuery[j]["type"]] = ItemInfo;
-
-
-            Tuple2<String, Map<String, List>> NameToOrder = Tuple2<String,
-                Map<String, List>>(
-                snapshot.data.documents[i]["client"], allItems);
-
-            customerOrders[snapshot.data.documents[i]['orderNumber']] =
-                NameToOrder;
           }
-        }
-
           return new PendingOrders(
-              customerOrders: customerOrders,
-              taxPercent: ServerOrdersScreen.taxPercent, snapshot: snapshot);
+            customerOrders: customerOrders,
+            taxPercent: ServerOrdersScreen.taxPercent,
+            snapshot1: snapshot1,);
+              //snapshot2: snapshot2);
 
-      }
 
-    );
+        });*/
+    return StreamBuilder(
+        stream: Firestore.instance
+            .collection('orders')
+            .where("status", isEqualTo: 0)
+            .where("server", isEqualTo: widget.foodTruck)
+            .snapshots(),
+        builder: (context, snapshot1) {
+          if (!snapshot1.hasData) return const Text('Loading...');
+          final int count = snapshot1.data.documents.length;
+          for (int i = 0; i < count; i++) {
+            //iterate each document(order)
+            Map<String, List> allItems = new Map<String, List>();
+            List orderQuery = snapshot1.data.documents[i]['items'];
+            for (int j = 0; j < orderQuery.length; j++) {
+              List ItemInfo = new List(3);
+              if (orderQuery[j]["size"] != "-1") {
+                ItemInfo[0] = orderQuery[j]["size"];
+              } else {
+                ItemInfo[0] = "";
+              }
+              ItemInfo[1] = orderQuery[j]["quantity"];
+              ItemInfo[2] = orderQuery[j]["price"];
 
+              allItems[orderQuery[j]["type"]] = ItemInfo;
+
+              Tuple2<String, Map<String, List>> NameToOrder1 =
+                  Tuple2<String, Map<String, List>>(
+                      snapshot1.data.documents[i]["client"], allItems);
+
+              customerOrders[snapshot1.data.documents[i]['orderNumber']] =
+                  NameToOrder1;
+            }
+          }
+
+          return StreamBuilder(
+              stream: Firestore.instance
+                  .collection('orders')
+                  .where("status", isEqualTo: 1)
+                  .where("server", isEqualTo: widget.foodTruck)
+                  .snapshots(),
+              builder: (context, snapshot2) {
+                if (!snapshot2.hasData) return const Text('Loading...');
+                final int count2 = snapshot2.data.documents.length;
+                for (int i = 0; i < count2; i++) {
+                  //iterate each document(order)
+                  Map<String, List> allItems2 = new Map<String, List>();
+                  List orderQuery = snapshot2.data.documents[i]['items'];
+                  for (int j = 0; j < orderQuery.length; j++) {
+                    List ItemInfo = new List(3);
+                    if (orderQuery[j]["size"] != "-1") {
+                      ItemInfo[0] = orderQuery[j]["size"];
+                    } else {
+                      ItemInfo[0] = "";
+                    }
+                    ItemInfo[1] = orderQuery[j]["quantity"];
+                    ItemInfo[2] = orderQuery[j]["price"];
+
+                    allItems2[orderQuery[j]["type"]] = ItemInfo;
+
+                    Tuple2<String, Map<String, List>> NameToOrder2 =
+                        Tuple2<String, Map<String, List>>(
+                            snapshot2.data.documents[i]["client"], allItems2);
+
+                    customerPickup[snapshot2.data.documents[i]['orderNumber']] =
+                        NameToOrder2;
+                    print(customerPickup);
+                  }
+                  // do some stuff with both streams here
+                }
+                return new PendingOrders(
+                    customerOrders: customerOrders,
+                    customerPickup: customerPickup,
+                    taxPercent: ServerOrdersScreen.taxPercent,
+                    snapshot1: snapshot1,
+                    snapshot2: snapshot2);
+              });
+        });
   }
 }
-
