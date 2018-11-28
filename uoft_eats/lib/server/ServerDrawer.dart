@@ -18,7 +18,7 @@ class ServerDrawer extends StatelessWidget {
                         title: Text('Menus'),
                         onTap: () {
                             Navigator.pop(context); // Closes the drawer before moving
-                            Navigator.pushReplacementNamed(context, '/server/editmenucategorylist');
+                            Navigator.pushReplacementNamed(context, '/server/menus');
                         },
                     ),
                     ListTile(

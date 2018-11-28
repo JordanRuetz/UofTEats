@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:uoft_eats/server/ServerDrawer.dart';
 import 'MenuItemEdit.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:uoft_eats/globals.dart' as globals;
 
 void main() => runApp(new MenuEditItemList());
 
@@ -15,7 +16,6 @@ class MenuEditItemList extends StatefulWidget {
 }
 
 class _MenuEditItemListState extends State<MenuEditItemList> {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -23,23 +23,71 @@ class _MenuEditItemListState extends State<MenuEditItemList> {
         appBar: AppBar(
           title: Text("Edit Menu"),
         ),
-        body: ListView(
-            children: [
-              new EditableMenuItem(name: "Small Poutine", description: "Serves 1", price: 4.50),
-              new EditableMenuItem(name: "Medium Poutine", description: "Serves 1-2", price: 5.50),
-              new EditableMenuItem(name: "Large Poutine", description: "Serves 1-3", price: 6.50,),
-            ]
-        )
+        body: new StreamBuilder(
+            stream: Firestore.instance.collection('servers').snapshots(),
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.hasError)
+                return Center(child: new Text('Error: ${snapshot.error}'));
+              if (!snapshot.hasData)
+                return Center(
+                    child: const Text(
+                  "Loading...",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ));
+              String name = globals.user;
+              DocumentSnapshot truckDoc;
+              for (final document in snapshot.data.documents) {
+                if (document.documentID == name) {
+                  truckDoc = document;
+                  break;
+                }
+              }
+              if (truckDoc == null) {
+                return Center(
+                    child: new Text('Error: no such food truck $name.'));
+              }
+              Stream<QuerySnapshot> menuStream = Firestore.instance
+                  .collection('servers/' + name + '/menu')
+                  .snapshots();
+              return thing(menuStream);
+            }));
+  }
+
+  Widget thing(Stream<QuerySnapshot> menuStream) {
+    return new StreamBuilder(
+      stream: menuStream,
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
+        switch (snapshot.connectionState) {
+          case ConnectionState.waiting:
+            return new Text('Loading...');
+          default:
+            return new ListView(
+              children:
+                  snapshot.data.documents.map((DocumentSnapshot document) {
+                return _buildItemCard(document);
+              }).toList(),
+            );
+        }
+      },
+    );
+  }
+
+  Widget _buildItemCard(DocumentSnapshot document) {
+    return new EditableMenuItem(
+      name: document['name'],
+      price: 9.0,
+//      price: document['pricing'],
     );
   }
 }
 
 class EditableMenuItem extends StatelessWidget {
   final String name;
-  final String description;
   final double price;
 
-  const EditableMenuItem({Key key, this.name, this.description, this.price}) : super(key: key);
+  const EditableMenuItem({Key key, this.name, this.price}) : super(key: key);
 
   Widget build(BuildContext context) {
     return new Container(
@@ -50,22 +98,27 @@ class EditableMenuItem extends StatelessWidget {
               title: Padding(
                 padding: const EdgeInsets.only(bottom: 5.0),
                 child: Text("$name",
-                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20.0)),
+                    style:
+                        TextStyle(fontWeight: FontWeight.w500, fontSize: 20.0)),
               ),
-              subtitle: Text("$description"),
               leading: IconButton(
-                icon: Icon( Icons.edit, ),
+                icon: Icon(
+                  Icons.edit,
+                ),
                 tooltip: 'Edit this item',
                 onPressed: () {
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) =>
-                    (MenuItemEdit(name: name, description: description , price: price))),
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            (MenuItemEdit(name: name, price: price))),
                   );
                 },
               ),
-              trailing: Text("\$$price    ", style: TextStyle(fontSize: 16.0),),
+              trailing: Text(
+                "\$$price    ",
+                style: TextStyle(fontSize: 16.0),
+              ),
             ),
-            Divider(),
           ],
         ),
       ),
