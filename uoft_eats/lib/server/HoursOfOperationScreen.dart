@@ -65,7 +65,7 @@ class HoursOfOperationsTable extends StatelessWidget{
               new GenerateDays(),
               new GenerateOpeningTimes(document: getFoodTruckDocument(document)),
               new GenerateHyphen(),
-              new GenerateClosingTimes(),
+              new GenerateClosingTimes(document: getFoodTruckDocument(document)),
             ],
           ),
           new Divider(color: Colors.grey),
@@ -213,22 +213,31 @@ class GenerateHyphen extends StatelessWidget{
 }
 
 class GenerateClosingTimes extends StatelessWidget{
+  GenerateClosingTimes({Key key, this.document}) : super(key: key);
+  DocumentSnapshot document;
+
   final double rowSpacing = 10.0;
   final double columnWidth = 50.0;
-  List<String> closingTimes = [
-    '10pm',
-    '10pm',
-    '10pm',
-    '10pm',
-    '12am',
-    '8pm',
-    '5pm'
-  ];
+
+  List<String> generateClosingTimes(DocumentSnapshot document){
+    List<String> closingTimes = [];
+    for(int i = 0; i < document['hours'].length; i++){
+      if(i % 2 != 0) {
+        if(document['hours'][i] == -1){
+          closingTimes.add("closed");
+        }else{
+          closingTimes.add(document['hours'][i].toString());
+        }
+      }
+    }
+    return closingTimes;
+  }
+
   List<Widget> closingTimeWidgets = new List<Widget>();
 
   List<Widget> _getHours(List<String> hours) {
     List<Widget> hourWidgets = new List<Widget>();
-    for(String hour in closingTimes) {
+    for(String hour in generateClosingTimes(document)) {
       hourWidgets.add(
         new Container(
           width: columnWidth,
@@ -249,7 +258,7 @@ class GenerateClosingTimes extends StatelessWidget{
     return new Container(
       child: new Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: _getHours(closingTimes)
+        children: _getHours(generateClosingTimes(document))
       ),
       margin: new EdgeInsets.only(right: 0.0, left: 0.0),
     );
