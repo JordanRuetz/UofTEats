@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uoft_eats/server/ServerDrawer.dart';
 import 'MenuItemEdit.dart';
+import 'MenuAddItem.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:uoft_eats/globals.dart' as globals;
 
@@ -16,42 +17,65 @@ class MenuEditItemList extends StatefulWidget {
 }
 
 class _MenuEditItemListState extends State<MenuEditItemList> {
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        drawer: new ServerDrawer(),
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
-        body: new StreamBuilder(
-            stream: Firestore.instance.collection('servers').snapshots(),
-            builder:
-                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-              if (snapshot.hasError)
-                return Center(child: new Text('Error: ${snapshot.error}'));
-              if (!snapshot.hasData)
-                return Center(
-                    child: const Text(
-                  "Loading...",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ));
-              String name = globals.user;
-              DocumentSnapshot truckDoc;
-              for (final document in snapshot.data.documents) {
-                if (document.documentID == name) {
-                  truckDoc = document;
-                  break;
-                }
-              }
-              if (truckDoc == null) {
-                return Center(
-                    child: new Text('Error: no such food truck $name.'));
-              }
-              Stream<QuerySnapshot> menuStream = Firestore.instance
-                  .collection('servers/' + name + '/menu')
-                  .snapshots();
-              return _generateCards(menuStream);
-            }));
+      drawer: new ServerDrawer(),
+      appBar: AppBar(
+        title: Text(widget.title),
+        actions: <Widget>[
+          new IconButton(
+            icon: Icon(Icons.fastfood),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                    builder: (context) =>
+                    (MenuAddItem(isFood: true))),
+              );
+            },
+          ),
+          new IconButton(
+            icon: Icon(Icons.local_drink),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                    builder: (context) =>
+                    (MenuAddItem(isFood: false))),
+              );
+            }
+          ),
+        ],
+      ),
+      body: new StreamBuilder(
+        stream: Firestore.instance.collection('servers').snapshots(),
+        builder:
+            (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError)
+            return Center(child: new Text('Error: ${snapshot.error}'));
+          if (!snapshot.hasData)
+            return Center(
+                child: const Text(
+              "Loading...",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ));
+          String name = globals.user;
+          DocumentSnapshot truckDoc;
+          for (final document in snapshot.data.documents) {
+            if (document.documentID == name) {
+              truckDoc = document;
+              break;
+            }
+          }
+          if (truckDoc == null) {
+            return Center(
+                child: new Text('Error: no such food truck $name.'));
+          }
+          Stream<QuerySnapshot> menuStream = Firestore.instance
+            .collection('servers/' + name + '/menu')
+            .snapshots();
+          return _generateCards(menuStream);
+        }));
   }
 
   Widget _generateCards(Stream<QuerySnapshot> menuStream) {
@@ -97,8 +121,8 @@ class EditableMenuItem extends StatelessWidget {
               title: Padding(
                 padding: const EdgeInsets.only(bottom: 5.0),
                 child: Text("$name",
-                    style:
-                        TextStyle(fontWeight: FontWeight.w500, fontSize: 20.0)),
+                  style:
+                    TextStyle(fontWeight: FontWeight.w500, fontSize: 20.0)),
               ),
               leading: IconButton(
                 icon: Icon(
@@ -108,8 +132,8 @@ class EditableMenuItem extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                        builder: (context) =>
-                            (MenuItemEdit(name: name, price: price))),
+                      builder: (context) =>
+                        (MenuItemEdit(name: name, price: price))),
                   );
                 },
               ),

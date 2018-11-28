@@ -129,36 +129,36 @@ class _MenuItemEdit extends State<MenuItemEdit> {
       }
     }
     children.add(
-        new RaisedButton(
-            onPressed: () {
-              if (_key.currentState.validate()) {
-                if (document['foodOrDrink']) {
-                  Firestore.instance.runTransaction((transaction) async {
-                    DocumentSnapshot freshSnap =
-                    await transaction.get(document.reference);
-                    await transaction.update(freshSnap.reference, {
-                      'name': nameControllerFood.text,
-                      'pricing.small': double.parse(priceController0.text),
-                      'pricing.medium': double.parse(priceController1.text),
-                      'pricing.large': double.parse(priceController2.text),
-                    });
-                  });
-                } else {
-                  Firestore.instance.runTransaction((transaction) async {
-                    DocumentSnapshot freshSnap =
-                    await transaction.get(document.reference);
-                    await transaction.update(freshSnap.reference, {
-                      'name': nameControllerDrink.text,
-                      'pricing.all': double.parse(priceControllerDrink.text),
-                    });
-                  });
-                }
+      new RaisedButton(
+        onPressed: () {
+          if (_key.currentState.validate()) {
+            if (document['foodOrDrink']) {
+              Firestore.instance.runTransaction((transaction) async {
+                DocumentSnapshot freshSnap =
+                await transaction.get(document.reference);
+                await transaction.update(freshSnap.reference, {
+                  'name': nameControllerFood.text,
+                  'pricing.small': double.parse(priceController0.text),
+                  'pricing.medium': double.parse(priceController1.text),
+                  'pricing.large': double.parse(priceController2.text),
+                });
+              });
+            } else {
+              Firestore.instance.runTransaction((transaction) async {
+                DocumentSnapshot freshSnap =
+                await transaction.get(document.reference);
+                await transaction.update(freshSnap.reference, {
+                  'name': nameControllerDrink.text,
+                  'pricing.all': double.parse(priceControllerDrink.text),
+                });
+              });
+            }
 
-                Navigator.of(context).pop();
-              }
-            },
-            child: Text("Confirm")
-        )
+            Navigator.of(context).pop();
+          }
+        },
+          child: Text("Confirm")
+      )
     );
 
     return new Form(
