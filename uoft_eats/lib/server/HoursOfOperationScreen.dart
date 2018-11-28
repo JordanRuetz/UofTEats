@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:uoft_eats/globals.dart' as globals;
 
 class HoursOfOperationScreen extends StatefulWidget {
 
@@ -36,21 +37,22 @@ class _HoursOfOperationScreen extends State<HoursOfOperationScreen> {
   }
 }
 
-DocumentSnapshot getFoodTruckDocument(List<DocumentSnapshot> documentList){
-
-  DocumentSnapshot document;
-
-//  documentList.map((DocumentSnapshot d){
-//    if()
-//  });
-}
 
 class HoursOfOperationsTable extends StatelessWidget{
   HoursOfOperationsTable({Key key, this.document}) : super(key: key);
 
   List<DocumentSnapshot> document;
 
-
+  DocumentSnapshot getFoodTruckDocument(List<DocumentSnapshot> documentList){
+    DocumentSnapshot thisDocument;
+    String s = globals.user;
+    for(int i = 0; i < documentList.length; i++){
+      if(documentList[i]['name'] == s){
+        thisDocument = documentList[i];
+      }
+    }
+    return thisDocument;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +63,7 @@ class HoursOfOperationsTable extends StatelessWidget{
           new Row(
             children: <Widget>[
               new GenerateDays(),
-              new GenerateOpeningTimes(),
+              new GenerateOpeningTimes(document: getFoodTruckDocument(document)),
               new GenerateHyphen(),
               new GenerateClosingTimes(),
             ],
@@ -121,22 +123,32 @@ class GenerateDays extends StatelessWidget{
 }
 
 class GenerateOpeningTimes extends StatelessWidget{
+
+  GenerateOpeningTimes({Key key, this.document}) : super(key: key);
+  DocumentSnapshot document;
+
   final double rowSpacing = 10.0;
   final double columnWidth = 50.0;
-  List<String> openingTimes = [
-    '8am',
-    '8am',
-    '8am',
-    '8am',
-    '9am',
-    '10am',
-    '10am'
-  ];
+
+  List<String> generateOpeningTimes(DocumentSnapshot document){
+    List<String> openingTimes = [];
+    for(int i = 0; i < document['hours'].length; i++){
+      if(i % 2 == 0) {
+        if(document['hours'][i] == -1){
+          openingTimes.add("closed");
+        }else{
+          openingTimes.add(document['hours'][i].toString());
+        }
+      }
+    }
+    return openingTimes;
+  }
+
   List<Widget> openingTimeWidgets = new List<Widget>();
 
   List<Widget> _getHours(List<String> hours) {
     List<Widget> hourWidgets = new List<Widget>();
-    for(String hour in openingTimes) {
+    for(String hour in generateOpeningTimes(document)) {
       hourWidgets.add(
         new Container(
           width: columnWidth,
@@ -157,7 +169,7 @@ class GenerateOpeningTimes extends StatelessWidget{
     return new Container(
       child: new Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: _getHours(openingTimes)
+        children: _getHours(generateOpeningTimes(document))
       ),
       margin: new EdgeInsets.only(right: 0.0, left: 0.0),
     );
