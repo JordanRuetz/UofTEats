@@ -15,6 +15,14 @@ class ServerDrawer extends StatelessWidget {
                         ),
                     ),
                     ListTile(
+                      leading: const Icon(Icons.home),
+                      title: Text('Home'),
+                      onTap: () {
+                        Navigator.pop(context); // Closes the drawer before moving
+                        Navigator.pushReplacementNamed(context, '/server');
+                      },
+                    ),
+                    ListTile(
                         leading: const Icon(Icons.add_shopping_cart),
                         title: Text('Menus'),
                         onTap: () {
@@ -23,7 +31,7 @@ class ServerDrawer extends StatelessWidget {
                         },
                     ),
                     ListTile(
-                        leading: const Icon(Icons.history),
+                        leading: const Icon(Icons.calendar_today),
                         title: Text('Pending Orders'),
                         onTap: () {
                             Navigator.pop(context); // Closes the drawer before moving
@@ -31,11 +39,19 @@ class ServerDrawer extends StatelessWidget {
                         },
                     ),
                     ListTile(
-                        leading: const Icon(Icons.history),
+                        leading: const Icon(Icons.format_list_numbered),
                         title: Text('Quantities'),
                         onTap: () {
                             Navigator.pop(context); // Closes the drawer before moving
                             Navigator.pushReplacementNamed(context, '/server/quantities');
+                        },
+                    ),
+                    ListTile(
+                        leading: const Icon(Icons.history),
+                        title: Text('Order History'),
+                        onTap: () {
+                            Navigator.pop(context); // Closes the drawer before moving
+                            Navigator.pushReplacementNamed(context, '/server/orderhistory');
                         },
                     ),
                     ListTile(
@@ -55,7 +71,7 @@ class ServerDrawer extends StatelessWidget {
                       },
                     ),
                     ListTile(
-                      leading: const Icon(Icons.attach_money),
+                      leading: const Icon(Icons.exit_to_app),
                       title: Text('Logout'),
                       onTap: () {
                           serverGlobals.user = "";
