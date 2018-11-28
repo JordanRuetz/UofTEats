@@ -140,27 +140,29 @@ class _MyLoginScreenState extends State<LoginScreen> {
       );
     }
 
-    Firestore fs = Firestore.instance;
-    QuerySnapshot query = await fs.collection("accounts").getDocuments();
-    List<DocumentSnapshot> docs = query.documents;
+    bool myLogged = false;
 
     for (int i = 0; i < docs.length; i++) {
       if (docs[i]['username'] == user && docs[i]['password'] == pass &&
           docs[i]['isStudent'] == isStudent) {
         if (isStudent) {
+          myLogged = true;
           Navigator.pushReplacementNamed(context, '/client/menus');
         } else {
+          myLogged = true;
           Navigator.pushReplacementNamed(context, '/server');
         }
       }
     }
 
-    Fluttertoast.showToast(
+    if(!myLogged){
+      Fluttertoast.showToast(
         msg: "Invalid Login",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIos: 2
-    );
+      );
+    }
   }
 
   void _support() {
