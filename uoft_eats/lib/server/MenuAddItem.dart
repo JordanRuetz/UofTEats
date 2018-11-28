@@ -94,7 +94,7 @@ class _MenuAddItem extends State<MenuAddItem> {
         onPressed: () {
           if (_key.currentState.validate()) {
             if (widget.isFood) {
-              collection.document(nameControllerFood.text.toLowerCase()).setData(
+              collection.document(nameControllerFood.text.toLowerCase().replaceAll(RegExp(r" "), "_")).setData(
                 {
                   'name': nameControllerFood.text,
                   'pricing': {
@@ -107,7 +107,7 @@ class _MenuAddItem extends State<MenuAddItem> {
               );
 
             } else {
-              collection.document(nameControllerDrink.text.toLowerCase()).setData(
+              collection.document(nameControllerDrink.text.toLowerCase().replaceAll(RegExp(r" "), "_")).setData(
                 {
                   'name': nameControllerDrink.text,
                   'pricing': {
