@@ -125,7 +125,7 @@ class _MyLoginScreenState extends State<LoginScreen> {
           clientGlobals.user = user;
           Navigator.pushReplacementNamed(context, '/client/menus');
         } else {
-          serverGlobals.user = user;
+          serverGlobals.Globals.user = user;
           Navigator.pushReplacementNamed(context, '/server');
         }
       }
@@ -147,9 +147,11 @@ class _MyLoginScreenState extends State<LoginScreen> {
           docs[i]['isStudent'] == isStudent) {
         if (isStudent) {
           myLogged = true;
+          clientGlobals.user = user;
           Navigator.pushReplacementNamed(context, '/client/menus');
         } else {
           myLogged = true;
+          serverGlobals.Globals.user = user;
           Navigator.pushReplacementNamed(context, '/server');
         }
       }

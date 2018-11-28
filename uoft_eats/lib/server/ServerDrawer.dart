@@ -74,7 +74,7 @@ class ServerDrawer extends StatelessWidget {
                       leading: const Icon(Icons.exit_to_app),
                       title: Text('Logout'),
                       onTap: () {
-                          serverGlobals.user = "";
+                          serverGlobals.Globals.user = "";
                           Navigator.pop(context); // Closes the drawer before moving
                           Navigator.pushReplacementNamed(context, '/login');
                       },

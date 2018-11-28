@@ -150,7 +150,7 @@ class _MyNewAccountScreenState extends State<NewAccountScreen> {
 
           Navigator.pushReplacementNamed(context, '/client/menus');
         } else {
-          serverGlobals.user = user;
+          serverGlobals.Globals.user = user;
           fs.collection('accounts').document()
               .setData({'username': user, 'password': pass, 'isStudent': false});
 

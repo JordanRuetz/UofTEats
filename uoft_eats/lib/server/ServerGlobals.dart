@@ -1,3 +1,3 @@
-library uofteats.server_globals;
-
-String user = "";
+class Globals {
+    static String user = "";
+}

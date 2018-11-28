@@ -15,7 +15,7 @@ class BillingInfoScreen extends StatefulWidget {
 }
 
 class _MyBillingInfoScreenState extends State<BillingInfoScreen> {
-    String user = serverGlobals.user;
+    String user = serverGlobals.Globals.user;
     final emailController = TextEditingController();
 
     @override

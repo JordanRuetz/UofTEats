@@ -14,7 +14,6 @@ import 'client/PaymentConfirmationScreen.dart';
 import 'client/ReceiptScreen.dart';
 
 import 'server/ServerHomeScreen.dart';
-import 'server/ServerMenusScreen.dart';
 import 'server/ServerOrdersScreen.dart';
 import 'server/BillingInfoScreen.dart';
 import 'server/QuantitiesOrderedScreen.dart';
@@ -78,6 +77,5 @@ class _MyApp extends State<MyApp> {
         '/server/editHoursOfOperation': (BuildContext context) => HoursOfOperationScreen(),
       },
     );
-    return null;
   }
 }
