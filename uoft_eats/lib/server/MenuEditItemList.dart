@@ -21,7 +21,7 @@ class _MenuEditItemListState extends State<MenuEditItemList> {
     return new Scaffold(
         drawer: new ServerDrawer(),
         appBar: AppBar(
-          title: Text("Edit Menu"),
+          title: Text(widget.title),
         ),
         body: new StreamBuilder(
             stream: Firestore.instance.collection('servers').snapshots(),
