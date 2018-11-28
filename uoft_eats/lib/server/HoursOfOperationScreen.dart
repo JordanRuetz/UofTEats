@@ -149,24 +149,43 @@ class GenerateOpeningTimes extends StatefulWidget{
 
 class _GenerateOpeningTimes extends State<GenerateOpeningTimes>{
 
-  final monOpenController = TextEditingController();
-  final tuesOpenController = TextEditingController();
-  final wedOpenController = TextEditingController();
-  final thursOpenController = TextEditingController();
-  final friOpenController = TextEditingController();
-  final satOpenController = TextEditingController();
-  final sunOpenController = TextEditingController();
+  var monOpenController;
+  var tuesOpenController;
+  var wedOpenController;
+  var thursOpenController;
+  var friOpenController;
+  var satOpenController;
+  var sunOpenController;
 
 //  List<TextEditingController> controllerList = [];
 
-  List<TextEditingController> populateControllerList(){
+  List<TextEditingController> populateControllerList(DocumentSnapshot document){
+
+    List<String> openingTimes = [];
+    for(int i = 0; i < document['hours'].length; i++){
+      if(i % 2 == 0) {
+        if(document['hours'][i] == -1){
+          openingTimes.add("closed");
+        }else{
+          openingTimes.add(document['hours'][i].toString());
+        }
+      }
+    }
+
     List<TextEditingController> L = [];
+    monOpenController = TextEditingController(text: openingTimes[0]);
     L.add(monOpenController);
+    tuesOpenController = TextEditingController(text: openingTimes[1]);
     L.add(tuesOpenController);
+    wedOpenController = TextEditingController(text: openingTimes[2]);
     L.add(wedOpenController);
+    thursOpenController = TextEditingController(text: openingTimes[3]);
     L.add(thursOpenController);
+    friOpenController = TextEditingController(text: openingTimes[4]);
     L.add(friOpenController);
+    satOpenController = TextEditingController(text: openingTimes[5]);
     L.add(satOpenController);
+    sunOpenController = TextEditingController(text: openingTimes[6]);
     L.add(sunOpenController);
     return L;
   }
@@ -189,13 +208,13 @@ class _GenerateOpeningTimes extends State<GenerateOpeningTimes>{
 
   List<Widget> _getHours(List<String> hours) {
     List<Widget> hourWidgets = new List<Widget>();
-    List<TextEditingController> controllerList = populateControllerList();
+    List<TextEditingController> controllerList = populateControllerList(widget.document);
     for(int i = 0; i < generateOpeningTimes(widget.document).length; i++) {
       hourWidgets.add(
         new Container(
           width: widget.columnWidth,
           margin: new EdgeInsets.only(bottom: widget.rowSpacing),
-          child: new TextField(
+          child: new TextFormField(
 //            initialValue: generateOpeningTimes(widget.document)[i],
 //            decoration: InputDecoration(
 //              border: InputBorder.none,
