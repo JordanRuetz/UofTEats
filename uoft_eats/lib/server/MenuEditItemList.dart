@@ -75,11 +75,6 @@ class _MenuEditItemListState extends State<MenuEditItemList> {
   }
 
   Widget _buildItemCard(DocumentSnapshot document) {
-//    Map<String, dynamic> pricing = new Map<String, dynamic>();
-//    for (final key in document['pricing'].keys) {
-//      pricing.putIfAbsent(key, );
-//      pricing.update(key, update)
-//    }
     return new EditableMenuItem(
       name: document['name'],
       price: Map.from(document['pricing']),

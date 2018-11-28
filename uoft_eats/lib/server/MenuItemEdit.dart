@@ -17,7 +17,9 @@ class MenuItemEdit extends StatefulWidget {
 class _MenuItemEdit extends State<MenuItemEdit> {
   static final GlobalKey<FormState> _key = new GlobalKey<FormState>();
 
-  final nameController = new TextEditingController();
+  final nameControllerFood = new TextEditingController();
+  final nameControllerDrink = new TextEditingController();
+  final priceControllerDrink = new TextEditingController();
   final priceController0 = new TextEditingController();
   final priceController1 = new TextEditingController();
   final priceController2 = new TextEditingController();
@@ -56,13 +58,14 @@ class _MenuItemEdit extends State<MenuItemEdit> {
     @override
     // ignore: unused_element
     void dispose() {
-      nameController.dispose();
+      nameControllerFood.dispose();
       super.dispose();
     }
 
-    var children = <Widget> [
-      new TextFormField(
-        controller: nameController,
+    var children = <Widget> [];
+    if (!document['foodOrDrink']) {
+      children.add(new TextFormField(
+        controller: nameControllerDrink,
         decoration: new InputDecoration(
           labelText: "Enter your new name",
         ),
@@ -74,40 +77,82 @@ class _MenuItemEdit extends State<MenuItemEdit> {
           return null;
         },
       ),
-    ];
-    for (final size in sizes) {
-      children.add(
-          new TextFormField(
-            controller: availableController[availableController.length - 1],
-            decoration: new InputDecoration(
-              labelText: "Enter your new price for size $size",
-            ),
-            keyboardType: TextInputType.number,
-            validator: (String value) {
-              if (value.length == 0 || double.parse(value) <= 0) {
-                return "Price invalid";
-              }
-              return null;
-            },
-          )
       );
-      TextEditingController popped = availableController.removeLast();
-      controllers.add(popped);
+      children.add(
+        new TextFormField(
+          controller: priceControllerDrink,
+          decoration: new InputDecoration(
+            labelText: "Enter your new price",
+          ),
+          keyboardType: TextInputType.number,
+          validator: (String value) {
+            if (value.length == 0 || double.parse(value) <= 0) {
+              return "Price invalid";
+            }
+            return null;
+          },
+        )
+      );
+    } else {
+      children.add(new TextFormField(
+        controller: nameControllerFood,
+        decoration: new InputDecoration(
+          labelText: "Enter your new name",
+        ),
+        keyboardType: TextInputType.text,
+        validator: (String value) {
+          if (value.length == 0) {
+            return "Name cannot be empty";
+          }
+          return null;
+        },
+      ),
+      );
+      for (final size in sizes) {
+        children.add(
+            new TextFormField(
+              controller: availableController[availableController.length - 1],
+              decoration: new InputDecoration(
+                labelText: "Enter your new price for size $size",
+              ),
+              keyboardType: TextInputType.number,
+              validator: (String value) {
+                if (value.length == 0 || double.parse(value) <= 0) {
+                  return "Price invalid";
+                }
+                return null;
+              },
+            )
+        );
+        TextEditingController popped = availableController.removeLast();
+        controllers.add(popped);
+      }
     }
     children.add(
         new RaisedButton(
             onPressed: () {
               if (_key.currentState.validate()) {
-                Firestore.instance.runTransaction((transaction) async {
-                  DocumentSnapshot freshSnap =
-                  await transaction.get(document.reference);
-                  await transaction.update(freshSnap.reference, {
-                    'name': nameController.text,
-                    'pricing.small' : int.parse(priceController0.text),
-                    'pricing.medium' : int.parse(priceController1.text),
-                    'pricing.large' : int.parse(priceController2.text),
+                if (document['foodOrDrink']) {
+                  Firestore.instance.runTransaction((transaction) async {
+                    DocumentSnapshot freshSnap =
+                    await transaction.get(document.reference);
+                    await transaction.update(freshSnap.reference, {
+                      'name': nameControllerFood.text,
+                      'pricing.small': double.parse(priceController0.text),
+                      'pricing.medium': double.parse(priceController1.text),
+                      'pricing.large': double.parse(priceController2.text),
+                    });
                   });
-                });
+                } else {
+                  Firestore.instance.runTransaction((transaction) async {
+                    DocumentSnapshot freshSnap =
+                    await transaction.get(document.reference);
+                    await transaction.update(freshSnap.reference, {
+                      'name': nameControllerDrink.text,
+                      'pricing.all': double.parse(priceControllerDrink.text),
+                    });
+                  });
+                }
 
                 Navigator.of(context).pop();
               }
