@@ -156,7 +156,7 @@ class _MyNewAccountScreenState extends State<NewAccountScreen> {
 
           fs.collection("servers").document(user).setData({"paymentEmail": "N/A",
             "name": user, "hours": [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, -1, -1], "color": 0});
-
+          
           Navigator.pushReplacementNamed(context, '/server/menus');
         }
       }
@@ -164,6 +164,7 @@ class _MyNewAccountScreenState extends State<NewAccountScreen> {
   }
 
   Future<List<String>> getUsers() async {
+    
     List<String> existingUsers = [];
 
     Firestore fs = Firestore.instance;

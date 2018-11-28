@@ -19,7 +19,6 @@ import 'server/ServerOrdersScreen.dart';
 import 'server/BillingInfoScreen.dart';
 import 'server/QuantitiesOrderedScreen.dart';
 import 'server/ServerOrderHistory.dart';
-import 'server/MenuEditCategoryList.dart';
 import 'server/MenuEditItemList.dart';
 import 'server/HoursOfOperationScreen.dart';
 
@@ -71,13 +70,11 @@ class _MyApp extends State<MyApp> {
         '/client/paymentConfirmation/receipt': (BuildContext context) => ReceiptScreen(title: 'Receipt'),
 
         '/server': (BuildContext context) => ServerHomeScreen(title: 'Home'),
-        '/server/menus': (BuildContext context) => ServerMenusScreen(title: 'Menus'),
+        '/server/menus': (BuildContext context) => MenuEditItemList(title: 'Edit Menu Items',),
         '/server/orders': (BuildContext context) => ServerOrdersScreen(title: 'Orders'),
         '/server/billingInfo': (BuildContext context) => BillingInfoScreen(title: 'Billing Info'),
         '/server/quantities': (BuildContext context) => QuantitiesOrderedScreen(title: 'Quantities'),
         '/server/orderhistory': (BuildContext context) => ServerOrderHistory(title: 'Order History'),
-        '/server/editmenucategorylist': (BuildContext context) => MenuEditCategoryList(title: 'Edit Menu Category'),
-        '/server/editmenuitemlist': (BuildContext context) => MenuEditItemList(title: 'Edit Menu Items',),
         '/server/editHoursOfOperation': (BuildContext context) => HoursOfOperationScreen(),
       },
     );
