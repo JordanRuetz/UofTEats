@@ -50,11 +50,11 @@ class _MenuEditItemListState extends State<MenuEditItemList> {
               Stream<QuerySnapshot> menuStream = Firestore.instance
                   .collection('servers/' + name + '/menu')
                   .snapshots();
-              return thing(menuStream);
+              return _generateCards(menuStream);
             }));
   }
 
-  Widget thing(Stream<QuerySnapshot> menuStream) {
+  Widget _generateCards(Stream<QuerySnapshot> menuStream) {
     return new StreamBuilder(
       stream: menuStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
