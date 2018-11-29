@@ -51,7 +51,8 @@ class PaymentConfirmation extends StatelessWidget {
           children: [
             //Header
             new PaymentConfirmationHeader(order: createOrder(order), subTotal: subTotal),
-//            new OrderSummary(order: widget.order, tax: widget.tax)
+            new ReceiptHeaders(),
+            new Divider(color: Colors.blue),
             new OrderSummary(order: createOrder(order)),
             //Content
           ],
@@ -118,8 +119,8 @@ class OrderSummary extends StatelessWidget {
     for (var i = 0; i < listOfItems.length; i++) {
       if(order[i][0] > 0){
         orderWidgets.add(new Container(
-          width: 120.0,
-          padding: new EdgeInsets.only(bottom: listSpacing),
+          width: 180.0,
+          padding: new EdgeInsets.only(bottom: listSpacing, left: 20.0),
           child: new Text(listOfItems[i])));
       }
     }
@@ -136,7 +137,7 @@ class OrderSummary extends StatelessWidget {
     for (var i = 0; i < listOfSizes.length; i++) {
       if(order[i][0] > 0){
         orderWidgets.add(new Container(
-          width: 120.0,
+          width: 80.0,
           padding: new EdgeInsets.only(bottom: listSpacing),
           child: new Text(listOfSizes[i])));
       }
@@ -154,8 +155,8 @@ class OrderSummary extends StatelessWidget {
     for (var i = 0; i < listOfQuantities.length; i++) {
       if(order[i][0] > 0){
         orderWidgets.add(new Container(
-          width: 120.0,
-          padding: new EdgeInsets.only(bottom: listSpacing),
+          width: 60.0,
+          padding: new EdgeInsets.only(bottom: listSpacing, left: 10.0),
           child: new Text(listOfQuantities[i])));
       }
     }
@@ -172,7 +173,7 @@ class OrderSummary extends StatelessWidget {
     for (var i = 0; i < listOfPrices.length; i++) {
       if(order[i][0] > 0){
         orderWidgets.add(new Container(
-          width: 120.0,
+          width: 60.0,
           padding: new EdgeInsets.only(bottom: listSpacing),
           child: new Text(listOfPrices[i])));
       }
@@ -202,6 +203,36 @@ class OrderSummary extends StatelessWidget {
                 children: _getPrices()),
             ],
           ),
+        ],
+      ));
+  }
+}
+
+class ReceiptHeaders extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+
+    return new Container(
+      padding: new EdgeInsets.only(top: 20.0),
+      child: new Row(
+        children: <Widget>[
+          new Container(
+            width: 180.0,
+            child: new Text("Item", style: new TextStyle(fontSize: 16.0)),
+            padding: new EdgeInsets.only(left: 20.0)),
+          new Container(
+            width: 80.0,
+            child: new Text("Size", style: new TextStyle(fontSize: 16.0)),
+//            padding: new EdgeInsets.only(right: 50.0)
+          ),
+          new Container(
+            width: 60.0,
+            child: new Text("QTY", style: new TextStyle(fontSize: 16.0)),
+//            padding: new EdgeInsets.only(right: 38.0)
+          ),
+          new Container(
+            width: 80.0,
+            child: new Text("Price", style: new TextStyle(fontSize: 16.0)))
         ],
       ));
   }
