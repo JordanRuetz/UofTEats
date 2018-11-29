@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'server/serverGlobals.dart' as serverGlobals;
+import 'client/clientGlobals.dart' as clientGlobals;
+import 'client/MenusScreen.dart';
 
 class LoginScreen extends StatefulWidget {
   final String title;
@@ -121,8 +123,16 @@ class _MyLoginScreenState extends State<LoginScreen> {
           docs[i]['isStudent'] == isStudent) {
         if (isStudent) {
           myLogged = true;
-          serverGlobals.user = user;
-          Navigator.pushReplacementNamed(context, '/client/menus');
+          clientGlobals.user = user;
+          print(clientGlobals.user);
+
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => MenusScreen(
+                      title: 'Menus',
+                      user: user,
+                  )));
         } else {
           myLogged = true;
           serverGlobals.user = user;

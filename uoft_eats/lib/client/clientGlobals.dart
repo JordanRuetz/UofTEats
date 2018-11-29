@@ -1,3 +1,3 @@
-library client_globals;
+library uoft_eats.globals;
 
 String user = "client why";
