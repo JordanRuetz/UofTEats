@@ -72,7 +72,7 @@ class PaymentConfirmationHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Container(
-      color: Color.fromRGBO(192, 192, 192, 100.0),
+      color: Color.fromRGBO(220, 220, 220, 100.0),
       height: headerHeight,
       padding: EdgeInsets.only(top: 20.0),
       child: new Column(
