@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:uoft_eats/client/MainDrawer.dart';
 import 'ClientReceiptHeaders.dart';
 import 'ClientFoodOrdered.dart';
@@ -8,10 +7,11 @@ import 'ClientFoodOrdered.dart';
 class ClientReceipt extends StatelessWidget {
   final int orderNum;
   final String foodTruck;
-  final Map<String, List> order;
-  final double tax;
+  //final Map<String, List> order;
+  final List order;
+  //final double tax;
 
-  ClientReceipt({Key key, this.orderNum, this.foodTruck, this.order, this.tax})
+  ClientReceipt({Key key, this.orderNum, this.foodTruck, this.order})
       : super(key: key);
   @override
   Widget build(BuildContext context) {

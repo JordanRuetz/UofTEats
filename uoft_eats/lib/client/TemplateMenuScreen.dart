@@ -6,9 +6,10 @@ import 'package:uoft_eats/client/PaymentConfirmationScreen.dart';
 
 class TemplateMenuScreen extends StatefulWidget {
   TemplateMenuScreen(
-      {Key key, this.title, this.name, this.color, this.menuStream})
+      {Key key, this.title, this.name, this.color, this.truck, this.menuStream})
       : super(key: key);
 
+  final String truck;
   final String title;
   final String name;
   final int color;
@@ -56,6 +57,7 @@ class _MyTemplateMenuScreenState extends State<TemplateMenuScreen> {
                       builder: (context) => PaymentConfirmationScreen(
                             subtotal: _subtotal,
                             order: order,
+                            truck: widget.truck,
                           )));
             },
             child: new Text('Checkout \$${_subtotal.toStringAsFixed(2)}'),

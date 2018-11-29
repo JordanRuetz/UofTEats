@@ -92,9 +92,35 @@ class _MyServerHomeScreenState extends State<ServerHomeScreen> {
 
   String _formatHours(DocumentSnapshot document) {
     int weekday = DateTime.now().weekday;
-    if (document['hours'][2 * weekday - 2] == -1) return 'Closed Today';
-    return document['hours'][2 * weekday - 2].toString() +
-        '\n-\n' +
-        document['hours'][2 * weekday - 1].toString();
+    if (document['hours'][2 * weekday - 2] == -1) {
+        return 'Closed Today';
+    }
+
+    String open = document['hours'][2 * weekday - 2].toString();
+    String close = document['hours'][2 * weekday - 1].toString();
+
+    int close_hour = int.parse(close.substring(0, close.length-2));
+    String close_end = "";
+    if (close_hour > 12) {
+        close_hour = close_hour - 12;
+        close_end = "pm";
+    } else {
+        close_end = "am";
+    }
+
+    int open_hour = int.parse(open.substring(0, open.length-2));
+
+    String open_end = "";
+    if (open_hour > 12) {
+        open_hour = open_hour - 12;
+        open_end = "pm";
+    } else {
+        open_end = "am";
+    }
+
+    String open2 = open_hour.toString() + ":" + open.substring(open.length-2, open.length) + open_end;
+    String close2 = close_hour.toString() + ":" + close.substring(close.length-2, close.length) + close_end;
+
+    return open2 + '\n-\n' + close2;
   }
 }
