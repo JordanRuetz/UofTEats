@@ -33,14 +33,6 @@ class PaymentConfirmation extends StatelessWidget {
 
   List<List> createOrder(Map myOrder){
 
-    print('-------------------------------------------------------');
-    print('-------------------------------------------------------');
-    print('-------------------------------------------------------');
-    print(myOrder.toString());
-    print('-------------------------------------------------------');
-    print('-------------------------------------------------------');
-    print('-------------------------------------------------------');
-
     List<List> temp = [];
 //    myOrder.forEach((key, value) => (){
 //      temp.add(value);
@@ -53,47 +45,6 @@ class PaymentConfirmation extends StatelessWidget {
     return temp;
   }
 
-  ExpansionTile _newMenuItemTile() {
-    return ExpansionTile(
-      leading: Icon(
-        Icons.fastfood,
-      ),
-      title: Text("Order Summary"),
-      backgroundColor: Colors.white70,
-      children: _generateItemTile(),
-    );
-  }
-
-  List<Widget> _generateItemTile() {
-
-    myOrder = createOrder(order);
-    List<Widget> returnList = [];
-
-    for (int i = 0; i < myOrder.length; i++) {
-      // Initialize 'order' with a key for every size + item combo
-      // corresponding to a value representing quantity of combo in order
-
-      if(myOrder[i][0] > 0){
-        returnList.add(new ListTile(
-          trailing: new Row(
-            children: <Widget>[
-              new Text(myOrder[i][1].toString()),
-              Spacer(flex: 1),
-              new Text(myOrder[i][2].toString()),
-              Spacer(flex: 1),
-              new Text(myOrder[i][0].toString()),
-              Spacer(flex: 1),
-              new Text('\$${(myOrder[i][3] * myOrder[i][0]).toStringAsFixed(2)}'),
-              Spacer(flex: 1),
-            ],
-          ),
-        ));
-      }
-    }
-
-    return returnList;
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -104,9 +55,7 @@ class PaymentConfirmation extends StatelessWidget {
             //Header
             new PaymentConfirmationHeader(order: createOrder(order), subTotal: subTotal),
 //            new OrderSummary(order: widget.order, tax: widget.tax)
-            new Container(
-              child: _newMenuItemTile()
-            )
+            new OrderSummary(order: createOrder(order)),
             //Content
           ],
         )));
@@ -155,6 +104,55 @@ class PaymentConfirmationHeader extends StatelessWidget {
   }
 }
 
+class OrderSummary extends StatelessWidget {
+  OrderSummary({Key key, this.order})
+    : super(key: key);
+
+  List order;
+
+  ExpansionTile _newMenuItemTile() {
+    return ExpansionTile(
+      leading: Icon(
+        Icons.fastfood,
+      ),
+      title: Text("Order Summary"),
+      backgroundColor: Colors.white70,
+      children: _generateItemTile(),
+    );
+  }
+
+  List<Widget> _generateItemTile() {
+    List<Widget> returnList = [];
+
+    for (int i = 0; i < order.length; i++) {
+      // Initialize 'order' with a key for every size + item combo
+      // corresponding to a value representing quantity of combo in order
+
+      if(order[i][0] > 0){
+        returnList.add(new ListTile(
+          trailing: new Row(
+            children: <Widget>[
+              new Text(order[i][1].toString()),
+              Spacer(flex: 1),
+              new Text(order[i][2].toString()),
+              Spacer(flex: 1),
+              new Text(order[i][0].toString()),
+              Spacer(flex: 1),
+              new Text('\$${(order[i][3] * order[i][0]).toStringAsFixed(2)}'),
+              Spacer(flex: 1),
+            ],
+          ),
+        ));
+      }
+    }
+    return returnList;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Container(child: _newMenuItemTile());
+  }
+}
 
 class ConfirmButton extends StatelessWidget {
   final List order;
