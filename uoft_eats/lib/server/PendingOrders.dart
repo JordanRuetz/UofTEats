@@ -132,7 +132,7 @@ class _OrderBodyState extends State<OrderBody> {
                 style: new TextStyle(fontSize: 16.0))),
         new Align(
           alignment: Alignment.topLeft,
-          child: new Text("Customer: " + customerName,
+          child: new Text("Customer: " + customerName.toString(),
               style:
                   new TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
         ),
@@ -192,7 +192,7 @@ class _OrderBodyState extends State<OrderBody> {
                 style: new TextStyle(fontSize: 16.0))),
         new Align(
           alignment: Alignment.topLeft,
-          child: new Text("Customer: " + customerName,
+          child: new Text("Customer: " + customerName.toString(),
               style:
                   new TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
         ),
