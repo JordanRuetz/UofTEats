@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'clientGlobals.dart' as clientGlobals;
+import 'package:uoft_eats/client/clientGlobals.dart' as clientGlobals;
 
 class MainDrawer extends StatelessWidget {
   @override

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'clientGlobals.dart' as clientGlobals;
-import 'clientReceipt.dart';
+import 'package:uoft_eats/client/clientGlobals.dart' as clientGlobals;
+import 'package:uoft_eats/client/clientReceipt.dart';
 
 class PaymentConfirmationScreen extends StatelessWidget{
   PaymentConfirmationScreen({Key key, this.subtotal, this.order, this.truck})
