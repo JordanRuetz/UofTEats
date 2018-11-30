@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:uoft_eats/client/MainDrawer.dart';
-import 'clientGlobals.dart' as clientGlobals;
+import 'package:uoft_eats/client/clientGlobals.dart' as clientGlobals;
 
 class PaymentScreen extends StatefulWidget {
   PaymentScreen({Key key, this.title}) : super(key: key);
@@ -41,18 +41,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             ),
             new Container(
               margin: new EdgeInsets.all(10.0),
-              child: new StreamBuilder<DocumentSnapshot>(
-                stream: Firestore.instance.collection("clients").document(user).snapshots(),
-                builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-                  if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.waiting:
-                      return new Text('Loading...');
-                    default:
-                      return new Text(snapshot.data["paymentEmail"]);
-                  }
-                },
-              ),
+              child: _buildChild(),
             ),
             new Spacer(flex: 2),
             new Container(
@@ -84,6 +73,33 @@ class _PaymentScreenState extends State<PaymentScreen> {
       ),
     );
   }
+
+  Widget _buildChild() {
+    if (clientGlobals.user != null) {
+      print(clientGlobals.user);
+      return new StreamBuilder<DocumentSnapshot>(
+        stream: Firestore.instance.collection("clients").document(user).snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+          if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+              return new Text('Loading...');
+            default:
+              if (snapshot.data != null) {
+                return new Text(snapshot.data["paymentEmail"]);
+              } else {
+                return new Text("NULL");
+              }
+
+          }
+        },
+      );
+    } else {
+      print("user: " + clientGlobals.user);
+      return new Text("NULL");
+    }
+  }
+
 
   void _changeAccount() {
     String email = emailController.text;

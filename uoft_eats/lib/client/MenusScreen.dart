@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:uoft_eats/client/MainDrawer.dart';
 import 'package:uoft_eats/client/TemplateMenuScreen.dart';
-import 'clientGlobals.dart' as clientGlobals;
 
 class MenusScreen extends StatefulWidget {
   MenusScreen({Key key, this.title, this.user}) : super(key: key);
@@ -21,8 +20,6 @@ class _MyMenusScreenState extends State<MenusScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var s = widget.user;
-    clientGlobals.user = s;
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(widget.title),
