@@ -47,7 +47,18 @@ class _OrdersScreenState extends State<OrdersScreen> {
 
   Widget orderWidget(DocumentSnapshot document) {
       int orderNum = document['orderNumber'];
+      print('order num $orderNum');
       String foodTruck = document['server'];
+      int status = document['status'];
+
+      print('status $status');
+
+      String statusStr = "";
+      if (status == 0) {
+          statusStr = "Order placed";
+      } else if (status == 1) {
+          statusStr = "Pick Up Now";
+      }
 
       // need to take whats in the database an make it a list of lists
       // 0: quantity, 1: type, 2: size, 3: price
@@ -67,15 +78,22 @@ class _OrdersScreenState extends State<OrdersScreen> {
 
       return Padding(
           child: new Column(children: <Widget>[
-              new Align(
-                  alignment: Alignment.topRight,
-                  child: new Text("Order#$orderNum        ",
-                      style: new TextStyle(fontSize: 16.0))),
-              new Align(
-                  alignment: Alignment.topLeft,
-                  child: new Text("    $foodTruck",
-                      style: new TextStyle(
-                          fontSize: 20.0, fontWeight: FontWeight.bold)),
+              new Row(
+                  children: <Widget>[
+                      new Container(
+                          child: new Text(
+                              foodTruck,
+                              style: TextStyle(
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                              ),
+                          )
+                      ),
+                      new Spacer(),
+                      new Text("Status: $statusStr"),
+                      new Spacer(),
+                      new Text("Order #$orderNum"),
+                  ],
               ),
               ClientReceiptHeaders(),
               new Divider(color: Colors.blue),
