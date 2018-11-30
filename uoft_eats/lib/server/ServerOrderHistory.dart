@@ -40,6 +40,7 @@ class _ServerOrderHistoryState extends State<ServerOrderHistory> {
 class OrderByTime extends StatelessWidget {
   Widget _buildOrderCard(BuildContext context, DocumentSnapshot document) {
     List items = document['items'];
+    double subtotal = 0.0;
     StringBuffer order = new StringBuffer();
     for (final item in items) {
       StringBuffer name = new StringBuffer();
@@ -49,10 +50,11 @@ class OrderByTime extends StatelessWidget {
       }
       name.write(item['type'].toString() + '\n');
       order.write(name.toString());
+      subtotal += item['price'] * item['quantity'];
     }
     return OrderCard(
       name: document['client'],
-      subtotal: document['subtotal'],
+      subtotal: subtotal.toString(),
       orderContents: order.toString(),
     );
   }
@@ -161,8 +163,6 @@ class QuantityCard extends StatelessWidget {
   final String name;
   final int quantity;
 
-//  final double revenue;
-
   const QuantityCard({Key key, this.name, this.quantity}) : super(key: key);
 
   @override
@@ -194,8 +194,6 @@ class QuantityCard extends StatelessWidget {
                   ],
                 ),
               ),
-//                      Text("Revenue:\n\$$revenue", textAlign: TextAlign.center,
-//                          style: new TextStyle(fontWeight: FontWeight.w100))
             ])),
       ],
     ));
