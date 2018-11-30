@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:uoft_eats/server/ServerDrawer.dart';
 import 'ItemQuantityTile.dart';
-import 'serverGlobals.dart' as serverGlobals;
+import 'package:uoft_eats/server/serverGlobals.dart' as serverGlobals;
 
 class QuantitiesOrderedScreen extends StatefulWidget {
   QuantitiesOrderedScreen({Key key, this.title}) : super(key: key);

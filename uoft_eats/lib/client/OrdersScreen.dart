@@ -26,7 +26,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         ),
         body: StreamBuilder(
             stream: Firestore.instance.collection("orders").where("client", isEqualTo: user)
-                .where("status", isLessThan: 2).orderBy("status").snapshots(),
+                .where("status", isLessThan: 2).orderBy("status", descending: true).snapshots(),
             builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
                 switch (snapshot.connectionState) {

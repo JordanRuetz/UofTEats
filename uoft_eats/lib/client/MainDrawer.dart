@@ -39,14 +39,6 @@ class MainDrawer extends StatelessWidget {
           },
         ),
         ListTile(
-          leading: const Icon(Icons.settings),
-          title: Text('Settings'),
-          onTap: () {
-            Navigator.pop(context); // Closes the drawer before moving
-            Navigator.pushReplacementNamed(context, '/client/settings');
-          },
-        ),
-        ListTile(
           leading: const Icon(Icons.exit_to_app),
           title: Text('Logout'),
           onTap: () {

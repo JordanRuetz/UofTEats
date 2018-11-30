@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uoft_eats/server/ServerDrawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'serverGlobals.dart' as serverGlobals;
+import 'package:uoft_eats/server/serverGlobals.dart' as serverGlobals;
 
 class ServerOrderHistory extends StatefulWidget {
   ServerOrderHistory({Key key, this.title}) : super(key: key);

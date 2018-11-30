@@ -3,7 +3,7 @@ import 'package:uoft_eats/server/ServerDrawer.dart';
 import 'MenuItemEdit.dart';
 import 'MenuAddItem.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'serverGlobals.dart' as serverGlobals;
+import 'package:uoft_eats/server/serverGlobals.dart' as serverGlobals;
 
 void main() => runApp(new MenuEditItemList());
 
