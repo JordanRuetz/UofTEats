@@ -56,7 +56,7 @@ class PaymentConfirmation extends StatelessWidget {
             //Header
             new PaymentConfirmationHeader(order: createOrder(order), subTotal: subTotal, truck: truck),
 //            new OrderSummary(order: widget.order, tax: widget.tax)
-            new OrderSummary(order: createOrder(order)),
+            new OrderSummary(order: createOrder(order), subTotal: subTotal,),
 //            new PaymentConfirmationHeader(order: createOrder(order), subTotal: subTotal),
 //            new ReceiptHeaders(),
 //            new Divider(color: Colors.blue),
@@ -98,7 +98,7 @@ class PaymentConfirmationHeader extends StatelessWidget {
           new Container(
             height: 10.0,
           ),
-          new ConfirmButton(order: order, truck: truck),
+          new ConfirmButton(order: order, truck: truck, subtotal: subTotal,),
           new Container(
             padding: EdgeInsets.only(left: 10.0),
             height: 30.0,
@@ -334,10 +334,11 @@ class ReceiptHeaders extends StatelessWidget {
 class ConfirmButton extends StatelessWidget {
   final List order;
 
-  ConfirmButton({Key key, this.order, this.truck})
+  ConfirmButton({Key key, this.order, this.truck, this.subtotal})
     : super(key: key);
 
   final String truck;
+  final double subtotal;
 
   @override
   Widget build(BuildContext context) {
@@ -359,13 +360,13 @@ class ConfirmButton extends StatelessWidget {
 //                )
 //              );
 //            }
-            onPressed: (){confirmOrder(context, order, truck);},
+            onPressed: (){confirmOrder(context, order, truck, subtotal);},
             ));
     return button;
   }
 
 // TODO: implement this alert + redirect to receipt page if wanted
-void confirmOrder(BuildContext context, List orders, String truck) async {
+void confirmOrder(BuildContext context, List orders, String truck, double subtotal) async {
     Firestore fs = Firestore.instance;
     String user = clientGlobals.user;
 
@@ -414,6 +415,7 @@ void confirmOrder(BuildContext context, List orders, String truck) async {
                 orderNum: orderNum + 1,
                 foodTruck: server,
                 order: orders,
+                subtotal: subtotal,
             )));
   }
 }
