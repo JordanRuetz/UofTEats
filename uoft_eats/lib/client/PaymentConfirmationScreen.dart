@@ -8,9 +8,7 @@ class PaymentConfirmationScreen extends StatelessWidget{
     : super(key: key);
 
   final String truck;
-  // TODO: my order format; I'd recommend modifying how you print to use this
   final Map order;
-  // TODO: subtotal for ya Wilbert, feel free to pass this along as needed
   final double subtotal;
 
   @override
@@ -55,12 +53,9 @@ class PaymentConfirmation extends StatelessWidget {
           children: [
             //Header
             new PaymentConfirmationHeader(order: createOrder(order), subTotal: subTotal, truck: truck),
-//            new OrderSummary(order: widget.order, tax: widget.tax)
+            new ReceiptHeaders(),
+            new Divider(color: Colors.blue),
             new OrderSummary(order: createOrder(order), subTotal: subTotal,),
-//            new PaymentConfirmationHeader(order: createOrder(order), subTotal: subTotal),
-//            new ReceiptHeaders(),
-//            new Divider(color: Colors.blue),
-//            new OrderSummary(order: createOrder(order), subTotal: subTotal),
             //Content
           ],
         )));
@@ -128,7 +123,7 @@ class OrderSummary extends StatelessWidget {
     for (var i = 0; i < listOfItems.length; i++) {
       if(order[i][0] > 0){
         orderWidgets.add(new Container(
-          width: 180.0,
+          width: 160.0,
           padding: new EdgeInsets.only(bottom: listSpacing, left: 20.0),
           child: new Text(listOfItems[i])));
       }
@@ -146,7 +141,7 @@ class OrderSummary extends StatelessWidget {
     for (var i = 0; i < listOfSizes.length; i++) {
       if(order[i][0] > 0){
         orderWidgets.add(new Container(
-          width: 80.0,
+          width: 70.0,
           padding: new EdgeInsets.only(bottom: listSpacing),
           child: new Text(listOfSizes[i])));
       }
@@ -164,7 +159,7 @@ class OrderSummary extends StatelessWidget {
     for (var i = 0; i < listOfQuantities.length; i++) {
       if(order[i][0] > 0){
         orderWidgets.add(new Container(
-          width: 60.0,
+          width: 70.0,
           padding: new EdgeInsets.only(bottom: listSpacing, left: 10.0),
           child: new Text(listOfQuantities[i])));
       }
@@ -218,7 +213,7 @@ class OrderSummary extends StatelessWidget {
             child: new Row(
               children: <Widget>[
                 new Container(
-                  width: 120.0,
+                  width: 110.0,
                   padding: new EdgeInsets.only(bottom: listSpacing, left: 20.0),
                   margin: new EdgeInsets.only(right: 190.0),
                   child: new Text(
@@ -248,7 +243,7 @@ class OrderSummary extends StatelessWidget {
             child: new Row(
               children: <Widget>[
                 new Container(
-                  width: 120.0,
+                  width: 110.0,
                   padding: new EdgeInsets.only(bottom: listSpacing, left: 20.0),
                   margin: new EdgeInsets.only(right: 190.0),
                   child: new Text(
@@ -271,7 +266,7 @@ class OrderSummary extends StatelessWidget {
             child: new Row(
               children: <Widget>[
                 new Container(
-                  width: 120.0,
+                  width: 110.0,
                   padding: new EdgeInsets.only(bottom: listSpacing, left: 20.0),
                   margin: new EdgeInsets.only(right: 190.0),
                   child: new Text(
@@ -310,22 +305,22 @@ class ReceiptHeaders extends StatelessWidget {
       child: new Row(
         children: <Widget>[
           new Container(
-            width: 180.0,
-            child: new Text("Item", style: new TextStyle(fontSize: 16.0)),
+            width: 160.0,
+            child: new Text("Item", style: new TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold,)),
             padding: new EdgeInsets.only(left: 20.0)),
           new Container(
-            width: 80.0,
-            child: new Text("Size", style: new TextStyle(fontSize: 16.0)),
+            width: 70.0,
+            child: new Text("Size", style: new TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold,)),
 //            padding: new EdgeInsets.only(right: 50.0)
           ),
           new Container(
-            width: 60.0,
-            child: new Text("QTY", style: new TextStyle(fontSize: 16.0)),
+            width: 70.0,
+            child: new Text("QTY", style: new TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold,)),
 //            padding: new EdgeInsets.only(right: 38.0)
           ),
           new Container(
-            width: 80.0,
-            child: new Text("Price", style: new TextStyle(fontSize: 16.0)))
+            width: 60.0,
+            child: new Text("Price", style: new TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold,)))
         ],
       ));
   }
@@ -347,19 +342,6 @@ class ConfirmButton extends StatelessWidget {
             child: Text("Place Order"),
             elevation: 5.0,
             color: Colors.green,
-//            onPressed: () {
-//              Navigator.push(
-//                context,
-//                MaterialPageRoute(
-//                  builder: (context) => ClientReceipt(
-//                    orderNum: 0,
-//                    foodTruck: "Name",
-//                    order: order,
-//                    tax: 0.0
-//                  )
-//                )
-//              );
-//            }
             onPressed: (){confirmOrder(context, order, truck, subtotal);},
             ));
     return button;
