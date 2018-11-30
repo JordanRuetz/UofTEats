@@ -11,7 +11,6 @@ import 'client/PaymentScreen.dart';
 import 'client/SettingsScreen.dart';
 import 'client/TemplateMenuScreen.dart';
 import 'client/PaymentConfirmationScreen.dart';
-import 'client/ReceiptScreen.dart';
 
 import 'server/ServerHomeScreen.dart';
 import 'server/ServerOrdersScreen.dart';
@@ -66,7 +65,6 @@ class _MyApp extends State<MyApp> {
         '/client/settings': (BuildContext context) => SettingsScreen(title: 'Settings'),
         '/client/menus/template': (BuildContext context) => TemplateMenuScreen(title: 'Template Menu'),
         '/client/paymentConfirmation': (BuildContext context) => PaymentConfirmationScreen(),
-        '/client/paymentConfirmation/receipt': (BuildContext context) => ReceiptScreen(title: 'Receipt'),
 
         '/server': (BuildContext context) => ServerHomeScreen(title: 'Home'),
         '/server/menus': (BuildContext context) => MenuEditItemList(title: 'Edit Menu Items',),
