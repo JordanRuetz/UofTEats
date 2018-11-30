@@ -108,7 +108,7 @@ class ClientFoodOrdered extends StatelessWidget {
                 child: new Row(
                   children: <Widget>[
                     new Container(
-                        width: 120.0,
+                        width: 130.0,
                         padding: new EdgeInsets.only(bottom: listSpacing, left: 20.0),
                         margin: new EdgeInsets.only(right: 190.0),
                         child: new Text(
@@ -138,7 +138,7 @@ class ClientFoodOrdered extends StatelessWidget {
                 child: new Row(
                   children: <Widget>[
                     new Container(
-                        width: 120.0,
+                        width: 130.0,
                         padding: new EdgeInsets.only(bottom: listSpacing, left: 20.0),
                         margin: new EdgeInsets.only(right: 190.0),
                         child: new Text(
@@ -161,7 +161,7 @@ class ClientFoodOrdered extends StatelessWidget {
                 child: new Row(
                   children: <Widget>[
                     new Container(
-                        width: 120.0,
+                        width: 130.0,
                         padding: new EdgeInsets.only(bottom: listSpacing, left: 20.0),
                         margin: new EdgeInsets.only(right: 190.0),
                         child: new Text(
