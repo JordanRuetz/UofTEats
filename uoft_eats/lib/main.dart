@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'LoginScreen.dart';
 import 'NewAccountScreen.dart';
@@ -10,25 +11,41 @@ import 'client/PaymentScreen.dart';
 import 'client/SettingsScreen.dart';
 import 'client/TemplateMenuScreen.dart';
 import 'client/PaymentConfirmationScreen.dart';
-import 'client/ReceiptScreen.dart';
 
 import 'server/ServerHomeScreen.dart';
-import 'server/ScannerScreen.dart';
 import 'server/ServerOrdersScreen.dart';
 import 'server/BillingInfoScreen.dart';
 import 'server/QuantitiesOrderedScreen.dart';
 import 'server/ServerOrderHistory.dart';
-import 'server/MenuEditCategoryList.dart';
 import 'server/MenuEditItemList.dart';
 import 'server/HoursOfOperationScreen.dart';
 
 
 void main() => runApp(new MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   // This widget is the root of your application.
+
+  @override
+  _MyApp createState() => new _MyApp();
+}
+
+class _MyApp extends State<MyApp> {
+
+
+  @override
+  void initState(){
+
+    Firestore.instance.collection('mountains').document()
+      .setData({ 'title': 'Mount Anna', 'type': 'Amazing Wilbert' });
+
+    super.initState();
+
+  }
+
   @override
   Widget build(BuildContext context) {
+    // TODO: implement build
     return new MaterialApp(
       title: 'UofT Eats',
       theme: new ThemeData(
@@ -48,17 +65,13 @@ class MyApp extends StatelessWidget {
         '/client/settings': (BuildContext context) => SettingsScreen(title: 'Settings'),
         '/client/menus/template': (BuildContext context) => TemplateMenuScreen(title: 'Template Menu'),
         '/client/paymentConfirmation': (BuildContext context) => PaymentConfirmationScreen(),
-        '/client/paymentConfirmation/receipt': (BuildContext context) => ReceiptScreen(title: 'Receipt'),
 
         '/server': (BuildContext context) => ServerHomeScreen(title: 'Home'),
-        '/server/menus': (BuildContext context) => MenuEditCategoryList(title: 'Edit Menu Category'),
-        '/server/scanner': (BuildContext context) => ScannerScreen(title: 'Scanner'),
+        '/server/menus': (BuildContext context) => MenuEditItemList(title: 'Edit Menu Items',),
         '/server/orders': (BuildContext context) => ServerOrdersScreen(title: 'Orders'),
         '/server/billingInfo': (BuildContext context) => BillingInfoScreen(title: 'Billing Info'),
         '/server/quantities': (BuildContext context) => QuantitiesOrderedScreen(title: 'Quantities'),
         '/server/orderhistory': (BuildContext context) => ServerOrderHistory(title: 'Order History'),
-        '/server/editmenucategorylist': (BuildContext context) => MenuEditCategoryList(title: 'Edit Menu Category'),
-        '/server/editmenuitemlist': (BuildContext context) => MenuEditItemList(title: 'Edit Menu Items',),
         '/server/editHoursOfOperation': (BuildContext context) => HoursOfOperationScreen(),
       },
     );

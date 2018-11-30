@@ -20,7 +20,7 @@ class _FoodOrdered extends State<FoodOrdered> {
     List<Widget> orderWidgets = new List<Widget>();
     for (var i = 0; i < listOfItems.length; i++) {
       orderWidgets.add(new Container(
-          width: 120.0,
+          width: 115.0,
           padding: new EdgeInsets.only(bottom: listSpacing),
           child: new Text(listOfItems[i])));
     }
@@ -58,7 +58,7 @@ class _FoodOrdered extends State<FoodOrdered> {
     for (String item in listOfItems) {
       priceWidgets.add(new Container(
           padding: new EdgeInsets.only(bottom: listSpacing),
-          child: new Text("\$" + (order[item][2]).toStringAsFixed(2))));
+          child: new Text("\$" + (order[item][2].toStringAsFixed(2)))));
     }
     return priceWidgets;
   }
@@ -69,7 +69,7 @@ class _FoodOrdered extends State<FoodOrdered> {
     for (String item in listOfItems) {
       List itemInfo = widget.order[item];
       int num = itemInfo[1];
-      subtotal += (num * itemInfo[2]);
+      subtotal += (num * double.parse(itemInfo[2].toString()));
     }
     double tax = subtotal * widget.taxPercent;
     double total = (subtotal + tax);

@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'server/serverGlobals.dart' as serverGlobals;
+import 'client/clientGlobals.dart' as clientGlobals;
+import 'client/MenusScreen.dart';
 
 class LoginScreen extends StatefulWidget {
   final String title;
@@ -11,6 +16,9 @@ class LoginScreen extends StatefulWidget {
 
 class _MyLoginScreenState extends State<LoginScreen> {
   String dropdownValue = 'Student';
+
+  final userController = TextEditingController();
+  final passController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +45,9 @@ class _MyLoginScreenState extends State<LoginScreen> {
             new Container(
               margin: new EdgeInsets.only(bottom: 10.0),
               width: 200.0,
-              child: new TextField(),
+              child: new TextFormField(
+                controller: userController,
+              ),
             ),
             new Container(
               margin: new EdgeInsets.only(top: 10.0),
@@ -46,7 +56,10 @@ class _MyLoginScreenState extends State<LoginScreen> {
             new Container(
                 margin: new EdgeInsets.only(bottom: 10.0),
                 width: 200.0,
-                child: new TextField()),
+                child: new TextFormField(
+                  controller: passController,
+                  obscureText: true,
+                )),
             new Container(
                 margin: new EdgeInsets.all(5.0),
                 height: 50.0,
@@ -90,11 +103,51 @@ class _MyLoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void _login() {
+  void _login() async {
+    String user = userController.text;
+    String pass = Text(passController.text).data;
+
+    bool isStudent = false;
     if (dropdownValue == 'Student') {
-      Navigator.pushReplacementNamed(context, '/client/menus');
-    } else {
-      Navigator.pushReplacementNamed(context, '/server');
+      isStudent = true;
+    }
+
+    Firestore fs = Firestore.instance;
+    QuerySnapshot query = await fs.collection("accounts").getDocuments();
+    List<DocumentSnapshot> docs = query.documents;
+
+    bool myLogged = false;
+
+    for (int i = 0; i < docs.length; i++) {
+      if (docs[i]['username'] == user && docs[i]['password'] == pass &&
+          docs[i]['isStudent'] == isStudent) {
+        if (isStudent) {
+          myLogged = true;
+          clientGlobals.user = user;
+          print(clientGlobals.user);
+
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => MenusScreen(
+                      title: 'Menus',
+                      user: user,
+                  )));
+        } else {
+          myLogged = true;
+          serverGlobals.user = user;
+          Navigator.pushReplacementNamed(context, '/server');
+        }
+      }
+    }
+
+    if(!myLogged){
+      Fluttertoast.showToast(
+        msg: "Invalid Login",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIos: 2
+      );
     }
   }
 
