@@ -28,7 +28,8 @@ class _MyQuantitiesOrderedScreenState extends State<QuantitiesOrderedScreen> {
           title: new Text(widget.title),
         ),
         body: new StreamBuilder<QuerySnapshot>(
-          stream: Firestore.instance.collection("orders").snapshots(),
+          stream: Firestore.instance.collection("orders").where("server", isEqualTo: server)
+              .where("status", isEqualTo: 0).snapshots(),
           builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
             switch (snapshot.connectionState) {

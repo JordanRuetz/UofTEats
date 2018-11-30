@@ -37,11 +37,10 @@ class _ItemQuantityTileState extends State<ItemQuantityTile> {
     Widget build(BuildContext context) {
         return new ListTile(
             leading: Icon(
-                widget.foodOrDrink ? Icons.fastfood : Icons.local_drink,
+                widget.foodOrDrink ? Icons.fastfood : Icons.fastfood,
             ),
-            title: new Text(widget.title),
+            title: new Text(widget.size + " " + widget.title),
             trailing: new Text(widget.quantity.toString()),
-            onTap: () => setState(() => widget.quantity--),
         );
     }
 }
