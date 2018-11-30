@@ -59,13 +59,6 @@ We will manage our GitHub repository the same way as we did in the last iteratio
 
 #### Artifacts
 
-List/describe the artifacts you will produce in order to present your project idea.
-
- * Artifacts can be text, code, images, videos, interactive mock-ups and/or any other useful artifact you can think of.
- * Make sure to explain the purpose of each artifact (i.e. Why is it on your to-do list? Why is it useful for your team?)
- * Be concise, yet precise.         
-   For example: "Build the website" is not precise at all, but "Build a static home page and upload it somewhere, so that it is publicly accessible" is much clearer.
-   
  - A video demoing our work up to the last iteration of the project.  This is a required part of deliverable 3, but also very important because it allows anyone to quickly get a sense of what we built, why it is useful and our plans for it.
  - The Code for the app.  At this point in the project, we should have a MVP that we can use to show anyone what our app actually looks like, how it works and why it is useful to students.
  - The database for the app.  This is necessary to have in order to communicate information between the clients and the servers and will be useful so we can show how information that the app needs is stored and communicated between users.
