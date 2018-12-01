@@ -15,7 +15,7 @@
 
 #### Roles & responsibilities
 
-Product Manager: Finnbarr
+Product Owner: Finnbarr
  - Responsible for determining what features we absolutely must have in our MVP in order to meet our project goals. Also responsible for pushing the team to meet the goals that we set so that the project can be delivered on time.  Also responsible for filming and recording the demo in order to show the value of our product to potential users.
  
 Scrum Master: Jordan
