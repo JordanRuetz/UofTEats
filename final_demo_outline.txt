@@ -1,0 +1,54 @@
+Demo (max’ 5 minutes)
+Introduce the problem you are solving (and the users you are solving it for).
+Demonstrate the solution you built.
+This part should be similar to the videos you submitted for previous deliverables.
+-
+CLIENT: Finnbarr
+Make new account
+Login as student
+Place an order
+Find the order in the database (then minimize the database)
+Go to My Orders, find the order #
+SERVER: Kara
+Find new order in pending, then check off as complete
+Then go through drawer items
+
+
+Technical Discussion (max’ 3 minutes)
+Describe 1 - 3 technical items that came up while working on your project.
+A technical item can be an interesting bug, design change, lesson you learned from using a certain technology/framework, etc.
+Be specific and feel free (and encouraged) to include useful artifacts (e.g. code snippets, screenshots, etc.)
+-
+LANGUAGE: Wilbert
+Why did we use flutter?
+DATABASE: Anna
+Why did we use firebase?
+Easy setup + browser access/data editing
+Free
+Non-relational (easy peasy tree structure)
+Flexible/expandable
+Flutter plugin available
+Designing the s c h e m a of the database
+Communication to ensure consistency
+
+
+Process Discussion (max’ 3 minutes)
+Describe your team’s workflow: How did you communicate? How did you use Git/GitHub? How did you divide tasks? etc.
+Highlights significant decisions (good or bad) that you’ve made along the way, and explain the rationale behind them.
+-
+PRODUCT OWNER: Finnbarr
+Choice of project
+Scope creep and pacing of tasks
+User stories
+SCRUM MASTER: Jordan
+Communication
+Division of work
+Integration + challenges
+pair programming
+(Basically just summarize the planning/review docs)
+
+
+Individual Contribution (max’ 1 minute per team member)
+At the end of your presentation, every team member will be asked to (very briefly) describe their main individual contribution(s) and/or lesson(s) learned.
+-
+Finnbarr:    Streambuilder to create infinite listviews from database
